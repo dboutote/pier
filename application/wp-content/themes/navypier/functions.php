@@ -100,13 +100,16 @@ if ( ! function_exists( 'np_theme_setup' ) ) {
 	
 		// Enable support for Post Thumbnails, and declare two sizes.
 		add_theme_support( 'post-thumbnails' );
-		set_post_thumbnail_size( 672, 372, true );
+		set_post_thumbnail_size( 600, 600, true );
 		add_image_size( 'navypier-full-width', 1038, 576, true );
+		add_image_size( 'homepage-rotator', 1200, 800, true);
 		
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus( array(
-				'primary'   => __( 'Top primary menu', 'navypier' ),
-				'secondary' => __( 'Secondary menu ', 'navypier' ),
+				'primary'     => __( 'Top primary menu', 'navypier' ),
+				'secondary'   => __( 'Top secondary menu ', 'navypier' ),
+				'social-top'  => __( 'Top social links menu ', 'navypier' ),
+				'quick-top'   => __( 'Top quick links menu ', 'navypier' ),
 		));
 
 		 // Switch default core markup for search form, comment form, and comments to output valid HTML5.
@@ -127,7 +130,7 @@ add_action( 'after_setup_theme', 'np_theme_setup' );
  *
  * @since Navy Pier 1.0
  * @uses get_template_directory_uri()
- * @uses get_stylesheet_uri() 
+ * @uses get_stylesheet_directory_uri() 
  */
  
 function np_register_styles(){	
@@ -309,4 +312,223 @@ add_filter( 'wp_title', 'np_wp_title', 10, 2 );
  */
 if ( ! class_exists( 'Homepage_Featured' ) && 'plugins.php' !== $GLOBALS['pagenow'] ) {
 	require get_template_directory() . '/inc/homepage-featured.php';
+}
+
+
+/**
+ * Retrieve a cached navigation menu
+ *
+ * @link http://codex.wordpress.org/Function_Reference/wp_nav_menu
+ * @see wp_nav_menu()
+ *
+ * @uses wp_nav_menu()
+ * @uses get_transient()
+ * @uses set_transient()
+ * 
+ * @param string $theme_location The location in the theme registered with register_nav_menu()
+ * @param array $menu_args Parameters to display the menu 
+ */
+function np_get_cached_nav_menu( $theme_location, $menu_args ){
+	
+	$menu = get_transient( "navmenu_{$theme_location}" );
+
+	if( false === $menu){
+		$menu_args['theme_location'] = $theme_location;
+		$menu_args['echo'] = 0;
+		$menu = wp_nav_menu($menu_args);
+
+		set_transient("navmenu_{$theme_location}", $menu);
+	}
+	
+	return $menu;
+}
+
+
+/**
+ * Display the secondary nav menu
+ *
+ * Wrapper for np_get_cached_nav_menu()
+ *
+ * @uses np_get_cached_nav_menu()
+ */
+function np_get_top_menu_secondary(){
+	$menu_args = array(
+		'menu_class' => 'text-links nav-menu',
+		'container'=> '',
+		'fallback_cb' => false 
+	);			
+	
+	return np_get_cached_nav_menu( $theme_location = 'secondary', $menu_args  ); 
+}
+
+/**
+ * Display the social links nav menu
+ *
+ * Wrapper for np_get_cached_nav_menu()
+ *
+ * @uses np_get_cached_nav_menu()
+ */
+function np_get_top_menu_social(){
+	$menu_args = array(
+		'menu_class' => 'social-links nav-menu',
+		'container'=> '',
+		'fallback_cb' => false 
+	);			
+	
+	return np_get_cached_nav_menu( $theme_location = 'social-top', $menu_args  ); 
+}
+
+
+/**
+ * Display the social links nav menu
+ *
+ * Wrapper for np_get_cached_nav_menu()
+ *
+ * @uses np_get_cached_nav_menu()
+ */
+function np_get_top_menu_quick(){
+	$menu_args = array(
+		'menu_class' => 'quick-links nav-menu',
+		'container'=> '',
+		'fallback_cb' => false,
+		'items_wrap' => '<ul id="menu-top-quick-links" class="quick-links nav-menu"><li class="title">Quick Links:</li>%3$s</ul>'		
+	);			
+	
+	return np_get_cached_nav_menu( $theme_location = 'quick-top', $menu_args  ); 
+}
+
+/**
+ * Update the menu transient when a nav menu is updated
+ *
+ * Checks for the theme_location of the menu being updated and deletes its corresponding transient
+ *
+ * @since 1.0
+ * @uses get_theme_mod()
+ * @uses delete_transient()
+ */
+function np_maybe_update_menu_transient( $menu_id ){
+
+	$locations = get_theme_mod( 'nav_menu_locations' );
+	
+	foreach($locations as $theme_location => $id){
+		if($menu_id === $id ){
+			delete_transient("navmenu_{$theme_location}");
+		}
+	}
+	
+	return $menu_id;
+}
+
+add_action( 'wp_update_nav_menu', 'np_maybe_update_menu_transient', 0,2);
+
+
+/**
+ * Custom search form
+ * 
+ * @since 1.0
+ *
+ */
+function np_search_form( $form ){
+	$form = '
+	<form role="search" method="get" class="search-form" action="'. home_url( '/' ) . '">
+		<input type="text" class="search-field" placeholder="Search Navy Pier" name="s" id="s" value="" />
+		<input type="submit" class="search-submit" value="Submit" />
+	</form>';
+	return $form;
+}
+ 
+add_filter( 'get_search_form', 'np_search_form' );
+
+/**
+ * The newsletter form
+ *
+ * @since 1.0
+ *
+ */ 
+function np_get_newsletter_form(){
+	ob_start();
+	get_template_part( 'form', 'newsletter' );
+	$form = ob_get_clean();
+	echo $form;
+}
+
+
+
+
+/**
+ * Scrape Instagram
+ *
+ */
+// based on https://gist.github.com/cosmocatalano/4544576
+function np_scrape_instagram($username, $slice = 9) {
+	
+		$remote = wp_remote_get('http://instagram.com/'.trim($username));
+
+		if (is_wp_error($remote))
+			return new WP_Error('site_down', __('Unable to communicate with Instagram.', 'navypier'));
+
+		if ( 200 != wp_remote_retrieve_response_code( $remote ) )
+			return new WP_Error('invalid_response', __('Instagram did not return a valid response.', 'navypier'));
+
+		$shards = explode('window._sharedData = ', $remote['body']);
+		$insta_json = explode(';</script>', $shards[1]);
+		$insta_array = json_decode($insta_json[0], TRUE);
+
+		if (!$insta_array)
+			return new WP_Error('bad_json', __('Instagram has returned invalid data.', 'navypier'));
+
+		$images = $insta_array['entry_data']['UserProfile'][0]['userMedia'];
+
+		$instagram = array();
+
+		foreach ($images as $image) {
+
+			if ($image['user']['username'] == $username) {
+
+				$image['link']                          = preg_replace( "/^http:/i", "", $image['link'] );
+				$image['images']['thumbnail']           = preg_replace( "/^http:/i", "", $image['images']['thumbnail'] );
+				$image['images']['standard_resolution'] = preg_replace( "/^http:/i", "", $image['images']['standard_resolution'] );
+
+				$instagram[] = array(
+					'description'   => $image['caption']['text'],
+					'link'          => $image['link'],
+					'time'          => $image['created_time'],
+					'comments'      => $image['comments']['count'],
+					'likes'         => $image['likes']['count'],
+					'thumbnail'     => $image['images']['thumbnail'],
+					'large'         => $image['images']['standard_resolution'],
+					'type'          => $image['type']
+				);
+			}
+		}
+
+
+	return array_slice($instagram, 0, $slice);
+}
+
+/**
+ * Build Instagram feed
+ *
+ * based on https://gist.github.com/cosmocatalano/4544576
+ *
+ * @uses np_scrape_instagram()
+ */
+function np_get_instagram_feed( $username, $photos) {
+	
+	$feed = get_transient('instagram_feed-'.sanitize_title_with_dashes($username));
+	
+	if ( false === $feed ) {
+		$insta_feed = np_scrape_instagram( $username, $photos );
+		if ( is_wp_error($insta_feed) ) {
+			$feed = $insta_feed->get_error_message();
+		} else {
+			$feed = '';
+			foreach ($insta_feed as $item) {
+				$feed .= '<div class="post"><a href="'. esc_url( $item['link'] ) .'" target="_blank"><img src="'. esc_url($item['large']['url']) .'"  alt="'. esc_attr( $item['description'] ) .'" title="'. esc_attr( $item['description'] ).'" width="640" height="640" class="background-cover"/></a></div>';				
+			}
+			$instagram = base64_encode( serialize( $feed ) );
+			set_transient('instagram-media-'.sanitize_title_with_dashes($username), $instagram, HOUR_IN_SECONDS * 2);
+		}
+	}
+	return $feed;
 }

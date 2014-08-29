@@ -23,7 +23,7 @@ class Homepage_Featured {
 		add_action( 'add_meta_boxes', array($this,'create_metabox') );
 		add_action( 'save_post',      array($this,'save_meta'), 0, 3 );
 		add_action( 'admin_menu',     array($this,'register_options_page') );
-		add_action( 'admin_init',     array($this, 'register_settings') );
+		add_action( 'admin_init',     array($this,'register_settings') );
 	}
 	
 	/**
@@ -42,8 +42,8 @@ class Homepage_Featured {
 	/**
 	 * Configuration params for the Metabox
 	 * 
-	 * @since 1.0
 	 * @access protected
+	 * @since 1.0
 	 *
 	 */
 	protected function set_meta_box_args()
@@ -110,8 +110,8 @@ class Homepage_Featured {
 	/**
 	 * Create the metabox
 	 * 
+	 * @access public
 	 * @since 1.0
-	 * @access protected
 	 *
 	 * @uses add_meta_box()
 	 */
@@ -131,8 +131,8 @@ class Homepage_Featured {
 	/**
 	 * Print the inner HTML of the metabox
 	 * 
+	 * @access public
 	 * @since 1.0
-	 * @access protected
 	 *
 	 */
 	public function inner_metabox() 
@@ -193,8 +193,8 @@ class Homepage_Featured {
 	/**
 	 * Process saving the metadata
 	 *
+	 * @access public
 	 * @since 1.0
-	 * @access
 	 * 
 	 */
 	 public function save_meta($post_id, $post, $update)
@@ -252,6 +252,9 @@ class Homepage_Featured {
 
 		}
 		
+		// update the transient cache
+		delete_transient( 'rotator_content');
+		
 		return $post_id;
 	 
 	 }
@@ -260,8 +263,8 @@ class Homepage_Featured {
 	/**
 	 * Display Homepage Rotator Items in a Dashboard Panel
 	 *
+	 * @access public
 	 * @since 1.0
-	 * @access
 	 * 
 	 */
 	public function register_options_page() 
@@ -273,115 +276,186 @@ class Homepage_Featured {
 	/**
 	 * Register rotator slide order setting
 	 *
+	 * @access public
 	 * @since 1.0
-	 * @access
 	 * 
 	 */ 
 	public function register_settings() 
 	{
-		register_setting( 'hm_rotator_order_options', 'hm_rotator_order' );
-	} 	
+		register_setting( 'hm_rotator_order_options', 'hm_rotator_order', array($this, 'validate_settings') );
+	} 
 
+	/**
+	 * Validate rotator settings.
+	 *
+	 * Make sure that all user supplied content is in an expected
+	 * format before saving to the database.
+	 *
+	 * @access public
+	 * @since 1.0
+	 *
+	 * @param array $input Array of settings input.
+	 * @return array Validated settings output.
+	 */
+	public function validate_settings( $input )
+	{
+
+		$errors = array();
+		$featured_ids = array_map( 'absint', $input );
+		
+		foreach( $featured_ids as $post_id => $order){
+			if( 0 === $order ){
+				$errors[$post_id] = 'blank';
+			}
+		}
+
+		if( !empty($errors) ) {
+			add_settings_error(
+				'hm_rotator_order',
+				esc_attr( 'hm_rotator_order_err' ),
+				__('Please check you order. Order input must be numeric and greater than 0.'),
+				'error'
+			);
+			#delete_option('hm_rotator_order');
+			#return false;
+		}
+		return $featured_ids;
+		
+	}
+
+
+	
+	/**
+	 * Get featured post content
+	 *
+	 * This function will return the an array containing the
+	 * post IDs of all featured posts.
+	 *
+	 * Sets the "rotator_content" transient.
+	 *
+	 * @static
+	 * @access public
+	 * @since 1.0
+	 *
+	 * @return object WP_Query object
+	 */
+	public static function get_rotator_content()
+	{
+		// Return array of cached results if they exist.
+		$rotator_content = get_transient( 'rotator_content' );
+		
+		if ( false === $rotator_content ) {
+		
+			$args = array(
+				'posts_per_page' => -1,
+				'post_type' => 'any',
+				'meta_query' => array(
+					array(
+						'key' => '_rotator_include', 
+						'value' => 'rotator_include_y' 
+					)
+				) 
+			);		
+					
+			// Query for featured posts.
+			add_filter('posts_orderby', 'hm_rotator_orderby' );
+			$rotator_content = new WP_Query($args);
+			remove_filter('posts_orderby', 'hm_rotator_orderby' );
+			wp_reset_query();
+			
+			// set cache
+			set_transient( 'rotator_content', $rotator_content, 12 * HOUR_IN_SECONDS );			
+		}
+				
+
+		
+		return $rotator_content;
+		
+	}
+	
 	
 	/**
 	 * Show rotator options page
 	 *
+	 * @access public
 	 * @since 1.0
-	 * @access
 	 * 
 	 */ 
-public function show_options_page()
-{ ?>
-<div class="wrap">
-	<?php screen_icon(); ?>	<h2>Homepage Rotator Items</h2>
-	<?php
-	$args = array(
-		'posts_per_page' => -1,
-		'post_type' => 'any',
-		'meta_query' => array(
-			array(
-				'key' => '_rotator_include', 
-				'value' => 'rotator_include_y' 
-				)
-			) 
-		);
-	add_filter('posts_orderby', 'hm_rotator_orderby');
-	$r = new WP_Query($args);
-	remove_filter('posts_orderby', 'hm_rotator_orderby');
-	if( $r->have_posts() ) : ?>
-		<h3>Notes:</h3>
-		<ul style="list-style: square outside none; margin-left: 18px;">
-			<li><?php _e('The content items below are currently marked to be included in the featured content rotator on the homepage of the site.');?></li>
-			<li><?php _e('The order below is how they will appear in the rotator.');?></li>
-			<li><?php _e('You can adjust the order by indicating each item&#8217;s position in the Order column.');?></li>
-			<li><?php _e('To edit an item, click the title link.');?></li>
-		</ul>
-			
-			<form method="post" action="options.php">
-				<?php settings_fields('hm_rotator_order_options'); ?>
-				<?php $options =  get_option('hm_rotator_order'); ?>
-				<?php $count = 1; ?>
-
-				<table class="widefat comments fixed" cellspacing="0">
-					<thead>
-						<tr>
-							<th class="column-order" style="width:100px;">Order</th>
-							<th class="column-thumb" style="width:100px;">Thumbnail</th>
-							<th class="column-date" style="width:100px;">Publish Date</th>
-							<th class="column-title">Title</th>
-						</tr>
-					</thead>
-
-					<tfoot>
-						<tr>
-							<th class="column-order" style="width:100px;">Order</th>
-							<th class="column-thumb" style="width:100px;">Thumbnail</th>
-							<th class="column-date" style="width:100px;">Publish Date</th>
-							<th class="column-title">Title</th>
-						</tr>
-					</tfoot>
-					<tbody id="the-homepage-list" class="list:homepage">
-						<?php $style='';?>
-						<?php while ( $r->have_posts() ) : $r->the_post(); 
+	public function show_options_page()
+	{ ?>
+		<div class="wrap">
+		
+			<?php screen_icon(); ?>	<h2>Homepage Rotator Items</h2>
+			<?php $r = self::get_rotator_content(); ?>
 						
-							$style = ( ' class="alternate"' == $style ) ? '' : ' class="alternate"';
-							$image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'rotator-home');
-							$img_src = get_post_meta(get_the_ID(), '_rotator_img_url', true);
-							if ( '' == $img_src ) {
-								$image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'rotator-home');
-								$img_src = $image_url[0];
-							}; ?>
-							<tr <?php echo $style; ?> id="post-<?php the_ID(); ?>">
-								<?php $order = ( '' != $options[ get_the_ID() ]  ) ? $options[ get_the_ID() ] : $count; ?>
-								<td style="width: 40px"><input class="small-text" type="text" name="hm_rotator_order[<?php echo  get_the_ID();?>]" value="<?php echo $order; ?>" /></td>
-								<td style="width:100px;"><img src="<?php echo $img_src; ?>" alt="<?php echo get_the_title(); ?>" width="80" /></td>
-								<td style="width:100px;"><?php the_time('M d, Y'); ?></td>
-								<td><a href="<?php echo get_edit_post_link( get_the_ID() ); ?>#homepage-rotatordiv" title="click to edit - will open in new window" target="_blank"><?php echo get_the_title() ; ?></a></td>
+			<?php if( $r->have_posts() ) : ?>
+				<h3><div class="dashicons dashicons-clipboard"></div> Notes:</h3>
+				<ul style="list-style: square outside none; margin-left: 18px;">
+					<li><?php _e('The content items below are currently marked to be included in the featured content rotator on the homepage of the site.');?></li>
+					<li><?php _e('The order below is how they will appear in the rotator.');?></li>
+					<li><?php _e('You can adjust the order by indicating each item&#8217;s position in the Order column.');?></li>
+					<li><?php _e('To edit an item, click the title link.');?></li>
+				</ul>
+
+				<form method="post" action="options.php">
+					<?php settings_fields('hm_rotator_order_options'); ?>
+					<?php $options =  get_option('hm_rotator_order'); ?>
+					<?php $count = 1; ?>
+		
+					<table class="widefat comments fixed" cellspacing="0">
+						<thead>
+							<tr>
+								<th class="column-order" style="width:100px;">Order</th>
+								<th class="column-thumb" style="width:100px;">Thumbnail</th>
+								<th class="column-date" style="width:100px;">Publish Date</th>
+								<th class="column-title">Title</th>
 							</tr>
-							<?php ++$count; ?>
-						<?php endwhile; // end of the loop. ?>
-					</tbody>
-				</table>
-				<?php submit_button(); ?>
-			</form>	
-	<?php else: ?>
-		<p>Nothing to display.</p>
-	<?php endif; ?>
-	<?php wp_reset_query(); ?>
+						</thead>
+
+						<tfoot>
+							<tr>
+								<th class="column-order" style="width:100px;">Order</th>
+								<th class="column-thumb" style="width:100px;">Thumbnail</th>
+								<th class="column-date" style="width:100px;">Publish Date</th>
+								<th class="column-title">Title</th>
+							</tr>
+						</tfoot>
+						<tbody id="the-homepage-list" class="list:homepage">
+							<?php $style='';?>
+							<?php while ( $r->have_posts() ) : $r->the_post(); 					
+								$style = ( ' class="alternate"' == $style ) ? '' : ' class="alternate"';
+								$img_src = get_post_meta(get_the_ID(), '_rotator_img_url', true);
+								if ( '' == $img_src ) {
+									$image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'rotator-home');
+									$img_src = $image_url[0];
+								}; ?>
+								<tr <?php echo $style; ?> id="post-<?php the_ID(); ?>">
+									<?php $order = ( $options && isset ( $options[ get_the_ID() ])  ) ? $options[ get_the_ID() ] : $count; ?>
+									<td style="width: 40px"><input class="small-text" type="text" name="hm_rotator_order[<?php echo  get_the_ID();?>]" value="<?php echo $order; ?>" /></td>
+									<td style="width:100px;"><img src="<?php echo $img_src; ?>" alt="<?php echo get_the_title(); ?>" width="80" /></td>
+									<td style="width:100px;"><?php the_time('M d, Y'); ?></td>
+									<td><a href="<?php echo get_edit_post_link( get_the_ID() ); ?>#homepage-rotatordiv" title="click to edit - will open in new window" target="_blank"><?php the_title() ; ?></a></td>
+								</tr>
+								<?php ++$count; ?>
+							<?php endwhile; // end of the loop. ?>
+						</tbody>
+					</table>
+					<?php submit_button(); ?>
+				</form>	
+			<?php else: ?>
+				<p>Nothing to display.</p>
+			<?php endif; ?>
+			<?php wp_reset_query(); ?>
+
+		</div>
+
+
+	<?php }
 	
-</div>
 
-
-<?php
-}
-	 
+	
 }
   
-
-
- 
-
-
 
 // the homepage rotator
 function hm_rotator_orderby($orderby) {

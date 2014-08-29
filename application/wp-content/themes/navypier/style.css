@@ -11,3 +11,23 @@ Tags:
 Text Domain: navypier
 */
 
+#mc-embedded-subscribe-form .response {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	display: none;
+	text-align: center;
+}
+
+.response .alert {
+	padding: 7px;
+}
+.alert-error {
+	background-color: #FFDFE5;
+}
+
+.alert-success {
+	background-color: #B3EF95;
+}

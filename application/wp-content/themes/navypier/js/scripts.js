@@ -25,6 +25,12 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 };
 
 ( function( $ ) {
+
+    // reset form field
+    $.fn.reset = function () {
+        $(this).each(function () { this.reset(); });
+    };	
+	
 	
 	/* ----- IOS7 SAFARI VIEWPORT UNIT FIX ----- */
 	$(document).ready(function() {
@@ -36,6 +42,12 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 
 	/* ----- MENU FUNCTIONS ----- */
 	$(document).ready(function() {
+	
+		// Compensates for differences between the HTML WP produces and the HTML provided in the design
+		$('#menu-top-quick-links > li > a').addClass('tooltip');
+		$('#menu-top-social-links > li > a').addClass('tooltip');
+		$('.nav-menu a[href*="'+window.location.href+'"]').parent('li').addClass('active current-menu-item');	
+		
 		var mobileMenuButton = $('.menu-btn'),
 		mobileMenu = $('nav.main'),
 		headerContainer = $('header');
@@ -94,6 +106,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		}
 	});
 
+	
 	/* ----- SEARCH FUNCTIONS ----- */
 	$(document).ready(function() {
 		var searchLink = $('.search'),
@@ -112,6 +125,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		searchButton.hide();
 	});
 
+	
 	/* ----- SUBSCRIBE FUNCTIONS ----- */
 	$(document).ready(function() {
 		var newsletterLink = $('.join-newsletter .join-btn'),
@@ -120,8 +134,64 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			newsletterLink.toggleClass('active');
 			newsLetterContainer.toggleClass('show-subscribe');
 		});
+		  
+		// if there's a subscribe form
+		if ($('#mc-embedded-subscribe-form').length > 0) {
+			var $mcForm = $('#mc-embedded-subscribe-form');
+			
+			var dismiss = '[data-dismiss="alert"]'
+  
+			$mcForm.on('click', dismiss, function(){
+				var $this    = $(this)
+				var selector = $this.attr('data-target');
+				var $parent  = $(selector);
+				if (!$parent.length) {
+				  $parent = $this.hasClass('alert') ? $this : $this.parent()
+				}
+				$parent.remove();
+			});			
+	
+			$mcForm.submit(function () {
+
+				var $messageDiv = $('.response', $mcForm);
+				$messageDiv.hide();
+
+				$.ajax({
+					type: $mcForm.attr('method'),
+					url: $mcForm.attr('action'),
+					data: $mcForm.serialize(),
+					cache       : false,
+					dataType    : 'jsonp',
+					jsonp       : 'c',
+					contentType : "application/json; charset=utf-8",
+					error       : function () { alert("Could not connect to the registration server. Please try again later."); },
+					success     : function (data) {
+						var notice = 'Thank you!',
+							noticeClass = 'alert-success',
+							container = '';
+
+						if (data.result !== "success") {
+							//notice = data.msg;
+							notice = 'error';
+							noticeClass = 'alert-error';
+						}
+
+						container = '<div class="alert ' + noticeClass + '">';
+						container += '<a class="close" data-dismiss="alert" aria-hidden="true" href="#">&times;</a> ';
+						container += notice;
+						container += '</div>';
+						$messageDiv.empty().html(container).fadeIn('fast');
+
+					}
+				});
+				return false;
+			});
+		}
+		
+		
 	});
 
+	
 	/* ----- BACK-TO-TOP FUNCTIONS ----- */
 	$(document).ready(function() {
 		var topButton = $('#back-to-top-btn');
@@ -142,6 +212,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		});
 	});
 
+	
 	/* ----- SLIDER MOBILE FUNCTIONS ----- */
 	$(document).ready(function() {
 		if(isMobile.any()) {
@@ -155,6 +226,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		});
 	});
 
+	
 	/* ----- ENTRY FUNCTIONS ----- */
 	$(document).ready(function() {
 		$('.entry a.read-details').click(function(e) {
@@ -182,6 +254,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		});
 	});
 
+	
 	/* ----- INPUT PLACEHOLDER FALLBACK ----- */
 	$(document).ready(function() {
 		if (!('placeholder' in document.createElement('input'))) {
@@ -210,6 +283,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		}
 	});
 
+	
 	/* ----- TOOLTIPSTER INITIALIZE ----- */
 	$(document).ready(function() {
 		if (!isMobile.any()) { // DESKTOPS ONLY
@@ -234,6 +308,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		}
 	});
 
+	
 	/* ----- CYCLE INITIALIZE ----- */
 	$(document).ready(function() {
 		$('#slider').cycle({
@@ -244,6 +319,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		});
 	});
 
+	
 	/* ----- BACKGROUND COVER INITIALIZE ----- */
 	$(document).ready(function() {
 		$('.background-cover').backgroundCover();
@@ -260,6 +336,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		}
 	});
 
+	
 	/* ----- MAP FUNCTIONS ----- */
 	$(document).ready(function() {
 		var markersArray = [],

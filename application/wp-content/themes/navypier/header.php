@@ -34,47 +34,45 @@
 
 <body <?php body_class(); ?>>
 <header>
-  <div class="top">
-    <div class="container">
-      <nav>
-        <ul class="text-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Media &amp; PR</a></li>
-          <li><a href="#">Sponsorship</a></li>
-          <li><a href="#">Donate</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <ul class="social-links">
-          <li><a href="https://twitter.com/navypier" target="_blank" class="tooltip" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="https://www.facebook.com/navypier" target="_blank" class="tooltip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="http://www.youtube.com/user/NavyPierTV" target="_blank" class="tooltip" title="YouTube"><i class="fa fa-youtube"></i></a></li>
-          <li><a href="http://instagram.com/navypierchicago" target="_blank" class="tooltip" title="Instagram"><i class="fa fa-instagram"></i></a></li>
-          <li><a href="http://blog.navypier.com/" target="_blank" class="tooltip" title="Blog"><i class="fa fa-comments"></i></a></li>
-        </ul>
-        <ul class="quick-links">
-          <li class="title">Quick Links:</li>
-          <li><a href="#" class="tooltip" title="Calendar"><i class="fa fa-calendar"></i></a></li>
-          <li><a href="#" class="tooltip" title="Buy Tickets"><i class="fa fa-ticket"></i></a></li>
-        </ul>
-      </nav>
-      <div class="search tooltip" title="Search"><i class="fa fa-search"></i></div>
-    </div>
-  </div>
-  <div class="search-row">
-    <div class="container">
-      <form role="search" method="get" action="#">
-        <input type="text" name="s" id="s" placeholder="Search Navy Pier">
-        <input type="submit" value="Submit">
-      </form>
-    </div>
-  </div>
-  <div class="middle">
-    <div class="container">
-      <div class="logo"><a href="index.php"><img src="images/logo.png"></a></div>
-      <div class="menu-btn"><i class="fa fa-bars"></i></div>
-      <nav class="main">
+	<div class="top">
+		<div class="container">
+			<nav>
+				<?php echo np_get_top_menu_secondary(); ?>
+				<?php echo np_get_top_menu_social(); ?>
+				<?php echo np_get_top_menu_quick(); ?>
+			</nav>
+			<div class="search tooltip" title="Search"><i class="fa fa-search"></i></div>
+		</div><!-- /.container -->
+	</div><!-- /.top -->
+  
+	<div class="search-row">
+		<div class="container">
+			<?php get_search_form(); ?>
+		</div>
+	</div> <!-- /.search-row -->
+  
+<div class="middle">
+	<div class="container">
+	<div class="logo"><a href="<?php echo home_url('/'); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/logo.png"></a></div>
+	<div class="menu-btn"><i class="fa fa-bars"></i></div>
+	
+	<nav class="main">
+		<?php 
+		$menu_args = array(
+			'menu_class' => 'nav-menu',
+			'container'=> '',
+			'fallback_cb' => false,
+			'items_wrap' => '%3$s',
+			'theme_location' => 'primary',
+			'echo' => 0
+		);		
+		$menu = '<ul>';	
+		#$menu .= '<li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>';
+		$menu .= wp_nav_menu($menu_args);
+		$menu .= '</ul>';
+		echo $menu;		
+		?>
+		
         <ul>
           <li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>
           <li class="mobile-only"><a>Quick Links<img src="images/menu-caret.png" class="caret"></a>
@@ -214,20 +212,20 @@
           </li>
         </ul>
       </nav>
-      <div class="book-event"><a href="#">Book Your Event</a></div>
-    </div>
-  </div>
-  <div class="bottom">
-    <div class="container">
-      <div class="join-newsletter">
-        <div class="join-btn"><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;&nbsp;Join our newsletter for deals and more<img src="images/menu-caret-black.png" class="caret"></div>
-        <form method="POST" action="#">
-          <input type="text" name="Email" placeholder="Enter Email Address" required>
-          <input type="submit" name="Submit" value="Subscribe">
-        </form>
-      </div>
-    </div>
-  </div>
+
+	  <div class="book-event"><a href="#">Book Your Event</a></div>
+	  
+</div>
+</div><!-- /.middle -->
+
+<div class="bottom">
+	<div class="container">
+		<div class="join-newsletter">
+			<div class="join-btn"><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;&nbsp;Join our newsletter for deals and more<img src="images/menu-caret-black.png" class="caret"></div>
+			<?php np_get_newsletter_form(); ?>
+		</div>
+	</div>
+</div>
 </header>
 <div id="map-canvas"></div>
 <div id="map-btn" title="Map"></div>
