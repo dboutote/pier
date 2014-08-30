@@ -59,15 +59,6 @@ add_action( 'admin_menu', 'np_no_customize' );
  
  
 /**
- * Disable the Admin Bar
- *
- * @since Navy Pier 1.0
- */
-if( ! defined ( 'WP_DEBUG' ) || false === WP_DEBUG ) {
-	show_admin_bar(false);
-}
-
-/**
  * Main Theme Setup
  *
  * Set up theme defaults and registers support for various WordPress features.
@@ -531,4 +522,16 @@ function np_get_instagram_feed( $username, $photos) {
 		}
 	}
 	return $feed;
+}
+
+
+
+/*
+ * Add Simple Tweets
+ *
+ * To overwrite in a plugin, define your own Simple_Tweets class on or
+ * before the 'setup_theme' hook.
+ */
+if ( ! class_exists( 'Simple_Tweets' ) && 'plugins.php' !== $GLOBALS['pagenow'] ) {
+	require get_template_directory() . '/inc/simple-tweets/simple_tweets.php';
 }

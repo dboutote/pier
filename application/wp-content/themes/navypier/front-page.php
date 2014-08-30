@@ -128,27 +128,20 @@ if( $r->have_posts() ) : ?>
 	<h2>Get Social</h2>
 </div>
 <div class="section-content clearfix">
+	<div class="col padded">
+		<h3 class="category"><a href="http://instagram.com/navypierchicago" target="_blank">Instagram&nbsp;&nbsp;&nbsp;<i class="fa fa-instagram"></i></a></h3>
+		<div id="instagram-feed" class="clearfix">
+			<?php echo np_get_instagram_feed('navypierchicago', 6); ?>
+		</div>
+	</div>
+	
 <div class="col padded">
-<h3 class="category"><a href="http://instagram.com/navypierchicago" target="_blank">Instagram&nbsp;&nbsp;&nbsp;<i class="fa fa-instagram"></i></a></h3>
-<div id="instagram-feed" class="clearfix">
-<?php echo np_get_instagram_feed('navypierchicago', 6); ?>
+	<h3 class="category"><a href="https://twitter.com/navypier" target="_blank">Twitter&nbsp;&nbsp;&nbsp;<i class="fa fa-twitter"></i></a></h3>
+	<div id="twitter-feed">
+		<?php echo get_simple_tweets(); ?>
+	</div> <!-- /#twitter-feed -->
 </div>
 
-</div>
-<div class="col padded">
-<h3 class="category"><a href="https://twitter.com/navypier" target="_blank">Twitter&nbsp;&nbsp;&nbsp;<i class="fa fa-twitter"></i></a></h3>
-<div id="twitter-feed">
-<div class="tweet">
-<p>Heading to <a href="#">#WinterWonderFest?</a> Hop on our free trolley for a ride right to the Pier! Hours and dates available here: <a href="#">http://bit.ly/1dywtaa</a></p>
-<a href="#" target="_blank" class="feed-link">Today</a> </div>
-<div class="tweet">
-<p>The <a href="#">@ChicagoBears</a> are wrangling the <a href="#">@DallasCowboys</a> tomorrow night! Grab dinner at <a href="#">@HarrysNavyPier</a> and cheer them on!</p>
-<a href="#" target="_blank" class="feed-link">Yesterday</a> </div>
-<div class="tweet">
-<p>Come downtown and park at the Pier for just $19 today and $10 after 5 p.m.! Perfect for holiday shopping!<a href="#"></a></p>
-<a href="#" target="_blank" class="feed-link">12/16/14</a> </div>
-</div>
-</div>
 <div class="col">
 <div class="social-small padded">
 <h3 class="category"><a href="http://blog.navypier.com/" target="_blank">Blog&nbsp;&nbsp;&nbsp;<i class="fa fa-comments"></i></a></h3>
