@@ -97,10 +97,11 @@ if ( ! function_exists( 'np_theme_setup' ) ) {
 		
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus( array(
-				'primary'     => __( 'Top primary menu', 'navypier' ),
-				'secondary'   => __( 'Top secondary menu ', 'navypier' ),
-				'social-top'  => __( 'Top social links menu ', 'navypier' ),
-				'quick-top'   => __( 'Top quick links menu ', 'navypier' ),
+				'primary'         => __( 'Top primary menu', 'navypier' ),
+				'secondary'       => __( 'Top secondary menu ', 'navypier' ),
+				'social-top'      => __( 'Top social links menu ', 'navypier' ),
+				'quick-top'       => __( 'Top quick links menu ', 'navypier' ),
+				'footer-primary'  => __( 'Footer primary menu ', 'navypier' ),
 		));
 
 		 // Switch default core markup for search form, comment form, and comments to output valid HTML5.
@@ -114,6 +115,52 @@ if ( ! function_exists( 'np_theme_setup' ) ) {
 	}
 }
 add_action( 'after_setup_theme', 'np_theme_setup' );
+
+
+/**
+ * Register the widget areas.
+ *
+ * @since Navy Pier 1.0
+ */
+function np_widgets_init() {
+	register_sidebar( array(
+		'name'          => __( 'Footer Sidebar I', 'navypier' ),
+		'id'            => 'sidebar-1',
+		'description'   => __( 'Displays QUICK LINKS information in the footer', 'navypier' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s quick-links-footer clearfix">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h4 class="widget-title category">',
+		'after_title'   => '</h4>',
+	) );
+	register_sidebar( array(
+		'name'          => __( 'Footer Sidebar II', 'navypier' ),
+		'id'            => 'sidebar-2',
+		'description'   => __( 'Displays CONTACT information in the footer', 'navypier' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s contact-info-footer clearfix">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h4 class="widget-title category">',
+		'after_title'   => '</h4>',
+	) );
+	register_sidebar( array(
+		'name'          => __( 'Footer Sidebar III', 'navypier' ),
+		'id'            => 'sidebar-3',
+		'description'   => __( 'Displays SOCIAL MEDIA information in the footer', 'navypier' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s social-links-footer clearfix">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h4 class="widget-title category">',
+		'after_title'   => '</h4>',
+	) );
+	register_sidebar( array(
+		'name'          => __( 'Footer Sidebar IV', 'navypier' ),
+		'id'            => 'sidebar-4',
+		'description'   => __( 'Displays PARTNER information in the footer', 'navypier' ),
+		'before_widget' => '<div id="%1$s" class="widget %2$s sponsors-footer clearfix">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h4 class="widget-title category">',
+		'after_title'   => '</h4>',
+	) );	
+}
+add_action( 'widgets_init', 'np_widgets_init' );
 
  
 /**
@@ -322,7 +369,7 @@ if ( ! class_exists( 'Homepage_Featured' ) && 'plugins.php' !== $GLOBALS['pageno
 function np_get_cached_nav_menu( $theme_location, $menu_args ){
 	
 	$menu = get_transient( "navmenu_{$theme_location}" );
-
+	
 	if( false === $menu){
 		$menu_args['theme_location'] = $theme_location;
 		$menu_args['echo'] = 0;
@@ -387,6 +434,26 @@ function np_get_top_menu_quick(){
 	
 	return np_get_cached_nav_menu( $theme_location = 'quick-top', $menu_args  ); 
 }
+
+
+/**
+ * Display the footer nav menu
+ *
+ * Wrapper for np_get_cached_nav_menu()
+ *
+ * @uses np_get_cached_nav_menu()
+ */
+function np_get_btm_menu_primary(){
+	$menu_args = array(
+		'menu_class' => 'nav-menu',
+		'container'=> '',
+		'fallback_cb' => false
+	);			
+	
+	return np_get_cached_nav_menu( $theme_location = 'footer-primary', $menu_args  ); 
+}
+
+
 
 /**
  * Update the menu transient when a nav menu is updated
@@ -516,9 +583,8 @@ function np_get_instagram_feed( $username, $photos) {
 			$feed = '';
 			foreach ($insta_feed as $item) {
 				$feed .= '<div class="post"><a href="'. esc_url( $item['link'] ) .'" target="_blank"><img src="'. esc_url($item['large']['url']) .'"  alt="'. esc_attr( $item['description'] ) .'" title="'. esc_attr( $item['description'] ).'" width="640" height="640" class="background-cover"/></a></div>';				
-			}
-			$instagram = base64_encode( serialize( $feed ) );
-			set_transient('instagram-media-'.sanitize_title_with_dashes($username), $instagram, HOUR_IN_SECONDS * 2);
+			}			
+			set_transient('instagram_feed-'.sanitize_title_with_dashes($username), $feed, HOUR_IN_SECONDS * 2);
 		}
 	}
 	return $feed;
@@ -535,3 +601,33 @@ function np_get_instagram_feed( $username, $photos) {
 if ( ! class_exists( 'Simple_Tweets' ) && 'plugins.php' !== $GLOBALS['pagenow'] ) {
 	require get_template_directory() . '/inc/simple-tweets/simple_tweets.php';
 }
+
+
+/**
+ * String Replace text in widgets
+ *
+ * filter the url for images
+ */
+function np_filter_widget_text($text){
+ $search = array(
+	'<!-- theme_img_url -->'
+	);
+ $replace = array(
+	get_stylesheet_directory_uri() . '/images'
+	);
+ $text = str_replace($search, $replace, $text);
+ return $text;
+}
+add_filter('widget_text', 'np_filter_widget_text');
+
+
+/*
+ * Add Promotion Meta Box functionality.
+ *
+ * To overwrite in a plugin, define your own MetaBox_Promotion class on or 
+ * before the 'setup_theme' hook.
+ */
+if ( ! class_exists( 'MetaBox_Promotion' ) && 'plugins.php' !== $GLOBALS['pagenow'] ) {
+	require get_template_directory() . '/inc/metabox_promotions.php';
+}
+

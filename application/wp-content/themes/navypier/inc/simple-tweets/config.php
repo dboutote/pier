@@ -19,6 +19,6 @@ $config_options = array(
 	'show_timestamp' => 1,
 	'created_link' => 1,
 	'debug' => 1,
-	'update_cache' => '',
+	'update_cache' => false,
 	'encode_utf8' => ''
 );

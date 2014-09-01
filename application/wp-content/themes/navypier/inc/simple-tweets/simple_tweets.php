@@ -98,7 +98,7 @@ class Simple_Tweets {
 		 * @uses Codebird::statuses_userTimeline()
 		 */
 		if( $options['update_cache'] ) {
-
+		
 			delete_transient($transient_name);
 			delete_transient($transient_name.'_status');
 
@@ -128,12 +128,12 @@ class Simple_Tweets {
 		 * @uses get_transient()
 		 * @uses set_transient()
 		 */
-		if( '' === $options['update_cache'] ) {
+		if( false === $options['update_cache'] ) {
 
 			// Get transient
 			$twitter_data = get_transient($transient_name);
 			$twitter_status = get_transient($transient_name.'_status');
-
+		
 			/**
 			 * If there's nothing in transient cache or it expired, get current Rate Limit Status
 			 * @see https://dev.twitter.com/docs/rate-limiting/1.1

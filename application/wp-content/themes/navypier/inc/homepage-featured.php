@@ -51,6 +51,7 @@ class Homepage_Featured {
 		$basename = 'homepage-rotator';
 		$post_types = get_post_types();
 		$post_type = get_post_type();
+		$post_type_name = strtolower( get_post_type_object( $post_type )->labels->singular_name );
 		
 		
 		$meta_fields = array(
@@ -66,7 +67,7 @@ class Homepage_Featured {
 				'type' => 'text',
 				'default' => '',
 				'title' => __('Slide Title'),
-				'description' => sprintf( __( 'Enter an optional editorial post title. Default: %s title.', 'navypier' ), $post_type )
+				'description' => sprintf( __( 'Enter an optional editorial post title. Default: %s title.', 'navypier' ), $post_type_name )
 			),
 			'rotator_subtitle' => array(
 				'name' => 'rotator_subtitle',
@@ -80,23 +81,23 @@ class Homepage_Featured {
 				'type' => 'text',
 				'default' => '',
 				'title' => __('Slide Link URL'),
-				'description' => sprintf( __( 'Enter an optional editorial url. Default: %s permalink.', 'navypier' ), $post_type )				
+				'description' => sprintf( __( 'Enter an optional editorial url. Default: %s permalink.', 'navypier' ), $post_type_name )				
 			),
 			'rotator_img_url' => array(
 				'name' => 'rotator_img_url',
 				'type' => 'text',
 				'default' => '',
 				'title' => __('Slide Image URL'),
-				'description' => sprintf( __( 'Enter an optional image url. Default: %s featured image. After uploading your photo, enter the url here. <a href="#" id="add_file" class=" insert-media add_media" title="Add Media">Click here to upload.</a>', 'navypier' ), $post_type )					
+				'description' => sprintf( __( 'Enter an optional image url. Default: %s featured image. After uploading your photo, enter the url here. <a href="#" id="add_file" class=" insert-media add_media" title="Add Media">Click here to upload.</a>', 'navypier' ), $post_type_name )					
 			),			
 		);		
 			
 		$args = array(
 			'meta_box_id' => $basename . 'div',
 			'meta_box_name' => $basename . 'info',
-			'meta_box_title' => __( 'Homepage Rotator Slide Settings' ),
+			'meta_box_title' => __( 'Homepage Rotator Settings' ),
 			'meta_box_default' => '',
-			'meta_box_description' => sprintf( __( 'You can customize the appearance of this %s if you select it for the Homepage Rotator. If any setting is left blank, the rotator will fall back to the default noted.', 'navypier' ), $post_type ),
+			'meta_box_description' => sprintf( __( 'You can customize the appearance of this %s if you select it for the Homepage Rotator. If any setting is left blank, the rotator will fall back to the default noted.', 'navypier' ), $post_type_name ),
 			'content_types' => $post_types,
 			'meta_box_position' => 'advanced',
 			'meta_box_priority' => 'high',
@@ -361,13 +362,12 @@ class Homepage_Featured {
 			add_filter('posts_orderby', 'hm_rotator_orderby' );
 			$rotator_content = new WP_Query($args);
 			remove_filter('posts_orderby', 'hm_rotator_orderby' );
-			wp_reset_query();
 			
 			// set cache
 			set_transient( 'rotator_content', $rotator_content, 12 * HOUR_IN_SECONDS );			
 		}
 				
-
+		wp_reset_postdata();
 		
 		return $rotator_content;
 		
@@ -445,7 +445,7 @@ class Homepage_Featured {
 			<?php else: ?>
 				<p>Nothing to display.</p>
 			<?php endif; ?>
-			<?php wp_reset_query(); ?>
+			<?php wp_reset_postdata(); ?>
 
 		</div>
 

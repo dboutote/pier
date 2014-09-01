@@ -46,6 +46,13 @@ function get_files($dir_path) {
 // include needed functions
 include(MU_INC_DIR . '/mstr-functions.php');
 
+/**
+ * Removes Adjacent post links from the header
+ */
+remove_action('wp_head', 'start_post_rel_link', 10, 0 ); 
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+
 
 
 
