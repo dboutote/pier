@@ -325,6 +325,9 @@ class Homepage_Featured {
 			#delete_option('hm_rotator_order');
 			#return false;
 		}
+		
+		delete_transient( 'rotator_content' );
+		
 		return $featured_ids;
 		
 	}
