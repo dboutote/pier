@@ -61,12 +61,12 @@ get_header();
 	
 	<div class="container">
 		<div class="callouts clearfix">
-			<a href="/todays-events/">
+			<a href="/events/today/">
 				<h3>What's Happening</h3>
 				<i class="fa fa-clock-o"></i>
 				<p>Today at the Pier</p>
 			</a> 
-			<a href="/all-events/">
+			<a href="/events/upcoming/">
 				<h3>What's Coming Up</h3>
 				<i class="fa fa-calendar"></i>
 				<p>View all Events</p>

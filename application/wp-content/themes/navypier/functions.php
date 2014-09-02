@@ -631,3 +631,9 @@ if ( ! class_exists( 'MetaBox_Promotion' ) && 'plugins.php' !== $GLOBALS['pageno
 	require get_template_directory() . '/inc/metabox_promotions.php';
 }
 
+
+
+/**
+ * Load Event Calendar functions
+ */
+require get_template_directory() . '/tribe-events/functions_events.php';

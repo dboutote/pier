@@ -49,9 +49,14 @@ class Homepage_Featured {
 	protected function set_meta_box_args()
 	{	
 		$basename = 'homepage-rotator';
+		$post_type_name = 'post';
+		
 		$post_types = get_post_types();
 		$post_type = get_post_type();
-		$post_type_name = strtolower( get_post_type_object( $post_type )->labels->singular_name );
+		
+		if( $post_type ){
+			$post_type_name = strtolower( get_post_type_object( $post_type )->labels->singular_name );
+		}
 		
 		
 		$meta_fields = array(

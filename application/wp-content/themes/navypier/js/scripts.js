@@ -229,6 +229,15 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 	
 	/* ----- ENTRY FUNCTIONS ----- */
 	$(document).ready(function() {
+		url = document.location.href;
+		hash = url.split('#');
+		
+		if( $('#'+hash[1]).length > 0 ){
+			var $entry = $('#'+hash[1]);
+			$entry.children('.details').show();
+			$entry.find('a.read-details').toggleClass('active');
+		}
+	
 		$('.entry a.read-details').click(function(e) {
 			e.preventDefault();
 			var theEntry = $(this).parents('.entry');
