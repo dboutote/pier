@@ -64,10 +64,15 @@ class Simple_Tweets {
 		$error_timeout = 5 * MINUTE_IN_SECONDS;
 		$remaining_calls = 0;
 		$reset_seconds = HOUR_IN_SECONDS;
-
-		// set the number of tweets to pull' Twitter sets a max of 200
+		
+		// set the number of tweets to pull; Twitter sets a max of 200
+		// if we're skipping replies or retweets, grab extra tweets
 		$num_tweets = absint($options['num']);
-     	$num_tweets = ( $num_tweets > 200 ) ? 200 : $num_tweets;
+		$max_num_tweets = $num_tweets;
+		if( '' !== $options['skip_replies'] || '' !== $options['skip_retweets']) {
+			$max_num_tweets *= 4;
+		}		
+     	$max_num_tweets = ( $max_num_tweets > 200 ) ? 200 : $max_num_tweets;
 
 
 		// Validate options
@@ -79,7 +84,7 @@ class Simple_Tweets {
 		if( 0 === $num_tweets                      ){ return __('Number of tweets is not valid' ); }
 
 		// init codebird class
-		if ( !isset($this->cb) ) {
+		if ( !isset($this->cb) ) {			
 			$this->setup_codebird ($options);
 		}
 
@@ -106,7 +111,7 @@ class Simple_Tweets {
 				$twitter_data =  $this->cb->statuses_userTimeline(
 					array(
 						'screen_name' => $options['username'],
-						'count' => $num_tweets,
+						'count' => $max_num_tweets,
 						'exclude_replies' => $options['skip_replies'],
 						'include_rts' => (!$options['skip_retweets'])
 					)
@@ -169,7 +174,7 @@ class Simple_Tweets {
 					$twitter_data =  $this->cb->statuses_userTimeline(
 						array(
 							'screen_name' => $options['username'],
-							'count' => $num_tweets,
+							'count' => $max_num_tweets,
 							'exclude_replies' => $options['skip_replies'],
 							'include_rts' => (!$options['skip_retweets'])
 						)
