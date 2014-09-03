@@ -20,12 +20,6 @@ $current_timeslot = null;
 ?>
 <div class="tribe-events-loop vcalendar">
 
-<?php if(have_posts() ) :?>
-show posts
-<?php else : ?>
-no posts
-<?php endif; ?>
-
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php do_action( 'tribe_events_inside_before_loop' ); ?>
 		<!-- Month / Year Headers -->
