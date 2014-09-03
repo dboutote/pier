@@ -1,19 +1,16 @@
 <?php
 /**
- * Single Event Template
- * A single event. This displays the event title, description, meta, and
- * optionally, the Google map for the event.
- * 
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/single-event.php
+ * The template for displaying all posts
  *
- * @package TribeEventsCalendar
+ * This is the template that displays all posts by default.
  *
+ * @package WordPress
+ * @subpackage Navy_Pier
+ * @since Navy Pier 1.0
  */
 
-if ( !defined('ABSPATH') ) { die('-1'); }
+get_header(); ?>
 
-$event_id = get_the_ID();
-?>
 <div id="inside-hero-region">
 <?php
 if( has_post_thumbnail() ){
@@ -22,6 +19,7 @@ if( has_post_thumbnail() ){
 	?>
 	<img src="<?php echo $img_src; ?>" width="1198" height="720" class="background-cover" /><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/inside-hero-shadow.png" class="hero-shadow"> 
 <?php }; ?>
+
 </div>  <!-- /#inside-hero-region -->
 
 <div class="container">  <!-- <?php echo basename(__FILE__); ?> -->
@@ -54,3 +52,8 @@ if( has_post_thumbnail() ){
 </div> <!-- /.container -->
 
 <?php get_sidebar('ads');?>
+
+
+
+<?php
+get_footer();

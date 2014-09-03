@@ -221,7 +221,7 @@
 <div class="bottom">
 	<div class="container">
 		<div class="join-newsletter">
-			<div class="join-btn"><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;&nbsp;Join our newsletter for deals and more<img src="images/menu-caret-black.png" class="caret"></div>
+			<div class="join-btn"><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;&nbsp;Join our newsletter for deals and more<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/menu-caret-black.png" class="caret"></div>
 			<?php np_get_newsletter_form(); ?>
 		</div>
 	</div>

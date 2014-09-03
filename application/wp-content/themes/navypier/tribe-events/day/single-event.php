@@ -1,9 +1,9 @@
 <?php 
 /**
- * List View Single Event
- * This file contains one event in the list view
+ * Day View Single Event
+ * This file contains one event in the day view
  *
- * Original file: [plugins]/the-events-calendar/views/list/single-event.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/single-event.php
  *
  * @package TribeEventsCalendar
  * @subpackage Navy_Pier
@@ -14,6 +14,7 @@
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php 
+global $post;
 $venue_lat = ( $venue_lat = np_tribe_get_lat()  ) ? $venue_lat : np_tribe_get_default_lat() ; 
 $venue_long = ( $venue_long = np_tribe_get_long()  ) ? $venue_long : np_tribe_get_default_long(); 
 $lat_long_href = $venue_lat . ','. $venue_long;
@@ -33,7 +34,7 @@ if( tribe_get_cost() ) {
 		<div class="col span-2">
 			<div class="info padded">
 				<h3><?php the_title() ?></h3>
-				<p><?php the_excerpt() ?></p>
+				<p><?php the_excerpt() ?></p>				
 				<a href="#" class="icon read-details">Read More</a> 
 			</div>
 			<div class="options">
