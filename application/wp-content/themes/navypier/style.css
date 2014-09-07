@@ -259,8 +259,8 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 		font-size: 12px;
 	}
 
-	header .middle nav.main #menu-top-primary {
-		height: auto;	
+	#menu-top-primary {
+		height: 300px;	
 		z-index: 9999;
 	}
 }
