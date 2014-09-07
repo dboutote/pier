@@ -279,6 +279,7 @@ header .middle .menu-btn {
 header .middle .logo img {
 	width: 300px;
 }
+/*
 header .middle nav.main {
 	width: 565px;
 	height: 75px;
@@ -305,7 +306,7 @@ header .middle nav.main ul li a, header .middle nav.main ul li a:visited {
 	position: relative;
 }
 header .middle nav.main ul li:hover a {
-	color: #3fcfd5; /* FALLBACK */
+	color: #3fcfd5; 
 	color: rgba(63,207,213,0.8);
 }
 header .middle nav.main ul li a .caret {
@@ -322,7 +323,7 @@ header .middle nav.main .drop-down {
 	left: 320px;
 	width: 616px;
 	padding: 12px;
-	background-color: #3fcfd5; /* FALLBACK */
+	background-color: #3fcfd5;  
 	background-color: rgba(58,186,194,0.95);
 	z-index: 9999;
 	-webkit-transition: background 250ms ease-in-out;
@@ -332,7 +333,7 @@ header .middle nav.main .drop-down {
 	transition: background 250ms ease-in-out;
 }
 header .middle.sticky nav.main .drop-down {
-	background-color: #34aab1; /* FALLBACK */
+	background-color: #34aab1; 
 	background-color: rgba(52,170,177,0.95);
 }
 header .middle nav.main .drop-down ul {
@@ -364,6 +365,8 @@ header .middle nav.main .drop-down ul li a:hover {
 	background-color: #fff;
 	color: #3fcfd5;
 }
+
+*/
 header .middle .book-event {
 	float: left;
 	width: 75px;

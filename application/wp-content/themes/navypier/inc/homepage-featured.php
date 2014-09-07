@@ -10,6 +10,7 @@
 class Homepage_Featured {
 
 	private $meta_config_args;
+	private $dont_show_in = array('cpt_advertisement');
 
 	/**
 	 * The constructor
@@ -123,6 +124,10 @@ class Homepage_Featured {
 	 */
 	public function create_metabox() 
 	{
+		if( false === $this->show_in_posttype(get_post_type()) ){
+			return;
+		};
+		
 		$args = $this->get_meta_box_args();  
 		extract($args);
 		
@@ -131,6 +136,28 @@ class Homepage_Featured {
 				add_meta_box($meta_box_id, $meta_box_title, array($this, 'inner_metabox'), $content_type, $meta_box_position );
 			}				
 		}
+	}
+
+
+
+	/**
+	 * Determine if the current post type should show this meta box
+	 * 
+	 * @access public
+	 * @since 1.0
+	 *
+	 */
+	protected function show_in_posttype( $post_type)
+	{
+		if( !$post_type || '' === $post_type ){
+			return false;
+		}
+		
+		if( in_array($post_type, $this->dont_show_in) ){
+			return false;
+		}
+		
+		return true;
 	}
 
 	
@@ -213,6 +240,10 @@ class Homepage_Featured {
 		if(!$post) {
 			return $post_id;
 		}
+		
+		if( false === $this->show_in_posttype( $post->post_type ) ){
+			return $post_id;
+		};
 		
 		if( 'auto-draft' === $post->post_status ){
 			return $post_id;

@@ -6,7 +6,7 @@
  *
  */
 
-class MetaBox_Promotion {
+class MetaBox_FeaturedEvents {
 
 	private $meta_config_args;
 	private $dont_show_in = array('cpt_promotion', 'tribe_events', 'cpt_advertisement');
@@ -46,7 +46,7 @@ class MetaBox_Promotion {
 	 */
 	protected function set_meta_box_args()
 	{	
-		$basename = 'show-promotion';
+		$basename = 'show-featured-events';
 		$post_type_name = 'post';
 		
 		$post_types = get_post_types();
@@ -57,51 +57,37 @@ class MetaBox_Promotion {
 		}	
 		
 		$meta_fields = array(
-			'promotion_include' => array(
-				'name' => 'promotion_include',
+			'feat_events_include' => array(
+				'name' => 'feat_events_include',
 				'type' => 'checkbox',
 				'default' => '',
-				'title' => sprintf( __( 'Check here to include a promotion in this %s.', 'navypier' ), $post_type_name ),
+				'title' => sprintf( __( 'Check here to include <strong>featured</strong> events in this %s.', 'navypier' ), $post_type_name ),
 				'description' => __('')				
 			),	
-			'promotion_title' => array(
-				'name' => 'promotion_title',
+			'feat_eventbox_title' => array(
+				'name' => 'feat_eventbox_title',
 				'type' => 'text',
-				'default' => '',
-				'title' => __('Promotion Title'),
-				'description' => __( 'Enter the name of this promotion.', 'navypier' ),
+				'default' => 'Featured Events',
+				'title' => __('Event Box Title'),
+				'description' => __('Enter an optional title.')				
 			),
-			'promotion_subtitle' => array(
-				'name' => 'promotion_subtitle',
+			'feat_events_number' => array(
+				'name' => 'feat_events_number',
 				'type' => 'text',
-				'default' => '',
-				'title' => __('Promotion Title'),
-				'description' => __('Enter an optional subtitle.')				
-			),
-			'promotion_url' => array(
-				'name' => 'promotion_url',
-				'type' => 'text',
-				'default' => '',
-				'title' => __('Promotion URL'),
-				'description' => __('Enter an optional url for this promotion.')			
-			),				
-			'promotion_action_bar' => array(
-				'name' => 'promotion_action_bar',
-				'type' => 'text',
-				'default' => '',
-				'title' => __('Action Bar'),
-				'description' => __( 'Enter the actionable items here ("Read More", "Get Deal", etc.). ex: <code>&lt;a href="#" class="icon read-more">read more&lt;/a&gt;&lt;a href="#" class="icon get-deal"&gt;get deal&lt;/a&gt;</code>', 'navypier' )				
+				'default' => '3',
+				'title' => __('Number of Events'),
+				'description' => __('Enter the number of featured events to display. Enter "all" to display all.')				
 			)			
 		);		
 			
 		$args = array(
 			'meta_box_id' => $basename . 'div',
 			'meta_box_name' => $basename . 'info',
-			'meta_box_title' => __( 'Display a Promotion' ),
+			'meta_box_title' => __( 'Include Featured Events' ),
 			'meta_box_default' => '',
-			'meta_box_description' => sprintf( __( 'Use these settings to display a promotion or deal in this %s.', 'navypier' ), $post_type_name ),
+			'meta_box_description' => sprintf( __( 'When checked, this %s will show a list of upcoming featured events.', 'navypier' ), $post_type_name ),
 			'content_types' => $post_types,
-			'meta_box_position' => 'advanced',
+			'meta_box_position' => 'side',
 			'meta_box_priority' => 'high',
 			'meta_fields' => $meta_fields
 		);		
@@ -133,8 +119,9 @@ class MetaBox_Promotion {
 			}				
 		}
 	}
-	
-	
+
+
+
 	/**
 	 * Determine if the current post type should show this meta box
 	 * 
@@ -182,30 +169,20 @@ class MetaBox_Promotion {
 
 			wp_nonce_field( plugin_basename(__CLASS__), $meta_field['name'].'_noncename' );
 			
-			if ( 'promotion_include' === $meta_field['name']) {			
-				$checked = ('promotion_include_y' === $meta_field_value) ? ' checked="checked"' : ' ' ;
+			if ( 'feat_events_include' === $meta_field['name']) {			
+				$checked = ('feat_events_include_y' === $meta_field_value) ? ' checked="checked"' : ' ' ;
 				$output .= '<p><label for="'.$meta_field['name'].'">';
-				$output .= '<input class="checkbox" type="checkbox" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="promotion_include_y"' . $checked . '/> <span class="desc">'.$meta_field['title'].'</span></label></p>';			
+				$output .= '<input class="checkbox" type="checkbox" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="feat_events_include_y"' . $checked . '/> <span class="desc">'.$meta_field['title'].'</span></label></p>';			
 			}	
 			
-			if ( 'promotion_title' === $meta_field['name']) {			
+			if ( 'feat_eventbox_title' === $meta_field['name']) {			
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
 				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';			
 			}
 			
-			if ( 'promotion_subtitle' === $meta_field['name']) {			
+			if ( 'feat_events_number' === $meta_field['name']) {			
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
-				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';			
-			}
-
-			if ( 'promotion_url' === $meta_field['name']) {			
-				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
-				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value=\''.$meta_field_value.'\' size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';			
-			}	
-
-			if ( 'promotion_action_bar' === $meta_field['name']) {			
-				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
-				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value=\''.$meta_field_value.'\' size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';			
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="3" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';			
 			}
 			
 		}
@@ -226,7 +203,6 @@ class MetaBox_Promotion {
 	 */
 	 public function save_meta($post_id, $post, $update)
 	 {
-	 		
 		// if there's no $post object it's a new post
 		if( !$post && $post_id > 0 ) {
 			$post = get_post($post_id);
@@ -300,31 +276,10 @@ class MetaBox_Promotion {
  * @param int $post_id Optional. Post ID.
  * @return bool Whether post has a promotion attached
  */
-function mbp_has_promotion( $post_id = null ) {
+function mbp_has_feat_events( $post_id = null ) {
 	$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
-	return (bool) get_post_meta( $post_id, '_promotion_include', true );
+	return (bool) get_post_meta( $post_id, '_feat_events_include', true );
 }
 
 
-function mbp_display_promotion_box( $post_id = null ){
-	$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
-	$promo_title = get_post_meta( $post_id, '_promotion_title', true );
-	$promo_subtitle = get_post_meta( $post_id, '_promotion_subtitle', true );
-	$promo_url = get_post_meta( $post_id, '_promotion_url', true );
-	$promo_actions = get_post_meta( $post_id, '_promotion_action_bar', true );
-
-	$out = '<div class="promotion-container">';
-	$out .= '<a href="'.$promo_url.'" class="promotion-text">';
-	$out .= $promo_title.'<br />';
-	$out .= '<span class="promotion-date">'.$promo_subtitle.'</span>';
-	$out .= '</a>';
-	$out .= '<div class="promotion-links">'.$promo_actions.'</div>';		
-	$out .= '</div>';			
-	
-	echo $out;
-}
-
-$MetaBox_Promotion = new MetaBox_Promotion();
-
-
-?>
+$MetaBox_FeaturedEvents = new MetaBox_FeaturedEvents();

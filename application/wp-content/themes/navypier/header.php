@@ -66,15 +66,9 @@
 			'theme_location' => 'primary',
 			'echo' => 0
 		);		
-		$menu = '<ul>';	
-		#$menu .= '<li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>';
-		$menu .= wp_nav_menu($menu_args);
-		$menu .= '</ul>';
-		echo $menu;		
-		?>
-		
-        <ul>
-          <li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>
+		$menu = '<ul id="menu-top-primary" class="nav-menu">';	
+		$menu .= '<li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>';
+		/*
           <li class="mobile-only"><a>Quick Links<img src="images/menu-caret.png" class="caret"></a>
             <div class="drop-down">
               <ul>
@@ -96,121 +90,13 @@
                 <li><a href="http://blog.navypier.com/" target="_blank">Blog</a></li>
               </ul>
             </div>
-          </li>
-          <li><a>Redevelopment<img src="images/menu-caret.png" class="caret"></a>
-            <div class="drop-down">
-              <ul>
-                <li class="title"><i class="fa fa-tag"></i>&nbsp;&nbsp;&nbsp;Category</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-                <li><a href="#">Drop Down Link 4</a></li>
-                <li><a href="#">Drop Down Link 5</a></li>
-                <li><a href="#">Drop Down Link 6</a></li>
-                <li><a href="#">Drop Down Link 7</a></li>
-              </ul>
-              <ul>
-                <li class="title"><i class="fa fa-tag"></i>&nbsp;&nbsp;&nbsp;A Longer Title</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-              </ul>
-              <ul>
-                <li class="title"><i class="fa fa-tag"></i>&nbsp;&nbsp;&nbsp;Category</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-                <li><a href="#">Drop Down Link 4</a></li>
-              </ul>
-            </div>
-          </li>
-          <li><a>Play<img src="images/menu-caret.png" class="caret"></a>
-            <div class="drop-down">
-              <ul>
-                <li class="title"><i class="fa fa-male"></i>&nbsp;&nbsp;&nbsp;By Land</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-                <li><a href="#">Drop Down Link 4</a></li>
-                <li><a href="#">Drop Down Link 5</a></li>
-                <li><a href="#">Drop Down Link 6</a></li>
-              </ul>
-              <ul>
-                <li class="title"><i class="fa fa-anchor"></i>&nbsp;&nbsp;&nbsp;By Lake</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-                <li><a href="#">Drop Down Link 4</a></li>
-              </ul>
-            </div>
-          </li>
-          <li><a>Eat<img src="images/menu-caret.png" class="caret"></a>
-            <div class="drop-down">
-              <ul>
-                <li class="title"><i class="fa fa-male"></i>&nbsp;&nbsp;&nbsp;By Land</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-                <li><a href="#">Drop Down Link 4</a></li>
-              </ul>
-              <ul>
-                <li class="title"><i class="fa fa-anchor"></i>&nbsp;&nbsp;&nbsp;By Lake</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-                <li><a href="#">Drop Down Link 4</a></li>
-                <li><a href="#">Drop Down Link 5</a></li>
-                <li><a href="#">Drop Down Link 6</a></li>
-              </ul>
-            </div>
-          </li>
-          <li><a>Calendar<img src="images/menu-caret.png" class="caret"></a>
-            <div class="drop-down">
-              <ul>
-                <li class="title"><i class="fa fa-tag"></i>&nbsp;&nbsp;&nbsp;Category</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-              </ul>
-              <ul>
-                <li class="title"><i class="fa fa-tag"></i>&nbsp;&nbsp;&nbsp;Category</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-              </ul>
-              <ul>
-                <li class="title"><i class="fa fa-tag"></i>&nbsp;&nbsp;&nbsp;Category</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-              </ul>
-            </div>
-          </li>
-          <li><a>Cruises<img src="images/menu-caret.png" class="caret"></a>
-            <div class="drop-down">
-              <ul>
-                <li class="title"><i class="fa fa-tag"></i>&nbsp;&nbsp;&nbsp;Category</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-              </ul>
-            </div>
-          </li>
-          <li><a>Visit<img src="images/menu-caret.png" class="caret"></a>
-            <div class="drop-down">
-              <ul>
-                <li class="title"><i class="fa fa-tag"></i>&nbsp;&nbsp;&nbsp;Category</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-              </ul>
-              <ul>
-                <li class="title"><i class="fa fa-tag"></i>&nbsp;&nbsp;&nbsp;Category</li>
-                <li><a href="#">Drop Down Link 1</a></li>
-                <li><a href="#">Drop Down Link 2</a></li>
-                <li><a href="#">Drop Down Link 3</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
+          </li>		
+		  */
+		$menu .= wp_nav_menu($menu_args);
+		$menu .= '</ul>';
+		echo $menu;		
+		?>
+
       </nav>
 
 	  <div class="book-event"><a href="#">Book Your Event</a></div>

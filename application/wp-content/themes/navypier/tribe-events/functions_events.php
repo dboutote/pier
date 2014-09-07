@@ -41,13 +41,15 @@ function np_get_event_url($post_id = null)
 	return apply_filters('np_event_url', $url, $post_id);
 }
 
-
 /**
- * Load the Meta Box for Venue Lat/Long
+ * Filter WP default permalink for Event post types
  */
-require('metabox_venue_info.php');
-
-
+function np_replace_event_permalink(){
+	if( 'tribe_events' == get_post_type() ){
+		return np_get_event_url(get_the_ID());
+	}
+}
+add_filter('the_permalink', 'np_replace_event_permalink');
 
 
 /**
@@ -85,3 +87,66 @@ function np_tribe_get_default_long(){
 	$output = '-87.5998759';
 	return apply_filters('tribe_get_default_long', $output);
 }
+
+
+/**
+ * Function to get Featured Events
+ * 
+ * Wrapper of tribe_get_events()
+ *
+ * @returns array $events An array of event post objects on success | empty array on failure
+ */
+function np_get_featured_events( $num = 10 ){
+	$posts_per_page = (int) $num;
+	$events = tribe_get_events(
+		array(
+			'eventDisplay'=>'upcoming',
+			'posts_per_page' => $posts_per_page,
+			'tax_query'=> array(
+				array(
+					'taxonomy' => 'tribe_events_cat',
+					'field' => 'slug',
+					'terms' => 'featured'
+				)
+			)
+		)
+	);
+	
+	return $events;
+}
+
+/**
+ * Function to get events
+ *
+ * Wrapper of tribe_get_events()
+ *
+ * @returns array $events An array of event post objects on success | empty array on failure
+ */
+function np_get_events( $num = 10 ){
+	$posts_per_page = (int) $num;
+	$events = tribe_get_events(
+		array(
+			'eventDisplay'=>'upcoming',
+			'posts_per_page' => $posts_per_page,
+		)
+	);
+	
+	return $events;
+}
+ 
+ 
+ 
+/**
+ * Load the Meta Box for Venue Lat/Long
+ */
+require('metabox_venue_info.php');
+
+/**
+ * Load the Meta Box for displaying Events 
+ */
+require('metabox_events.php');
+
+/**
+ * Load the Meta Box for displaying Featured Events 
+ */
+require('metabox_events_featured.php');

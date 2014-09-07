@@ -52,15 +52,17 @@ if( has_post_thumbnail() ){
 
 
 <!-- show Featured Events if they've selected it -->
+<?php if( mbp_has_feat_events() ) { ?>
+	<?php get_sidebar('events-feat');?>
+<?php } ?>
 
 <!-- show upcoming events if they've selected it -->
-
+<?php if( mbp_has_events() ) { ?>
+	<?php get_sidebar('events');?>
+<?php } ?>
 
 </div> <!-- /.container -->
 
-<?php get_sidebar('ads');?>
+<?php get_sidebar('ads'); 
 
-
-
-<?php
 get_footer();

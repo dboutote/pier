@@ -51,3 +51,149 @@ Text Domain: navypier
 .calendar-wrap {
 	background-color: #fff;
 }
+
+
+
+
+/**
+ * Primary Menu
+ */
+ 
+header .middle nav.main {
+    float: left;
+    height: 75px;
+    width: 565px;
+}
+#menu-top-primary {
+    padding: 0 14px;
+}
+
+#menu-top-primary li.mobile-only {
+    display: none;
+}
+
+#menu-top-primary > li {
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+#menu-top-primary > li > a, 
+#menu-top-primary > li > a:visited {
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 28px 7px 28px 9px;
+    position: relative;
+    text-transform: uppercase;
+}
+
+#menu-top-primary li:hover a {
+	color: #3fcfd5; 
+	color: rgba(63,207,213,0.8);
+}
+
+#menu-top-primary > li > .sub-menu {
+	position: absolute;
+	/*display: none;*/
+	top: 75px;
+	left: 320px;
+	width: 616px;
+	padding: 12px;
+	background-color: #3fcfd5;  
+	background-color: rgba(58,186,194,0.95);
+	z-index: 9999;
+	-webkit-transition: background 250ms ease-in-out;
+	-moz-transition: background 250ms ease-in-out;
+	-ms-transition: background 250ms ease-in-out;
+	-o-transition: background 250ms ease-in-out;
+	transition: background 250ms ease-in-out;
+}
+
+#menu-top-primary > li > .sub-menu > li {
+	display: block;
+	float: left;
+	padding: 0px 14px;
+	margin-bottom: 10px;
+}
+
+#menu-top-primary > li > .sub-menu > li > a {
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    padding: 10px 12px;
+    text-transform: uppercase;
+}
+
+
+#menu-top-primary > li > .sub-menu > li > .sub-menu li a,
+#menu-top-primary > li > .sub-menu > li > .sub-menu li a:visited {
+    color: #fff;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 8px 12px;
+    white-space: nowrap;
+    display: block;
+    position: relative;
+    text-transform: uppercase;
+}
+
+#menu-top-primary > li > .sub-menu > li > .sub-menu li a:hover {
+    background-color: #fff;
+    color: #3fcfd5;
+}
+
+
+
+/*
+ #menu-top-primary > li > .sub-menu ul.sub-menu {
+    float: left;
+    margin-bottom: 10px;
+}
+
+#menu-top-primary > li > .sub-menu > li {
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+#menu-top-primary > li > .sub-menu > li > .sub-menu > li {
+	float: none;
+}
+
+
+header .middle nav.main ul li a, 
+header .middle nav.main ul li a:visited {
+    color: #fff;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 28px 7px 28px 9px;
+    position: relative;
+    text-transform: uppercase;
+}
+
+header .middle nav.main .drop-down ul li a, 
+header .middle nav.main .drop-down ul li a:visited {
+    color: #fff;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 8px 12px;
+    white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+
+
+
+

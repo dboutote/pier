@@ -300,6 +300,16 @@ function np_load_scripts(){
 	}
 	
 	wp_enqueue_script('np-scripts');
+	
+	wp_localize_script(
+		'np-scripts',
+		'np_scripts',
+		array(
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'images_url' => get_stylesheet_directory_uri() . '/images/'
+		)
+	);
+		
 }
 add_action('wp_enqueue_scripts', 'np_load_scripts');
 

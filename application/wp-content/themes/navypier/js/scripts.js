@@ -46,29 +46,30 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		// Compensates for differences between the HTML WP produces and the HTML provided in the design
 		$('#menu-top-quick-links > li > a').addClass('tooltip');
 		$('#menu-top-social-links > li > a').addClass('tooltip');
-		$('.nav-menu a[href*="'+window.location.href+'"]').parent('li').addClass('active current-menu-item');	
+		$('.nav-menu a[href*="'+window.location.href+'"]').parent('li').addClass('active current-menu-item');		
+		
 		
 		var mobileMenuButton = $('.menu-btn'),
 		mobileMenu = $('nav.main'),
 		headerContainer = $('header');
-		$('nav.main ul li .drop-down').hide(); // PREVENTS DROP-DOWNS FROM DEFAULTING TO OPEN POSITION ON PAGE LOAD
+		$('#menu-top-primary > li > ul.sub-menu').hide(); // PREVENTS DROP-DOWNS FROM DEFAULTING TO OPEN POSITION ON PAGE LOAD
 		if (deviceWidth > 960 && !isMobile.any()) { // DESKTOP FUNCTIONS
-			$('nav.main ul li').hover(function() {
-				$('.drop-down', this).stop().slideToggle(250);
+			$('#menu-top-primary > li').hover(function() {				
+				$('.sub-menu', this).first().stop().slideToggle(250);
 			}, function(){
-				$('.drop-down', this).stop().slideToggle(100);
+				$('.sub-menu', this).first().stop().slideToggle(100);
 			});
 		}
 		else { // MOBILE FUNCTIONS
 			if (isMobile.iPad()) { // IPADS ONLY
-				$('nav.main ul li').click(function() {
-					$('.drop-down').not(this).stop().slideUp(100);
-					$('.drop-down', this).stop().slideToggle(250);
+				$('#menu-top-primary li').click(function() {
+					$('.sub-menu').not(this).stop().slideUp(100);
+					$('.sub-menu', this).first().stop().slideToggle(250);
 				});		
 			}
 			else { // PHONES AND NON-IPAD TABLETS
-				$('nav.main ul li').click(function() {
-					$('.drop-down', this).stop().slideToggle(250);
+				$('#menu-top-primary li').click(function() {
+					$('.sub-menu', this).first().stop().slideToggle(250);
 				});
 			}
 			mobileMenuButton.click(function() {
@@ -141,7 +142,8 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			
 			var dismiss = '[data-dismiss="alert"]'
   
-			$mcForm.on('click', dismiss, function(){
+			$mcForm.on('click', dismiss, function(e){
+				e.preventDefault();
 				var $this    = $(this)
 				var selector = $this.attr('data-target');
 				var $parent  = $(selector);
@@ -381,7 +383,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 					position: location,
 					map: map,
 					animation: google.maps.Animation.DROP,
-					icon: 'images/map-marker.svg'
+					icon: np_scripts.images_url + 'map-marker.svg'
 				});
 				markersArray.push(marker);
 			}, 750);
