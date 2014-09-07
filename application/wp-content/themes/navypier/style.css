@@ -264,6 +264,10 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 		float: none !important;
 		z-index: 30000;
 	}	
+	
+	#menu-top-primary {
+		height: 500px;
+	}
 
 }
 
