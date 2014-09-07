@@ -208,11 +208,6 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 		text-align: left;
 	}
 	
-	#menu-top-primary * {
-		display: block !important;
-		float: none !important;
-	}
-
 	#menu-top-primary li:hover a {
 		color: #fff;
 	}
@@ -263,6 +258,11 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 		padding: 6px 12px;
 		font-size: 12px;
 	}
+	
+	#menu-top-primary * {
+		display: block !important;
+		float: none !important;
+	}	
 
 }
 
