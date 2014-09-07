@@ -1380,7 +1380,7 @@ header .top {
 	display: none;
 }
 header .middle {
-	height: 55px;
+	/*height: 55px;*/
 }
 header .middle, header .middle.sticky, header .middle.sticky.slide {
 	background-color: #221e1f;
