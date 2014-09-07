@@ -261,6 +261,7 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 
 	#menu-top-primary {
 		height: 300px;	
+		overflow: auto;
 		z-index: 9999;
 	}
 }
