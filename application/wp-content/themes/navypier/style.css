@@ -198,13 +198,16 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 
 
 @media only screen and (max-width: 760px) {
+nav.main {
+	height: auto;
+}
 	#menu-top-primary {
 		padding: 0;
 	}
 
 	#menu-top-primary li {
 		float: none;
-		text-align: left;
+		text-align: right;
 	}
 
 	#menu-top-primary li:hover a {
