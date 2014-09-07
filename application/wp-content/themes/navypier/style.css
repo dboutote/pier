@@ -198,16 +198,19 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 
 
 @media only screen and (max-width: 760px) {
-nav.main {
-	height: auto;
-}
+
 	#menu-top-primary {
 		padding: 0;
 	}
 
 	#menu-top-primary li {
 		float: none;
-		text-align: right;
+		text-align: left;
+	}
+	
+	#menu-top-primary > li {
+		display: block;
+		float: none;
 	}
 
 	#menu-top-primary li:hover a {
@@ -223,9 +226,7 @@ nav.main {
 		border-bottom: 1px solid rgba(255,255,255,0.1);
 		background-color: #222;
 	}
-#menu-top-primary li {
-	display: block;
-}
+
 	#menu-top-primary li.mobile-only {
 		display: block;
 	}
