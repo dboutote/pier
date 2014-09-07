@@ -110,6 +110,11 @@ header .middle nav.main {
 	-o-transition: background 250ms ease-in-out;
 	transition: background 250ms ease-in-out;
 }
+header .middle.sticky #menu-top-primary > li > .sub-menu {
+	background-color: #34aab1; 
+	background-color: rgba(52,170,177,0.95);
+}
+
 
 #menu-top-primary > li > .sub-menu > li {
 	display: block;
