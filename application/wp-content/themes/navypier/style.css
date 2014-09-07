@@ -58,12 +58,7 @@ Text Domain: navypier
 /**
  * Primary Menu
  */
- 
-header .middle nav.main {
-    float: left;
-    height: 75px;
-    width: 565px;
-}
+
 #menu-top-primary {
     padding: 0 14px;
 }
@@ -114,13 +109,12 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 	background-color: #34aab1; 
 	background-color: rgba(52,170,177,0.95);
 }
-
-
 #menu-top-primary > li > .sub-menu > li {
 	display: block;
 	float: left;
 	padding: 0px 14px;
 	margin-bottom: 10px;
+	text-align:left;
 }
 
 #menu-top-primary > li > .sub-menu > li > a {
@@ -132,8 +126,8 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
     margin-bottom: 12px;
     padding: 10px 12px;
     text-transform: uppercase;
+	
 }
-
 
 #menu-top-primary > li > .sub-menu > li > .sub-menu li a,
 #menu-top-primary > li > .sub-menu > li > .sub-menu li a:visited {
@@ -152,51 +146,107 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
     color: #3fcfd5;
 }
 
-
-
-/*
- #menu-top-primary > li > .sub-menu ul.sub-menu {
-    float: left;
-    margin-bottom: 10px;
-}
-
-#menu-top-primary > li > .sub-menu > li {
-    display: block;
-    float: left;
-    text-align: center;
-}
-
-#menu-top-primary > li > .sub-menu > li > .sub-menu > li {
-	float: none;
-}
-
-
-header .middle nav.main ul li a, 
-header .middle nav.main ul li a:visited {
-    color: #fff;
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 28px 7px 28px 9px;
+#menu-top-primary > li > a .caret {	
+    height: auto;
+    left: 3px;
     position: relative;
-    text-transform: uppercase;
+    width: 5px;
 }
 
-header .middle nav.main .drop-down ul li a, 
-header .middle nav.main .drop-down ul li a:visited {
-    color: #fff;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 8px 12px;
-    white-space: nowrap;
+@media only screen and (max-width: 960px) {
+	#menu-top-primary > li > .sub-menu > li {
+		padding: 0 0 0 14px;
+	}
+	
+	#menu-top-primary > li > a, 
+	#menu-top-primary > li > a:visited {
+		font-size: 12px;
+		padding: 28px 6px;
+	}
+	#menu-top-primary > li > a .caret {
+		top: -6px;
+	}
+	
+	#menu-top-primary > li > .sub-menu {
+		left: 220px;
+		width: 410px;
+	}
+	#menu-top-primary > li > .sub-menu > li {
+		margin-bottom: 4px;
+	}
+	#menu-top-primary > li > .sub-menu > li > a {
+		font-size: 11px;
+	}
+	#menu-top-primary > li > .sub-menu > li > .sub-menu li a,
+	#menu-top-primary > li > .sub-menu > li > .sub-menu li a:visited {
+		font-size: 11px;
+		padding: 6px 4px;
+	}
 }
 
 
+@media only screen and (max-width: 760px) {
+	#menu-top-primary {
+		padding: 0;
+	}
 
+	#menu-top-primary li {
+		float: none;
+		text-align: left;
+	}
 
+	#menu-top-primary li:hover a {
+		color: #fff;
+	}
 
+	#menu-top-primary li.active > a {
+		color: #3fcfd5; /* FALLBACK */
+		color: rgba(63,207,213,0.8);
+	}
 
+	#menu-top-primary > li {
+		border-bottom: 1px solid rgba(255,255,255,0.1);
+		background-color: #222;
+	}
 
+	#menu-top-primary li.mobile-only {
+		display: block;
+	}
+
+	#menu-top-primary > li > a, 
+	#menu-top-primary > li > a:visited {
+		padding: 18px 28px 16px 28px;
+	}
+
+	#menu-top-primary > li > .sub-menu {
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 100%;
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 100%;
+		padding: 0;
+	}
+
+	#menu-top-primary > li > .sub-menu > li {
+		float: none;
+		padding: 0 28px 18px 28px;
+		margin-bottom: 0;
+	}
+
+	#menu-top-primary > li > .sub-menu > li:first-child {
+		padding-top: 18px;
+	}
+
+	#menu-top-primary > li > .sub-menu > li > .sub-menu li a,
+	#menu-top-primary > li > .sub-menu > li > .sub-menu li a:visited {
+		padding: 6px 12px;
+		font-size: 12px;
+	}
+
+}
 
 
 

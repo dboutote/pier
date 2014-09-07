@@ -52,6 +52,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		var mobileMenuButton = $('.menu-btn'),
 		mobileMenu = $('nav.main'),
 		headerContainer = $('header');
+		$('#menu-top-primary > li.menu-item-has-children > a').append('<img class="caret" src="'+np_scripts.images_url +'menu-caret.png">');
 		$('#menu-top-primary > li > ul.sub-menu').hide(); // PREVENTS DROP-DOWNS FROM DEFAULTING TO OPEN POSITION ON PAGE LOAD
 		if (deviceWidth > 960 && !isMobile.any()) { // DESKTOP FUNCTIONS
 			$('#menu-top-primary > li').hover(function() {				

@@ -279,12 +279,13 @@ header .middle .menu-btn {
 header .middle .logo img {
 	width: 300px;
 }
-/*
+
 header .middle nav.main {
 	width: 565px;
 	height: 75px;
 	float: left;
 }
+/*
 header .middle nav.main ul {
 	padding: 0 14px;
 }
@@ -293,9 +294,11 @@ header .middle nav.main ul li {
 	float: left;
 	text-align: center;
 }
+*/
 header .middle nav.main ul li.mobile-only {
 	display: none;
 }
+/*
 header .middle nav.main ul li a, header .middle nav.main ul li a:visited {
 	text-transform: uppercase;
 	color: #fff;
@@ -1177,6 +1180,7 @@ header .middle .logo img {
 header .middle nav.main {
 	width: auto;
 }
+/*
 header .middle nav.main ul {
 	padding: 0 0 0 14px;
 }
@@ -1201,6 +1205,7 @@ header .middle nav.main .drop-down ul li a, header .middle nav.main .drop-down u
 	font-size: 11px;
 	padding: 6px 4px;
 }
+*/
 header .middle .book-event {
 	display: none;
 }
@@ -1435,6 +1440,7 @@ header .middle nav.main .drop-down ul li.title {
 header .middle nav.main.show-menu {
 	left: 0;
 }
+/*
 header .middle nav.main ul {
 	padding: 0;
 }
@@ -1446,16 +1452,18 @@ header .middle nav.main ul li:hover a {
 	color: #fff;
 }
 header .middle nav.main ul li.active>a {
-	color: #3fcfd5; /* FALLBACK */
+	color: #3fcfd5;
 	color: rgba(63,207,213,0.8);
 }
 header .middle nav.main>ul>li {
 	border-bottom: 1px solid rgba(255,255,255,0.1);
 	background-color: #222;
 }
+
 header .middle nav.main ul li.mobile-only {
 	display: block;
 }
+
 header .middle nav.main ul li a, header .middle nav.main ul li a:visited {
 	padding: 18px 28px 16px 28px;
 }
@@ -1482,6 +1490,7 @@ header .middle nav.main .drop-down ul li a, header .middle nav.main .drop-down u
 	padding: 6px 12px;
 	font-size: 12px;
 }
+*/
 header .middle .book-event {
 	display: none;
 }
