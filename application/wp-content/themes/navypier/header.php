@@ -67,7 +67,7 @@
 			'echo' => 0
 		);		
 		$menu = '<ul id="menu-top-primary" class="nav-menu">';	
-		//$menu .= '<li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>';
+		$menu .= '<li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>';
 /*		
 		$menu .= '
           <li class="mobile-only"><a>Quick Links<img src="images/menu-caret.png" class="caret"></a>

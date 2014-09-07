@@ -75,6 +75,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				});
 			}
 			mobileMenuButton.click(function() {
+			alert('fuck');
 				if (mobileMenu.hasClass('show-menu')) { // CLOSED MOBILE MENU Z-INDEX FIX
 					setTimeout(function() {
 						headerContainer.toggleClass('resize');
