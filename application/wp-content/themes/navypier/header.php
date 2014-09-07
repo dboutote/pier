@@ -67,7 +67,8 @@
 			'echo' => 0
 		);		
 		$menu = '<ul id="menu-top-primary" class="nav-menu">';	
-		$menu .= '<li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>';
+		//$menu .= '<li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>';
+/*		
 		$menu .= '
           <li class="mobile-only"><a>Quick Links<img src="images/menu-caret.png" class="caret"></a>
             <div class="drop-down">
@@ -90,7 +91,8 @@
                 <li><a href="http://blog.navypier.com/" target="_blank">Blog</a></li>
               </ul>
             </div>
-          </li>	';	
+          </li>	';
+//*/		  
 		$menu .= wp_nav_menu($menu_args);
 		$menu .= '</ul>';
 		echo $menu;		
