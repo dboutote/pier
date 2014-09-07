@@ -258,16 +258,6 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 		padding: 6px 12px;
 		font-size: 12px;
 	}
-	
-	#menu-top-primary * {
-		display: block !important;
-		float: none !important;
-		z-index: 30000;
-	}	
-	
-	#menu-top-primary {
-		height: 500px;
-	}
 
 }
 
