@@ -208,9 +208,9 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 		text-align: left;
 	}
 	
-	#menu-top-primary > li {
-		display: block;
-		float: none;
+	#menu-top-primary * {
+		display: block !important;
+		float: none !important;
 	}
 
 	#menu-top-primary li:hover a {
