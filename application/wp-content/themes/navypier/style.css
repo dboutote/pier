@@ -220,7 +220,9 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 		border-bottom: 1px solid rgba(255,255,255,0.1);
 		background-color: #222;
 	}
-
+#menu-top-primary li {
+	display: block;
+}
 	#menu-top-primary li.mobile-only {
 		display: block;
 	}
