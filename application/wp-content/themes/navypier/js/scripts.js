@@ -65,6 +65,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			if (isMobile.iPad()) { // IPADS ONLY
 				$('#menu-top-primary > li').click(function() {
 					//$('.sub-menu').not(this).stop().slideUp(100);
+					$('.sub-menu', this).first().not(this).stop().slideUp(100);
 					$('.sub-menu', this).first().stop().slideToggle(250);
 				});		
 			}
