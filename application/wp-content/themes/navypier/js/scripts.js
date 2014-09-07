@@ -74,8 +74,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 					$('.sub-menu', this).first().stop().slideToggle(250);
 				});
 			}
-			mobileMenuButton.click(function() {
-			alert('fuck');
+			mobileMenuButton.click(function() {			
 				if (mobileMenu.hasClass('show-menu')) { // CLOSED MOBILE MENU Z-INDEX FIX
 					setTimeout(function() {
 						headerContainer.toggleClass('resize');
