@@ -170,6 +170,7 @@ header .top nav ul.quick-links li a, header .top nav ul.quick-links li a:visited
 header .top nav ul.quick-links li a:hover {
 	opacity: 0.5;
 }
+/*
 header .top .search {
 	text-align: right;
 	display: inline-block;
@@ -188,7 +189,7 @@ header .top .search {
 }
 header .top .search:hover, header .top .search.active {
 	opacity: 0.5;
-}
+}*/
 header .search-row {
 	width: 100%;
 	height: 0;

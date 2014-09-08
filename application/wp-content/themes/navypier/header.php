@@ -41,7 +41,7 @@
 				<?php echo np_get_top_menu_social(); ?>
 				<?php echo np_get_top_menu_quick(); ?>
 			</nav>
-			<div class="search tooltip" title="Search"><i class="fa fa-search"></i></div>
+			<div class="search-trigger tooltip" title="Search"><i class="fa fa-search"></i></div>
 		</div><!-- /.container -->
 	</div><!-- /.top -->
   

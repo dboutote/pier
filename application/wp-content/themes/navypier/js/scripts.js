@@ -60,8 +60,6 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			$(this).replaceWith( "<span class=\"menu-title\">" + $( this ).html() + "</span>" );
 		});
 		
-		
-		
 		if (deviceWidth > 960 && !isMobile.any()) { // DESKTOP FUNCTIONS
 			$('#menu-top-primary > li').hover(function() {				
 				$('.sub-menu', this).first().stop().slideToggle(250);
@@ -120,9 +118,9 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 	
 	/* ----- SEARCH FUNCTIONS ----- */
 	$(document).ready(function() {
-		var searchLink = $('.search'),
+		var searchLink = $('.search-trigger'),
 		searchContainer = $('.search-row'),
-		searchForm = $('.search .container form'),
+		searchForm = $('.search-row .container form'),
 		searchButton = $('.search-row .container form input[type="submit"]');
 		searchLink.click(function() {
 			searchLink.toggleClass('active');

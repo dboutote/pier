@@ -11,6 +11,28 @@ Tags:
 Text Domain: navypier
 */
 
+
+header .top .search-trigger {
+	text-align: right;
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 7px 0;
+	font-size: 17px;
+	color: #221e1f;
+	cursor: pointer;
+	-webkit-transition: all 250ms ease-in-out;
+	-moz-transition: all 250ms ease-in-out;
+	-ms-transition: all 250ms ease-in-out;
+	-o-transition: all 250ms ease-in-out;
+	transition: all 250ms ease-in-out;
+}
+header .top .search-trigger:hover, header .top .search-trigger.active {
+	opacity: 0.5;
+}
+
+
 #mc-embedded-subscribe-form .response {
 	position: absolute;
 	top: 0;
