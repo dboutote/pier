@@ -65,34 +65,20 @@
 			'items_wrap' => '%3$s',
 			'theme_location' => 'primary',
 			'echo' => 0
-		);		
+		);	
+		
+		$social_menu_args = array(
+			'menu_class' => 'nav-menu',
+			'container'=> '',
+			'fallback_cb' => false,
+			'items_wrap' => '<li class="mobile-only menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item current-menu-ancestor menu-item-has-children"><a href="/#">Quick Links</a><ul class="sub-menu" id="mobile-quick-links">%3$s</ul></li>',
+			'theme_location' => 'quick-mobile',
+			'echo' => 0
+		);
+	
 		$menu = '<ul id="menu-top-primary" class="nav-menu">';	
 		$menu .= '<li id="mobile-map-btn" class="mobile-only"><a href="#">View Map</a></li>';
-/*		
-		$menu .= '
-          <li class="mobile-only"><a>Quick Links<img src="images/menu-caret.png" class="caret"></a>
-            <div class="drop-down">
-              <ul>
-                <li class="title"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;&nbsp;Information</li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Media &amp; PR</a></li>
-                <li><a href="#">Sponsorship</a></li>
-                <li><a href="#">Donate</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Book Your Event</a></li>
-                <li><a href="#">Contact</a></li>
-              </ul>
-              <ul>
-                <li class="title"><i class="fa fa-comments"></i>&nbsp;&nbsp;&nbsp;Social Media</li>
-                <li><a href="https://twitter.com/navypier" target="_blank">Twitter</a></li>
-                <li><a href="https://www.facebook.com/navypier" target="_blank">Facebook</a></li>
-                <li><a href="http://www.youtube.com/user/NavyPierTV" target="_blank">YouTube</a></li>
-                <li><a href="http://instagram.com/navypierchicago" target="_blank">Instagram</a></li>
-                <li><a href="http://blog.navypier.com/" target="_blank">Blog</a></li>
-              </ul>
-            </div>
-          </li>	';
-//*/		  
+		$menu .= wp_nav_menu($social_menu_args);
 		$menu .= wp_nav_menu($menu_args);
 		$menu .= '</ul>';
 		echo $menu;		

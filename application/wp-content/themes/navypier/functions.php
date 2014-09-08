@@ -102,6 +102,7 @@ if ( ! function_exists( 'np_theme_setup' ) ) {
 				'social-top'      => __( 'Top social links menu ', 'navypier' ),
 				'quick-top'       => __( 'Top quick links menu ', 'navypier' ),
 				'footer-primary'  => __( 'Footer primary menu ', 'navypier' ),
+				'quick-mobile'    => __( 'Mobile quick links menu ', 'navypier' ),
 		));
 
 		 // Switch default core markup for search form, comment form, and comments to output valid HTML5.

@@ -54,6 +54,14 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		headerContainer = $('header');
 		$('#menu-top-primary > li.menu-item-has-children > a').append('<img class="caret" src="'+np_scripts.images_url +'menu-caret.png">');
 		$('#menu-top-primary > li > ul.sub-menu').hide(); // PREVENTS DROP-DOWNS FROM DEFAULTING TO OPEN POSITION ON PAGE LOAD
+				
+		// replace the top-level links in sub menus with spans (prevents hover/click issues)
+		$('#menu-top-primary > li > .sub-menu > li > a').each(function(){
+			$(this).replaceWith( "<span class=\"menu-title\">" + $( this ).html() + "</span>" );
+		});
+		
+		
+		
 		if (deviceWidth > 960 && !isMobile.any()) { // DESKTOP FUNCTIONS
 			$('#menu-top-primary > li').hover(function() {				
 				$('.sub-menu', this).first().stop().slideToggle(250);
@@ -63,14 +71,14 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		}
 		else { // MOBILE FUNCTIONS
 			if (isMobile.iPad()) { // IPADS ONLY
-				$('#menu-top-primary > li').click(function() {
-					//$('.sub-menu').not(this).stop().slideUp(100);
+				$('#menu-top-primary > li').click(function() {					
 					$('#menu-top-primary > li > .sub-menu').not(this).stop().slideUp(100);
 					$('.sub-menu', this).first().stop().slideToggle(250);
 				});		
 			}
 			else { // PHONES AND NON-IPAD TABLETS
-				$('#menu-top-primary li').click(function() {
+				$('#menu-top-primary > li').click(function() {
+					//$(this).parent('li').children('.sub-menu').first().stop().slideToggle(250);
 					$('.sub-menu', this).first().stop().slideToggle(250);
 				});
 			}
