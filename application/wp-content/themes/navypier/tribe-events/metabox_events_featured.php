@@ -135,7 +135,7 @@ class MetaBox_FeaturedEvents {
 			return false;
 		}
 		
-		if( in_array($post_type, $this->dont_show_in) ){
+		if ( in_array( $post_type, apply_filters( 'include_feat_events_dont_show_list', $this->dont_show_in, $post_type ) ) ){
 			return false;
 		}
 		

@@ -46,6 +46,9 @@ function get_files($dir_path) {
 // include needed functions
 include(MU_INC_DIR . '/mstr-functions.php');
 
+// include the landing page class
+include(MU_DIR . '/landing-page/init.php');
+
 /**
  * Removes Adjacent post links from the header
  */
