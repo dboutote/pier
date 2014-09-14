@@ -648,3 +648,26 @@ if ( ! class_exists( 'MetaBox_Promotion' ) && 'plugins.php' !== $GLOBALS['pageno
  * Load Event Calendar functions
  */
 require get_template_directory() . '/tribe-events/functions_events.php';
+
+
+/**
+ * Generate the url for a single Promotion
+ */
+function np_get_promo_url($post_id = null)
+{
+	$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
+	$url =  home_url('/promotions/') . '#entry-' . $post_id;
+	
+	return apply_filters('np_promo_url', $url, $post_id);
+}
+
+/**
+ * Filter WP default permalink for Promotion post types
+ */
+function np_replace_promo_permalink($url){
+	if( 'cpt_promotion' === get_post_type() ){
+		return np_get_promo_url(get_the_ID());
+	}
+	return $url;
+}
+add_filter('the_permalink', 'np_replace_promo_permalink');

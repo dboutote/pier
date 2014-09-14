@@ -33,7 +33,16 @@ class MetaBox_LandingPage {
 		add_action( 'wp_ajax_setup_type_taxonomies', array($this, 'get_type_taxonomies') );
 	}
 	
-	
+	/**
+	 * Build a Select Element with Taxonomy Terms
+	 *
+	 * @access  public
+	 * @since   1.0
+	 * @uses get_post_types()
+	 * @uses get_object_taxonomies()
+	 * @uses get_terms()
+	 * @return  string JSON string of select options
+	 */
 	public function get_type_taxonomies()
 	{
 		$raw_data = $_POST;
@@ -69,16 +78,12 @@ class MetaBox_LandingPage {
 			
 		$notice .= '<option value="">-- '. __( 'Select Category' ).' --</option>';
 		foreach($tax_terms as $term ){
-			$notice .= '<option value="'.$term->taxonomy . ':' .$term->slug.'">'.$term->name.'</option>';
+			$notice .= '<option value="'.$term->taxonomy . ':' .$term->slug.'">'.$term->name.' ('.$term->count.')</option>';
 		}
 				
 		$response['code'] = '1';
 		$response['notice'] = $notice;
 		die(json_encode($response));
-			
-		debug($tax_types);
-		debug($tax_terms);
-		wp_die(__METHOD__);
 	}
 	
 	
@@ -142,7 +147,7 @@ class MetaBox_LandingPage {
 	 */
 	protected function set_meta_box_args()
 	{
-		$basename = 'show-restaurants';
+		$basename = 'landingpage';
 		$post_type_name = 'post';
 
 		$post_types = get_post_types();
@@ -153,13 +158,6 @@ class MetaBox_LandingPage {
 		}
 
 		$meta_fields = array(
-			'restaurants_include' => array(
-				'name' => 'restaurants_include',
-				'type' => 'checkbox',
-				'default' => '',
-				'title' => sprintf( __( 'Check here to include restaurants in this %s.', 'navypier' ), $post_type_name ),
-				'description' => __('')
-			),
 			'entries_title' => array(
 				'name' => 'entries_title',
 				'type' => 'text',
@@ -167,25 +165,25 @@ class MetaBox_LandingPage {
 				'title' => __('Entries Box Title'),
 				'description' => __('Enter an optional title.')
 			),
-			'show_type' => array(
-				'name' => 'show_type',
+			'entries_type' => array(
+				'name' => 'entries_type',
 				'type' => 'checkbox',
 				'default' => '',
 				'title' => __('Select Post Type'),
 				'description' => __('Select which post type will appear on this page.')
 			),
-			'show_tax' => array(
-				'name' => 'show_tax',
+			'entries_tax' => array(
+				'name' => 'entries_tax',
 				'type' => 'checkbox',
 				'default' => '',
 				'title' => __('Select Category'),
 				'description' => __('Select which category of entries will appear on this page.')
 			),
-			'restaurant_number' => array(
-				'name' => 'restaurant_number',
+			'entries_number' => array(
+				'name' => 'entries_number',
 				'type' => 'text',
-				'default' => '3',
-				'title' => __('Number of Events'),
+				'default' => '',
+				'title' => __('Number of Entries'),
 				'description' => __('Enter the number of featured events to display. Enter "all" to display all.')
 			)
 		);
@@ -193,7 +191,7 @@ class MetaBox_LandingPage {
 		$args = array(
 			'meta_box_id' => $basename . 'div',
 			'meta_box_name' => $basename . 'info',
-			'meta_box_title' => __( 'Landing Page Setting' ),
+			'meta_box_title' => __( 'Landing Page Settings' ),
 			'meta_box_default' => '',
 			'meta_box_description' => sprintf( __( 'Use these settings to display a list of  entries to display on this %s.', 'navypier' ), $post_type_name ),
 			'content_types' => $post_types,
@@ -297,7 +295,7 @@ class MetaBox_LandingPage {
 				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
 			}
 
-			if( 'show_type' === $meta_field['name'] ) {
+			if( 'entries_type' === $meta_field['name'] ) {
 				
 				// sort alphabetically
 				asort($type_array);
@@ -312,18 +310,16 @@ class MetaBox_LandingPage {
 				$output .= $meta_field['description'].'<br /></p>';
 			}
 
-			if( 'show_tax' === $meta_field['name'] ) {
+			if( 'entries_tax' === $meta_field['name'] ) {
 				$style = ' style="display:none;"';
 				$select_options = '';
 				if('' !== $meta_field_value){
 					$style = '';
 					$meta_tax = explode(':', $meta_field_value);
 					$selected_tax = $meta_tax[0];
-					$selected_term = $meta_tax[1];
-					debug($selected_term);
+					$selected_term = $meta_tax[1];					
 					$tax_terms = get_terms($selected_tax, array('hide_empty'=>false));
-					foreach($tax_terms as $term ){
-						debug($term->slug);
+					foreach($tax_terms as $term ){						
 						$select_options .= '<option value="'.$term->taxonomy . ':' .$term->slug.'"'.selected($term->slug,$selected_term, false ).'>'.$term->name.'</option>';
 					}
 				}
@@ -337,7 +333,7 @@ class MetaBox_LandingPage {
 				$output .= '</div>';
 			}
 
-			if ( 'feat_events_number' === $meta_field['name']) {
+			if ( 'entries_number' === $meta_field['name']) {
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
 				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="3" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
 			}
@@ -360,6 +356,7 @@ class MetaBox_LandingPage {
 	 */
 	 public function save_meta($post_id, $post, $update)
 	 {
+	 	 		
 		// if there's no $post object it's a new post
 		if( !$post && $post_id > 0 ) {
 			$post = get_post($post_id);
@@ -371,12 +368,12 @@ class MetaBox_LandingPage {
 
 		if( 'page' !== $post->post_type ){
 			return $post_id;
-		};
+		}
 
 		if( 'auto-draft' === $post->post_status ){
 			return $post_id;
 		}
-
+				
 		// skip auto-running jobs
 		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
 		if ( defined('DOING_AJAX') && DOING_AJAX ) return;
@@ -384,6 +381,11 @@ class MetaBox_LandingPage {
 
 		// Don't save if the post is only an auto-revision.
 		if ( 'revision' == $post->post_type ) {
+			return $post_id;
+		}
+		
+		// if we're not saving the Landing Page page template
+		if( !isset($_POST['page_template']) || 'page-landing-page.php' !== $_POST['page_template'] ){
 			return $post_id;
 		}
 

@@ -19,7 +19,6 @@ defined( 'ABSPATH' ) or die( 'Nothing here!' );
 define('LP_URL', plugin_dir_url( __FILE__ ) );
 define('LP_DIR', dirname( __FILE__ ) . '/');
 define('LP_JS_URL', LP_URL . 'js');
-define('LP_TPL_DIR', LP_DIR . 'tpl' );
 
 # Setup files
 if( ! class_exists( 'MetaBox_LandingPage' ) ) {

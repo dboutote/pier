@@ -1000,7 +1000,8 @@ a.location:before {
 	padding: 12px 8px 5px 8px;
 }
 .entry .options a.icon {
-	margin: 0 40px 5px 0;
+	/*margin: 0 40px 5px 0;*/
+	margin: 0 30px 5px 0;
 }
 .entry .options a.icon:before {
 	color: #bed600;

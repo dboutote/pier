@@ -31,6 +31,13 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
         $(this).each(function () { this.reset(); });
     };	
 	
+	$(document).ready(function() {
+		$('.print').on('click', function(e){			
+			window.print();
+			e.preventDefault();
+		})
+	});
+	
 	
 	/* ----- IOS7 SAFARI VIEWPORT UNIT FIX ----- */
 	$(document).ready(function() {

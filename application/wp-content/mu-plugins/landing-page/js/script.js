@@ -5,15 +5,34 @@ if (typeof jQuery === "undefined") {
 jQuery(function ($) {
 
     "use strict";
-
-	var $tax_select = $('select[name="show_tax"]');
-	var $taxplaceholder = $('#taxplaceholder');
 	
-	//Handle Select With Other
-	$('select[name="show_type"]').on('change', function(){
+	var $landpagediv = $('#landingpagediv');
+	$('#pageparentdiv').after($landpagediv);
+
+	var $tax_select = $('select[name="entries_tax"]');
+	var $taxplaceholder = $('#taxplaceholder');
+	var $template_select = $('select[name="page_template"]');
+	
+	
+	
+	if( 'page-landing-page.php' != $template_select.val() ){
+		$landpagediv.hide();
+	}
+	
+
+	$template_select.on('change', function(){
 		var selected_type = $(this).val();
-		
-		
+		if( 'page-landing-page.php' === selected_type ){
+			$landpagediv.fadeIn();
+		} else {
+			$landpagediv.fadeOut();
+		}
+	});
+
+
+	$('select[name="entries_type"]').on('change', function(){
+		var selected_type = $(this).val();
+				
 		// ajax all the things
 		var request = $.ajax({
 			type : "POST",
@@ -40,8 +59,8 @@ jQuery(function ($) {
 		});
 
 	});
+	
 
-
-
+	
 
 });

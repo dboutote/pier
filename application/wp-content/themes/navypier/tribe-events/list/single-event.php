@@ -14,18 +14,17 @@
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 <?php 
-$venue_lat = ( $venue_lat = np_tribe_get_lat()  ) ? $venue_lat : np_tribe_get_default_lat() ; 
-$venue_long = ( $venue_long = np_tribe_get_long()  ) ? $venue_long : np_tribe_get_default_long(); 
-$lat_long_href = $venue_lat . ','. $venue_long;
+$_latitude = ( $_latitude = np_tribe_get_lat()  ) ? $_latitude : np_tribe_get_default_lat() ; 
+$_longitude = ( $_longitude = np_tribe_get_long()  ) ? $_longitude : np_tribe_get_default_long(); 
+$lat_long_href = ( $_latitude && $_longitude ) ? $_latitude.','.$_longitude : false;
+$_location_title = ( $_location_title = tribe_get_meta( 'tribe_event_venue_name' )  ) ? $_location_title : 'Navy Pier';					
 
-$venue_name = ( $venue_name = tribe_get_meta( 'tribe_event_venue_name' )  ) ? $venue_name : 'Navy Pier';
-$ticket_info = '';
-if( tribe_get_cost() ) {
-	$ticket_info = '<a href="#" class="icon buy-tickets">buy tickets</a>';
-}
+$_tix_title = get_post_meta(get_the_ID(), '_tix_title', true);
+$_tix_url = get_post_meta(get_the_ID(), '_tix_url', true);	
+					
 ?>
 
-<div id="event-<?php echo get_the_ID();?>" class="entry">
+<div id="entry-<?php echo get_the_ID();?>" class="<?php echo get_post_type();?>-entry entry">
 	<div class="title clearfix">
 		<div class="col entry-image"> 
 			<?php echo tribe_event_featured_image($post_id = null, $size = 'full', $link = false ) ?>			
@@ -37,7 +36,9 @@ if( tribe_get_cost() ) {
 				<a href="#" class="icon read-details">Read More</a> 
 			</div>
 			<div class="options">
-				<a href="#" class="icon calendar"><?php echo tribe_events_event_schedule_details(); ?></a><?php echo $ticket_info;?><a href="<?php echo $lat_long_href;?>" class="icon location map-link"><?php echo $venue_name;?></a>
+				<a href="#" class="icon calendar"><?php echo tribe_events_event_schedule_details(); ?></a>
+				<?php if( $_tix_url ) {?> <a href="<?php echo $_tix_url;?>" class="icon buy-tickets"  target="_blank"><?php echo $_tix_title;?></a><?php ;} ?>
+				<?php if( $lat_long_href ) {?> <a href="<?php echo $lat_long_href;?>" class="icon location map-link"><?php echo $_location_title;?></a><?php ;} ?>							
 			</div>
 		</div>
 	</div>

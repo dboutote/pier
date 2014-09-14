@@ -4,10 +4,10 @@
  */
 defined( 'ABSPATH' ) or die( 'Nothing here!' );
 
-class CPT_Promotions
+class CPT_Shops
 {
 	private $meta_config_args;
-	const POST_TYPE = 'cpt_promotion';
+	const POST_TYPE = 'cpt_shop';
 
 
 	/**
@@ -52,7 +52,7 @@ class CPT_Promotions
 	 */
 	public static function register_post_type()
 	{
-		$name = 'Promotion';
+		$name = 'Shop';
 		$plural     = $name . 's';
 
 		// Labels
@@ -80,7 +80,7 @@ class CPT_Promotions
 				'exclude_from_search'    => true,
 				'show_in_nav_menus'      => false,
 				'menu_position'          => 20,
-				'menu_icon'              => 'dashicons-megaphone',
+				'menu_icon'              => 'dashicons-cart',
 				'capability_type'        => 'post',
 				'capabilities'           => array(
 					'edit_post'              => 'manage_categories',
@@ -95,7 +95,7 @@ class CPT_Promotions
 				'register_meta_box_cb'   => array(__CLASS__, 'create_metabox' ),
 				'taxonomies'             => array(),
 				'has_archive'            => false,
-				'rewrite'                => array('slug' => 'promos', 'with_front' => false)
+				'rewrite'                => array('slug' => 'shops', 'with_front' => false)
 			)
 		);
 	}
@@ -107,11 +107,11 @@ class CPT_Promotions
 	public function register_taxonomy()
 	{
 
-		$name = 'Promotion Category';
-		$plural	= 'Promotion Categories';
+		$name = 'Shop Category';
+		$plural	= 'Shop Categories';
 
 		register_taxonomy(
-			'promotion_category',    // Name of taxonomoy
+			'shop_category',    // Name of taxonomoy
 			self::POST_TYPE,          // Applies to these post types
 			array(
 				'label'                         => _x( $plural, 'taxonomy general name' ),			// A descriptive name for the taxonomy (marked for translation.)
@@ -161,7 +161,7 @@ class CPT_Promotions
 	 */
 	protected static function set_meta_box_args()
 	{
-		$basename = 'promotioninfo';
+		$basename = 'shopinfo';
 		$post_type = get_post_type();
 		$post_types = array(self::POST_TYPE);
 
@@ -439,4 +439,4 @@ class CPT_Promotions
 
 }
 
-$CPT_Promotions = new CPT_Promotions();
+$CPT_Shops = new CPT_Shops();

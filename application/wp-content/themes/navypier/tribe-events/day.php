@@ -38,7 +38,7 @@ if( $ep ) : ?>
 			
 			<div class="col padded">
 				<div class="page-actions align-right">
-					<a href="#" class="icon share">share page</a><a href="#" class="icon print">print page</a>
+					<a href="#" data-shareid="<?php echo $ep->ID;?>" class="icon share">share page</a><a href="#" class="icon print">print page</a>
 				</div>
 			</div>
 			

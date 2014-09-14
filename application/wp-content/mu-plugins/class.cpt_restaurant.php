@@ -4,12 +4,12 @@
  */
 defined( 'ABSPATH' ) or die( 'Nothing here!' );
 
-class CPT_Restaurant
-{	
+class CPT_Restaurants
+{
 	private $meta_config_args;
 	const POST_TYPE = 'cpt_restaurant';
-	
-	
+
+
 	/**
 	 * The constructor
 	 *
@@ -21,20 +21,21 @@ class CPT_Restaurant
  	 */
 	public function __construct()
 	{
-		add_action( 'init', array($this, 'register_post_type'), 0 );		
+		add_action( 'init', array($this, 'register_post_type'), 0 );
 		add_action( 'init', array($this, 'register_taxonomy'), 999 );
 		add_action( 'save_post_'.self::POST_TYPE, array($this,'save_meta'), 0, 3 );
 		add_filter( 'include_feat_events_dont_show_list', array($this, 'check_post_type'), 0,2);
 		add_filter( 'include_events_dont_show_list', array($this, 'check_post_type'), 0,2);
+		add_filter( 'include_promos_dont_show_list', array($this, 'check_post_type'), 0,2);
 	}
 
-		
+
 	/**
 	 * Remove this post type from the Events meta box
 	 *
 	 * @access public
 	 * @since 1.0
-	 * 
+	 *
 	 * @param array $dont_show The array of post types to exclude
 	 * @param string $post_type The post type to check against the $dont_show array
 	 */
@@ -42,10 +43,10 @@ class CPT_Restaurant
 	{
 		$dont_show[] = self::POST_TYPE;
 		return $dont_show;
-	}	
-	
-	
-	
+	}
+
+
+
 	/**
 	 * Register post type
 	 */
@@ -76,7 +77,7 @@ class CPT_Restaurant
 			array(
 				'labels'                 => $labels,
 				'public'                 => true,
-				'exclude_from_search'    => false,
+				'exclude_from_search'    => true,
 				'show_in_nav_menus'      => false,
 				'menu_position'          => 20,
 				'menu_icon'              => 'dashicons-carrot',
@@ -94,22 +95,21 @@ class CPT_Restaurant
 				'register_meta_box_cb'   => array(__CLASS__, 'create_metabox' ),
 				'taxonomies'             => array(),
 				'has_archive'            => false,
-				'rewrite'                => array('slug' => strtolower( $plural ), 'with_front' => false)
+				'rewrite'                => array('slug' => 'eats', 'with_front' => false)
 			)
 		);
 	}
-	
-	
+
+
 	/**
 	 * Register Taxonomy
 	 */
-	public function register_taxonomy() 
+	public function register_taxonomy()
 	{
 
 		$name = 'Restaurant Category';
 		$plural	= 'Restaurant Categories';
-		
-		
+
 		register_taxonomy(
 			'restaurant_category',    // Name of taxonomoy
 			self::POST_TYPE,          // Applies to these post types
@@ -118,7 +118,7 @@ class CPT_Restaurant
 				'labels'                        => array(
 					'name'                          => _x( $plural, 'taxonomy general name' ),		// The plural form of the name of your taxonomoy shows
 					'singular_name'                 => _x( $name, 'taxonomy general name' ),        // The singular form of the name of your taxonomoy
-					'menu_name'                     => __( $plural),                           		// the menu name text. This string is the name to give menu items. Defaults to value of name             
+					'menu_name'                     => __( $plural),                           		// the menu name text. This string is the name to give menu items. Defaults to value of name
 					'all_items'                     => __( 'All ' . $plural ),                   	// the all items text. Default is __( 'All Tags' ) or __( 'All Categories' )
 					'edit_item'                     => __( 'Edit ' . $name ),                   	// the edit item text. Default is __( 'Edit Tag' ) or __( 'Edit Category' )
 					'view_item'                     => __( 'View ' . $name ),                   	// the view item text. Default is __( 'Edit Tag' ) or __( 'Edit Category' )
@@ -149,41 +149,81 @@ class CPT_Restaurant
 				'query_var'                     => true                                         	// False to prevent queries, or string to customize query var. Default will use $taxonomy as query var
 			)
 		);
-	}	
-	
-	
+	}
+
+
 	/**
 	 * Configuration params for the Metabox
-	 * 
+	 *
 	 * @access protected
 	 * @since 1.0
 	 *
 	 */
 	protected static function set_meta_box_args()
-	{	
-		$basename = 'restaurant-latlong';
+	{
+		$basename = 'restaurantinfo';
 		$post_type = get_post_type();
 		$post_types = array(self::POST_TYPE);
-		
+
 		if( $post_type ){
 			$post_type_name =  get_post_type_object( $post_type )->labels->singular_name;
 			$post_type_name_lower = strtolower($post_type_name);
 		}
-		
+
 		$map_icon = '<div class="dashicons dashicons-location-alt"></div> ';
-		
 		$lat_desc = sprintf( __( 'Enter the latitude of this %s.', 'navypier' ), $post_type_name_lower );
 		$long_desc = sprintf( __( 'Enter the longitude of this %s.', 'navypier' ), $post_type_name_lower );
-		
-		
+
 		$meta_fields = array(
+			'alt_title' => array(
+				'name' => 'alt_title',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Alternate Title'),
+				'description' => __( 'Enter an optional short title.', 'navypier' )
+			),
+			'sub_title' => array(
+				'name' => 'sub_title',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Sub Title'),
+				'description' => __('Enter an optional sub title.')
+			),
+			'deal_title' => array(
+				'name' => 'deal_title',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Deal Title'),
+				'description' => __('Enter the link text for the deal url. (e.g., "Get Deal").')
+			),
+			'deal_url' => array(
+				'name' => 'deal_url',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Deal URL'),
+				'description' => __('Enter the url for a special deal (if applicable).')
+			),
+			'tix_title' => array(
+				'name' => 'tix_title',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Tickets Title'),
+				'description' => __('Enter the link text for the deal url. (e.g., "Buy Tickets").')
+			),
+			'tix_url' => array(
+				'name' => 'tix_url',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Tickets URL'),
+				'description' => __('Enter the url to purchase tickets (if applicable).')
+			),
 			'location_title' => array(
 				'name' => 'location_title',
 				'type' => 'text',
-				'default' => 'Location',
+				'default' => '',
 				'title' => __('Location Title'),
-				'description' => __('Enter a link title.')				
-			),		
+				'description' => __('Enter the link text for the location url. (e.g., "Map It").')
+			),
 			'latitude' => array(
 				'name' => 'latitude',
 				'type' => 'text',
@@ -196,117 +236,147 @@ class CPT_Restaurant
 				'type' => 'text',
 				'default' => '',
 				'title' => __($map_icon . ' ' . $post_type_name .' Longitude'),
-				'description' => __( $long_desc, 'navypier' )			
-			)		
-		);		
-			
+				'description' => __( $long_desc, 'navypier' )
+			),
+		);
+
 		$args = array(
 			'meta_box_id' => $basename . 'div',
 			'meta_box_name' => $basename . 'info',
 			'meta_box_title' => sprintf( __( 'Additional %s Info', 'navypier' ), $post_type_name ),
 			'meta_box_default' => '',
-			'meta_box_description' => __( '', 'navypier' ),
+			'meta_box_description' => sprintf( __( 'Use these settings to add additional info for this %s.', 'navypier' ), $post_type_name, $post_type_name ),
 			'content_types' => $post_types,
 			'meta_box_position' => 'side',
 			'meta_box_priority' => 'high',
 			'meta_fields' => $meta_fields
-		);		
-		
-		return $args;		
-	}
-	
+		);
 
-	/**
-	 * Print the inner HTML of the metabox
-	 * 
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
-	public static function inner_metabox() 
-	{
-
-		global $post;
-		
-		// get configuration args
-		$args = self::get_meta_box_args();    
-		extract($args);
-		
-		$output = '<p>' . $meta_box_description . '</p>';
-		foreach( $meta_fields as $meta_field ) {
-			
-			$meta_field_value = get_post_meta($post->ID, '_'.$meta_field['name'], true);
-			
-			if( '' === $meta_field_value ) {
-				$meta_field_value = $meta_field['default'];
-			}
-
-			wp_nonce_field( plugin_basename(__CLASS__), $meta_field['name'].'_noncename' );
-			
-			if ( 'location_title' === $meta_field['name']) {			
-				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
-				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';			
-			}			
-			
-			if ( 'latitude' === $meta_field['name']) {			
-				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
-				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';			
-			}
-			
-			if ( 'longitude' === $meta_field['name']) {			
-				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
-				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';			
-			}
-			
-		}
-		
-		echo $output;
-		
-		return;
-	 
+		return $args;
 	}
 
-	
-	/**
-	 * Configuration params for the Metabox
-	 * 
-	 * @since 1.0
-	 * @access protected
-	 *
-	 */
-	protected static function get_meta_box_args()
-	{	
-		return self::set_meta_box_args();
-	}
 
-	
 	/**
 	 * Create the metabox
-	 * 
+	 *
 	 * @access public
 	 * @since 1.0
 	 *
 	 * @uses add_meta_box()
 	 */
-	public static function create_metabox() 
+	public static function create_metabox()
 	{
-		$args = self::get_meta_box_args();  
+		$args = self::get_meta_box_args();
 		extract($args);
-		
-		if ( function_exists('add_meta_box') ) {        
+
+		if ( function_exists('add_meta_box') ) {
 			foreach ($content_types as $content_type) {
 				add_meta_box($meta_box_id, $meta_box_title, array(__CLASS__, 'inner_metabox'), $content_type, $meta_box_position );
-			}				
+			}
 		}
 	}
-	
-	
+
+
+	/**
+	 * Configuration params for the Metabox
+	 *
+	 * @since 1.0
+	 * @access protected
+	 *
+	 */
+	protected static function get_meta_box_args()
+	{
+		return self::set_meta_box_args();
+	}
+
+
+	/**
+	 * Print the inner HTML of the metabox
+	 *
+	 * @access public
+	 * @since 1.0
+	 *
+	 */
+	public static function inner_metabox()
+	{
+
+		global $post;
+
+		// get configuration args
+		$args = self::get_meta_box_args();
+		extract($args);
+
+		$output = '<p>' . $meta_box_description . '</p>';
+		foreach( $meta_fields as $meta_field ) {
+
+			$meta_field_value = get_post_meta($post->ID, '_'.$meta_field['name'], true);
+
+			if( '' === $meta_field_value ) {
+				$meta_field_value = $meta_field['default'];
+			}
+
+			wp_nonce_field( plugin_basename(__CLASS__), $meta_field['name'].'_noncename' );
+
+			if ( 'alt_title' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'sub_title' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'deal_title' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'deal_url' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'tix_title' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'tix_url' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'location_title' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'latitude' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'longitude' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+		}
+
+		echo $output;
+
+		return;
+
+	}
+
+
 	/**
 	 * Process saving the metadata
 	 *
 	 * @access public
 	 * @since 1.0
-	 * 
+	 *
 	 */
 	 public function save_meta($post_id, $post, $update)
 	 {
@@ -318,32 +388,32 @@ class CPT_Restaurant
 		if(!$post) {
 			return $post_id;
 		}
-		
+
 		if( 'auto-draft' === $post->post_status ){
 			return $post_id;
 		}
-		
+
 		// skip auto-running jobs
 		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
 		if ( defined('DOING_AJAX') && DOING_AJAX ) return;
 		if ( defined('DOING_CRON') && DOING_CRON ) return;
-		
+
 		// Don't save if the post is only an auto-revision.
 		if ( 'revision' == $post->post_type ) {
 			return $post_id;
 		}
-		
+
 		// Get the post type object & check if the current user has permission to edit the entry.
 		$post_type = get_post_type_object( $post->post_type );
 
 		if ( $post_type && !current_user_can( $post_type->cap->edit_post, $post_id ) ) {
 			return $post_id;
 		}
-		
+
 		// get configuration args
-		$args = self::get_meta_box_args();    
+		$args = self::get_meta_box_args();
 		extract($args);
-		
+
 		foreach($meta_fields as $meta_field) {
 
 			// verify this came from the our screen and with proper authorization, (b/c save_post can be triggered at other times)
@@ -353,7 +423,7 @@ class CPT_Restaurant
 
 			// Ok, we're authenticated: we need to find and save the data
 			$data = ( isset($_POST[$meta_field['name']]) ) ? $_POST[$meta_field['name']] : '';
-			$data = ( is_array($data) ) ? array_filter($data) : trim($data);	
+			$data = ( is_array($data) ) ? array_filter($data) : trim($data);
 
 			if ( '' != $data && '-1' != $data  ) {
 				update_post_meta( $post->ID, '_'.$meta_field['name'], $data );
@@ -362,12 +432,11 @@ class CPT_Restaurant
 			}
 
 		}
-		
+
 		return $post_id;
-	 
-	 }		
-	
+
+	 }
+
 }
 
-
-$CPT_Restaurant = new CPT_Restaurant();
+$CPT_Restaurants = new CPT_Restaurants();

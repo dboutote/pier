@@ -36,7 +36,7 @@ add_filter('tribe_event_featured_image', 'np_event_featured_image', 0, 4);
 function np_get_event_url($post_id = null)
 {
 	$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
-	$url =  home_url('/events/upcoming/') . '#event-' . $post_id;
+	$url =  home_url('/events/upcoming/') . '#entry-' . $post_id;
 	
 	return apply_filters('np_event_url', $url, $post_id);
 }
@@ -44,10 +44,11 @@ function np_get_event_url($post_id = null)
 /**
  * Filter WP default permalink for Event post types
  */
-function np_replace_event_permalink(){
+function np_replace_event_permalink($url){
 	if( 'tribe_events' == get_post_type() ){
 		return np_get_event_url(get_the_ID());
 	}
+	return $url;
 }
 add_filter('the_permalink', 'np_replace_event_permalink');
 
@@ -97,7 +98,7 @@ function np_tribe_get_default_long(){
  * @returns array $events An array of event post objects on success | empty array on failure
  */
 function np_get_featured_events( $num = 10 ){
-	$posts_per_page = (int) $num;
+	$posts_per_page = ('all' === $num) ? '-1' : $num ;
 	$events = tribe_get_events(
 		array(
 			'eventDisplay'=>'upcoming',
@@ -123,7 +124,7 @@ function np_get_featured_events( $num = 10 ){
  * @returns array $events An array of event post objects on success | empty array on failure
  */
 function np_get_events( $num = 10 ){
-	$posts_per_page = (int) $num;
+	$posts_per_page = ('all' === $num) ? '-1' : $num ;
 	$events = tribe_get_events(
 		array(
 			'eventDisplay'=>'upcoming',
@@ -135,18 +136,20 @@ function np_get_events( $num = 10 ){
 }
  
  
- 
-/**
- * Load the Meta Box for Venue Lat/Long
- */
-require('metabox_venue_info.php');
 
 /**
- * Load the Meta Box for displaying Events 
+ * Dont show the start and end times for events
  */
-require('metabox_events.php');
+function np_dont_show_event_time($settings){
+	$settings['show_end_time'] = false;
+	$settings['time'] = false;
+	return $settings;
+}
+#add_filter('tribe_events_event_schedule_details_formatting', 'np_dont_show_event_time');
+
+
 
 /**
- * Load the Meta Box for displaying Featured Events 
+ * Load the additional meta boxes
  */
-require('metabox_events_featured.php');
+require('events-meta/init.php');

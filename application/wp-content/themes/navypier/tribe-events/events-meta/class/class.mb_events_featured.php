@@ -1,15 +1,9 @@
 <?php
-/**
- * Homepage Featured Content
- *
- * Allows author to mark post as featured for a rotator on t he homepage.
- *
- */
 
 class MetaBox_FeaturedEvents {
 
 	private $meta_config_args;
-	private $dont_show_in = array('cpt_promotion', 'tribe_events', 'cpt_advertisement');
+	private $dont_show_in = array('cpt_promotion', 'tribe_events', 'cpt_advertisement', 'tribe_organizer');
 
 	/**
 	 * The constructor
@@ -230,6 +224,11 @@ class MetaBox_FeaturedEvents {
 			return $post_id;
 		}
 		
+		// if we're not including events, no need to save meta
+		if( !isset($_POST['feat_events_include']) ){
+			return $post_id;
+		}
+		
 		// Get the post type object & check if the current user has permission to edit the entry.
 		$post_type = get_post_type_object( $post->post_type );
 
@@ -282,4 +281,3 @@ function mbp_has_feat_events( $post_id = null ) {
 }
 
 
-$MetaBox_FeaturedEvents = new MetaBox_FeaturedEvents();

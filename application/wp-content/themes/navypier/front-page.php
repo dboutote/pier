@@ -105,18 +105,17 @@ get_header();
 				<?php foreach($all_events as $post) { ?>
 					<?php ++$count; ?>
 					<?php setup_postdata($post); ?>
-					
 					<div class="col">
-						<div class="event-container">
+						<div class="event-container">						
 							<?php
 							if( has_post_thumbnail() ){
 								$image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
 								$img_src = $image_url[0];
 								?>
-								<a href="<?php echo the_permalink();?>" class="image"><img src="<?php echo $img_src; ?>" width="463" height="275" class="background-cover"></a>	
+								<a href="<?php the_permalink();?>" class="image"><img src="<?php echo $img_src; ?>" width="463" height="275" class="background-cover" /></a>	
 							<?php }; ?>		
 							<a href="<?php the_permalink(); ?>" class="text">
-								<h3><?php the_title(); ?></h3>
+								<h3><?php the_title(); ?></h3>								
 								<?php echo tribe_events_event_schedule_details(); ?>							
 							</a>
 						</div>
@@ -199,13 +198,61 @@ get_header();
 		</div>
 	</div>
 
+	<?php 
+		$promos = get_posts(
+			array(
+			'posts_per_page' => 3,
+			'post_type' => 'cpt_promotion',
+			'orderby' => 'date'
+			)
+		);
+		
+	
+		if( !empty($promos) ) : ?>
+		
+			<?php global $post;?>
+			
+			<div id="deals" class="section-title">
+				<h2>Deals and Promotions</h2>
+			</div>
+			
+			<div class="section-content no-bg clearfix no-bg">
+				
+				<?php foreach($promos as $post) { 
+					setup_postdata($post); 					
+					$_alt_title = get_post_meta($post->ID, '_alt_title', true);
+					$_sub_title = get_post_meta($post->ID, '_sub_title', true);
+					$_deal_title = get_post_meta($post->ID, '_deal_title', true);
+					$_deal_url = get_post_meta($post->ID, '_deal_url', true);
+					$_tix_title = get_post_meta($post->ID, '_tix_title', true);
+					$_tix_url = get_post_meta($post->ID, '_tix_url', true);					
+					$_latitude = get_post_meta($post->ID, '_latitude', true);
+					$_longitude = get_post_meta($post->ID, '_longitude', true);
+					$_location_title = get_post_meta($post->ID, '_location_title', true);
+					$lat_long_href = ( $_latitude && $_longitude ) ? $_latitude.','.$_longitude : '';
+					$image_obj = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');				
+					if($image_obj){
+						$img_src = $image_obj[0];
+					} else {
+						$img_src = get_stylesheet_directory_uri() . '/images/promo_placeholder.jpg';
+					}					
+					?>
+					<div class="col">
+					  <div class="promotion-container"><a href="<?php the_permalink(); ?>" class="image"><img src="<?php echo $img_src; ?>" width="318" height="238" class="background-cover" /></a> <a href="<?php the_permalink(); ?>" class="promotion-text"><?php echo ( $_alt_title ) ? $_alt_title : get_the_title(); ?><br />
+						<?php if($_sub_title) { ?><span class="promotion-date"><?php echo $_sub_title;?></span><?php } ?></a>
+						<div class="promotion-links"><a href="<?php the_permalink(); ?>" class="icon read-more">Read More</a><a href="#" data-shareid="<?php echo $post->ID;?>" class="icon share">share</a><?php if($_deal_url) {?><a href="<?php echo $_deal_url;?>" class="icon get-deal"><?php echo $_deal_title;?></a><?php }; ?></div>
+					  </div>
+					</div>				
+				<?php }; ?>
+			</div>	
+		
+		<?php else : ?>
+	
+			<p>No entries found.</p>
 
-	<div id="deals" class="section-title">
-		<h2>Deals and Promotions</h2>
-	</div>
-	<div class="section-content no-bg clearfix no-bg">		
-		<?php echo CPT_Promotions::get_posts(3);?>
-	</div>
+		<?php endif; ?>	
+
+		<?php wp_reset_query(); ?>
 	
 </div> <!-- /.container -->
 <?php 

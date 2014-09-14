@@ -9,7 +9,7 @@
 class MetaBox_Promotion {
 
 	private $meta_config_args;
-	private $dont_show_in = array('cpt_promotion', 'tribe_events', 'cpt_advertisement');
+	private $dont_show_in = array('cpt_promotion', 'tribe_events', 'cpt_advertisement', 'tribe_organizer');
 
 	/**
 	 * The constructor
@@ -46,7 +46,7 @@ class MetaBox_Promotion {
 	 */
 	protected function set_meta_box_args()
 	{	
-		$basename = 'show-promotion';
+		$basename = 'showpromotion';
 		$post_type_name = 'post';
 		
 		$post_types = get_post_types();
@@ -148,7 +148,7 @@ class MetaBox_Promotion {
 			return false;
 		}
 		
-		if( in_array($post_type, $this->dont_show_in) ){
+		if ( in_array( $post_type, apply_filters( 'include_promos_dont_show_list', $this->dont_show_in, $post_type ) ) ){
 			return false;
 		}
 		
