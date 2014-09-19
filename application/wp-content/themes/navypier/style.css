@@ -223,7 +223,7 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 @media only screen and (max-width: 760px) {
 
 	#menu-top-primary {
-		padding: 0;
+		padding: 55px 0 0 0;
 	}
 
 	#menu-top-primary li {
