@@ -63,7 +63,7 @@ class CPT_Adverts
 			array(
 				'labels'                 => $labels,
 				'public'                 => true,
-				'exclude_from_search'    => true,
+				'exclude_from_search'    => false,
 				'show_in_nav_menus'      => false,
 				'menu_position'          => 20,
 				'menu_icon'              => 'dashicons-awards',
@@ -284,8 +284,6 @@ class CPT_Adverts
 	
 	/**
 	 * Get ads to display
-	 *
-	 * Sets the "rotator_content" transient.
 	 *
 	 * @static
 	 * @access public

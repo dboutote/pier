@@ -224,10 +224,6 @@ class MetaBox_FeaturedEvents {
 			return $post_id;
 		}
 		
-		// if we're not including events, no need to save meta
-		if( !isset($_POST['feat_events_include']) ){
-			return $post_id;
-		}
 		
 		// Get the post type object & check if the current user has permission to edit the entry.
 		$post_type = get_post_type_object( $post->post_type );
@@ -249,7 +245,13 @@ class MetaBox_FeaturedEvents {
 
 			// Ok, we're authenticated: we need to find and save the data
 			$data = ( isset($_POST[$meta_field['name']]) ) ? $_POST[$meta_field['name']] : '';
-			$data = ( is_array($data) ) ? array_filter($data) : trim($data);	
+			$data = ( is_array($data) ) ? array_filter($data) : trim($data);
+
+			// if we're not including events, no need to save meta
+			// if the featured events were included and now they're not, delete the meta fiels
+			if( !isset($_POST['feat_events_include']) ){
+				$data = '';
+			}			
 
 			if ( '' != $data && '-1' != $data  ) {
 				update_post_meta( $post->ID, '_'.$meta_field['name'], $data );

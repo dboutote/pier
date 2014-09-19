@@ -77,7 +77,7 @@ class CPT_Shops
 			array(
 				'labels'                 => $labels,
 				'public'                 => true,
-				'exclude_from_search'    => true,
+				'exclude_from_search'    => false,
 				'show_in_nav_menus'      => false,
 				'menu_position'          => 20,
 				'menu_icon'              => 'dashicons-cart',
