@@ -175,6 +175,13 @@ class CPT_Hotels
 		$long_desc = sprintf( __( 'Enter the longitude of this %s.', 'navypier' ), $post_type_name_lower );
 
 		$meta_fields = array(
+			'menu_order' => array(
+				'name' => 'menu_order',
+				'type' => 'text',
+				'default' => '0',
+				'title' => __('Menu Order'),
+				'description' => __( '', 'navypier' )			
+			),
 			'alt_title' => array(
 				'name' => 'alt_title',
 				'type' => 'text',
@@ -316,6 +323,12 @@ class CPT_Hotels
 			}
 
 			wp_nonce_field( plugin_basename(__CLASS__), $meta_field['name'].'_noncename' );
+			
+			if ( 'menu_order' === $meta_field['name']) {
+				$meta_field_value = $post->menu_order;
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="4" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}			
 
 			if ( 'alt_title' === $meta_field['name']) {
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
@@ -415,6 +428,11 @@ class CPT_Hotels
 		extract($args);
 
 		foreach($meta_fields as $meta_field) {
+		
+			// let WP save menu_order in $wpdb->posts table, not meta
+			if ( 'menu_order' === $meta_field['name']) {
+				continue;
+			}
 
 			// verify this came from the our screen and with proper authorization, (b/c save_post can be triggered at other times)
 			if( !isset($_POST[$meta_field['name'].'_noncename']) || !wp_verify_nonce( $_POST[$meta_field['name'].'_noncename'], __CLASS__ ) ) {

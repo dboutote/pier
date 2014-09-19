@@ -82,12 +82,14 @@ if( has_post_thumbnail() ){
 					
 		$all_entries = get_posts(
 			array(
-				'post_type' => $_entries_type,
-				'posts_per_page' => $posts_per_page,
-				'tax_query'=> array($tax_query_args)		
+				'post_type'			=> $_entries_type,
+				'posts_per_page'	=> $posts_per_page,
+				'orderby'			=> 'menu_order',
+				'order'             => 'ASC',
+				'tax_query'			=> array($tax_query_args)		
 			)
 		);
-
+		
 		if( !empty($all_entries) ) : ?>			
 		
 			<div id="events" class="section-title">

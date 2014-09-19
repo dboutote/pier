@@ -7,17 +7,9 @@ defined( 'ABSPATH' ) or die( 'Nothing here!' );
 class CPT_Adverts
 {	
 	private $meta_config_args;
-	
-	/**
-     * Store the current instance
-	 *
-	 * @access private
-	 * @since 1.0
-	 * @var object $instance
-	 */
-	static private $instance = NULL;	
-	
+	const POST_TYPE = 'cpt_advertisement';	
 
+	
 	/**
 	 * The constructor
 	 *
@@ -29,10 +21,32 @@ class CPT_Adverts
  	 */
 	public function __construct()
 	{
-		add_action( 'init', array($this, 'register_post_type'), 0 );
-		add_action( 'save_post', array($this,'save_meta'), 0, 3 );
+		add_action( 'init', array($this, 'register_post_type'), 0 );		
+		add_action( 'save_post_'.self::POST_TYPE, array($this,'save_meta'), 0, 3 );
+		add_filter( 'include_feat_events_dont_show_list', array($this, 'check_post_type'), 0,2);
+		add_filter( 'include_events_dont_show_list', array($this, 'check_post_type'), 0,2);
+		add_filter( 'include_promos_dont_show_list', array($this, 'check_post_type'), 0,2);		
 	}
 
+	
+
+	/**
+	 * Remove this post type from the Events meta box
+	 *
+	 * @access public
+	 * @since 1.0
+	 *
+	 * @param array $dont_show The array of post types to exclude
+	 * @param string $post_type The post type to check against the $dont_show array
+	 */
+	public function check_post_type($dont_show, $post_type)
+	{
+		$dont_show[] = self::POST_TYPE;
+		return $dont_show;
+	}
+	
+	
+	
 	/**
 	 * Register post type
 	 */
@@ -59,7 +73,7 @@ class CPT_Adverts
 
 		// Register post type
 		register_post_type(
-			'cpt_advertisement',
+			self::POST_TYPE,
 			array(
 				'labels'                 => $labels,
 				'public'                 => true,
@@ -131,13 +145,13 @@ class CPT_Adverts
 	protected static function set_meta_box_args()
 	{	
 		$basename = 'advertisementinfo';
+		$post_type = get_post_type();
+		$post_types = array(self::POST_TYPE);
 		$post_type_name = 'post';
 		
-		$post_types = get_post_types();
-		$post_type = get_post_type();
-		
 		if( $post_type ){
-			$post_type_name = strtolower( get_post_type_object( $post_type )->labels->singular_name );
+			$post_type_name =  get_post_type_object( $post_type )->labels->singular_name;
+			$post_type_name_lower = strtolower($post_type_name);
 		}
 		
 		$meta_fields = array(
@@ -153,14 +167,14 @@ class CPT_Adverts
 		$args = array(
 			'meta_box_id' => $basename . 'div',
 			'meta_box_name' => $basename . 'info',
-			'meta_box_title' => __( 'Ad Information' ),
+			'meta_box_title' => sprintf( __( 'Additional %s Info', 'navypier' ), $post_type_name ),
 			'meta_box_default' => '',
-			'meta_box_description' => sprintf( __( 'Use these settings to add additional for this %s.', 'navypier' ), $post_type_name ),
+			'meta_box_description' => sprintf( __( 'Use these settings to add additional info for this %s.', 'navypier' ), $post_type_name, $post_type_name ),
 			'content_types' => $post_types,
 			'meta_box_position' => 'side',
 			'meta_box_priority' => 'high',
 			'meta_fields' => $meta_fields
-		);		
+		);	
 		
 		return $args;		
 	}
@@ -257,6 +271,11 @@ class CPT_Adverts
 		extract($args);
 		
 		foreach($meta_fields as $meta_field) {
+		
+			// let WP save menu_order in $wpdb->posts table, not meta
+			if ( 'menu_order' === $meta_field['name']) {
+				continue;
+			}		
 
 			// verify this came from the our screen and with proper authorization, (b/c save_post can be triggered at other times)
 			if( !isset($_POST[$meta_field['name'].'_noncename']) || !wp_verify_nonce( $_POST[$meta_field['name'].'_noncename'], __CLASS__ ) ) {

@@ -12,8 +12,8 @@ jQuery(function ($) {
 	var $tax_select = $('select[name="entries_tax"]');
 	var $taxplaceholder = $('#taxplaceholder');
 	var $template_select = $('select[name="page_template"]');
-	
-	
+
+	$landpagediv.removeClass('hide-if-js');
 	
 	if( 'page-landing-page.php' != $template_select.val() ){
 		$landpagediv.hide();
