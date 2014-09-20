@@ -68,6 +68,9 @@ p:first-child {
 .align-right {
 	text-align: right;
 }
+strong {
+	font-weight: bold;
+}
 img {
 	-ms-interpolation-mode: bicubic; /* IE 7 & 8 IMAGE DOWNSAMPLING FIX */
 }
@@ -720,6 +723,10 @@ header .bottom .container:before {
 	background-color: transparent;
 	margin-bottom: 48px;
 }
+#events+.section-content .slide {
+	display: block !important;
+	width: 100%;
+}
 .col {
 	width: 318px;
 	margin-left: 3px;
@@ -1098,7 +1105,6 @@ footer .top .contact-info p {
 }
 footer .top .contact-info p strong {
 	font-family: Stainless;
-	font-weight: bold;
 	font-size: 16px;
 }
 footer .top .social-links a {
@@ -1362,7 +1368,6 @@ h3 {
 }
 .event-container a.text {
 	font-size: 11px;
-	width: 90%;
 }
 .align-right {
 	text-align: left;
@@ -1423,7 +1428,6 @@ header .middle nav.main {
 	z-index: -1;
 	left: 110%;
 	top: 0;
-	padding-top: 55px;
 	background-color: #222;
 	-webkit-transition: all 250ms ease-in-out;
 	-moz-transition: all 250ms ease-in-out;
