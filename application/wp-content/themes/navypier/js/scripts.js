@@ -73,10 +73,14 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			}, function(){
 				$('.sub-menu', this).first().stop().slideToggle(100);
 			});
+			$('#menu-top-primary > li').click(function(e) {
+				e.preventDefault();	
+			});
 		}
 		else { // MOBILE FUNCTIONS
 			if (isMobile.iPad()) { // IPADS ONLY
-				$('#menu-top-primary > li').click(function() {					
+				$('#menu-top-primary > li').click(function(e) {	
+					e.preventDefault();
 					$('#menu-top-primary > li > .sub-menu').not(this).stop().slideUp(100);
 					$('.sub-menu', this).first().stop().slideToggle(250);
 				});		
@@ -338,10 +342,17 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 	/* ----- CYCLE INITIALIZE ----- */
 	$(document).ready(function() {
 		$('#slider').cycle({
-			speed: 600,
+			speed: 500,
 			timeout: 5000,
 			prev: '#prev', 
 			next: '#next'
+		});
+		$('#events+.section-content').cycle({
+			fx: 'scrollHorz',
+			speed: 500,
+			timeout: 0,
+			prev: '#events-prev', 
+			next: '#events-next',
 		});
 	});
 
@@ -471,6 +482,17 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				"elementType": "labels",
 				"stylers": [
 				  { "visibility": "off" }
+				]
+			  },{
+		  		"elementType": "labels",
+				"stylers": [
+				  { "visibility": "off" }
+				]
+			  },{
+				"featureType": "road",
+				"elementType": "labels",
+				"stylers": [
+				  { "visibility": "on" }
 				]
 			  }
 			];
