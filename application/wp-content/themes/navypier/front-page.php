@@ -92,7 +92,7 @@ get_header();
 		<div id="events" class="section-title">
 			<h2>Events</h2>
 			<?php if( count($all_events) > 6 ) { ?>
-				<div class="events-nav"><a href="#"><i class="fa fa-chevron-circle-left"></i></a><a href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
+				<div class="events-nav"><a id="events-prev" href="#"><i class="fa fa-chevron-circle-left"></i></a><a id="events-next" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
 			<?php } ?>
 		</div>
 		
