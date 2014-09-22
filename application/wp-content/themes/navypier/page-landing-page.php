@@ -92,11 +92,11 @@ if( has_post_thumbnail() ){
 		
 		if( !empty($all_entries) ) : ?>			
 		
-			<div id="events" class="section-title">
+			<div id="lp-main" class="section-title">
 				<h2><?php echo $_entries_title;?></h2>
 			</div>
 
-			<div class="section-content no-bg clearfix">
+			<div id="lp-wrap" class="section-content no-bg clearfix">
 
 				<?php foreach($all_entries as $post) {			
 					setup_postdata($post); 

@@ -12,14 +12,14 @@ if( !empty($all_events) ) : ?>
 
 	<?php global $post;?>
 	
-	<div id="events" class="section-title">
+	<div id="events-featured" class="section-title">
 		<h2><?php echo $events_title;?></h2>
 		<?php if( count($all_events) > 3 ) { ?>
 			<div class="events-nav"><a href="#"><i class="fa fa-chevron-circle-left"></i></a><a href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
 		<?php } ?>
 	</div>
 	
-	<div class="section-content no-bg clearfix">
+	<div id="feat-events-wrap" class="section-content no-bg clearfix">
 		
 		<?php $count = 0; ?>
 		

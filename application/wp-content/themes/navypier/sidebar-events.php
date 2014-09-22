@@ -12,11 +12,11 @@ if( !empty($all_events) ) : ?>
 
 	<?php global $post;?>
 
-	<div id="events" class="section-title">
+	<div id="events-upcoming" class="section-title">
 		<h2><?php echo $events_title;?></h2>
 	</div>
 
-	<div class="section-content no-bg clearfix">
+	<div id="events-wrap" class="section-content no-bg clearfix">
 
 		<?php foreach($all_events as $post) { ?>
 
