@@ -1836,6 +1836,19 @@ ul.tribe-events-sub-nav a:hover, .tribe-events-back a:hover, .tribe-events-list-
 .tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"], .tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"]>a {
 	color: #e5e5e1;
 }
+#entries+.section-content .tribe-events-notices {
+	background: #fff;
+	border: none;
+	color: #221e1f;
+	margin: 0;
+	padding: 0 20px 20px 20px;
+	text-shadow: none;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	font-style: normal;
+	font-family: Stainless;
+	font-weight: inherit;
+}
 @media only screen and (max-width: 768px) {
 h2.tribe-events-page-title {
 	margin-bottom: 40px;
