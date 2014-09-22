@@ -700,7 +700,7 @@ header .bottom .container:before {
 .intro .col .promotion-container {
 	margin-top: 20px;
 }
-.intro .col:not(.span-2) .promotion-container {
+.intro .col:not(:first-child) .promotion-container {
 	margin-top: 50px;
 }
 .intro a.promotion-text {
@@ -1260,7 +1260,7 @@ header .bottom .join-newsletter.show-subscribe {
 .promotion-container .promotion-links {
 	bottom: 10px;
 }
-.intro .col:not(.span-2) .promotion-container {
+.intro .col:not(:first-child) .promotion-container {
 	margin-top: 0;
 }
 .page-actions {
@@ -1599,7 +1599,7 @@ header .bottom {
 	margin-top: -75px;
 	min-height: 72px;
 }
-.intro .col:not(.span-2) {
+.intro .col:not(:first-child) {
 	display: none;
 }
 .intro p {
