@@ -86,7 +86,8 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				});		
 			}
 			else { // PHONES AND NON-IPAD TABLETS
-				$('#menu-top-primary > li').click(function() {
+				$('#menu-top-primary > li').click(function(e) {
+					e.preventDefault();
 					//$(this).parent('li').children('.sub-menu').first().stop().slideToggle(250);
 					$('.sub-menu', this).first().stop().slideToggle(250);
 				});
@@ -252,13 +253,22 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 	$(document).ready(function() {
 		url = document.location.href;
 		hash = url.split('#');
-		
-		if( $('#'+hash[1]).length > 0 ){
-			var $entry = $('#'+hash[1]);
-			$entry.children('.details').show();
-			$entry.find('a.read-details').toggleClass('active');
+		if( $('#'+hash[1]).length > 0 ){ // OPEN SELECTED ENTRY
+			function showEntry() {
+				var $entry = $('#'+hash[1]);
+				$entry.children('.details').show();
+				$entry.find('a.read-details').toggleClass('active');
+			}
+			showEntry();
+			$.when(showEntry()).done(function() {
+				if (window.matchMedia('(min-width: 760px)').matches){ // ADJUST SCROLL POSITION BELOW STICKY HEADER ON DESKTOP
+					setTimeout(function() {
+						var yPos = $(window).scrollTop();
+						$('html, body').animate({scrollTop: yPos - 75}, 250);
+					}, 575);
+				}
+			});
 		}
-	
 		$('.entry a.read-details').click(function(e) {
 			e.preventDefault();
 			var theEntry = $(this).parents('.entry');
@@ -266,7 +276,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			$(this).toggleClass('active');
 			return false;
 		});
-		$(window).load(function() { // ADJUST IMAGE CONTAINER HEIGHT TO PARENT CONTAINER HEIGHT IF LARGER THAN MIN-HEIGHT
+		$$(window).load(function() { // ADJUST IMAGE CONTAINER HEIGHT TO PARENT CONTAINER HEIGHT IF LARGER THAN MIN-HEIGHT
 			function resizeImage() {
 				$('.entry-image').each(function() {
 					var theParent = $(this).parent();
@@ -274,12 +284,15 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				});
 			}
 			resizeImage();
-			setTimeout(function() {  // RESET BACKGROUND COVER AFTER ON-LOAD RESIZE CALL
-				$('.entry-image .background-cover').backgroundCover();		
-			}, 250);
+			$.when(resizeImage()).done(function() {
+				$('.entry-image .background-cover').backgroundCover();	// RESET BACKGROUND COVER AFTER ON-LOAD RESIZE CALL	
+			});
 			$(window).resize(function() {
 				$('.entry-image').css('height','240px'); // RESET INITIAL HEIGHT ON TABLET ROTATION
 				resizeImage();
+				$.when(resizeImage()).done(function() {
+					$('.entry-image .background-cover').backgroundCover(); // RESET BACKGROUND COVER	
+				});
 			});
 		});
 	});
@@ -365,10 +378,13 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				$('.background-cover').backgroundCover(); // IOS7 DOM LOADING FIX
 			});
 			$(window).resize(function() {
-				$('.background-cover').css('height','100%'); // RESET CSS HEIGHT
-				setTimeout(function() { // RESET BACKGROUND COVER AFTER CSS HEIGHT RESET
+				function resetHeight() {
+					$('.background-cover').css('height','100%'); // RESET CSS HEIGHT
+				}
+				resetHeight();
+				$.when(resetHeight()).done(function() { // RESET BACKGROUND COVER AFTER CSS HEIGHT RESET
 					$('.background-cover').backgroundCover();
-				}, 250);
+				});
 			});
 		}
 	});
