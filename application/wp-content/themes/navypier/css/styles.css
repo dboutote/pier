@@ -904,6 +904,9 @@ a.icon {
 	padding: 0 10px;
 	text-transform: capitalize;
 }
+a.icon.calendar {
+	text-transform: none;
+}
 a.icon:hover {
 	opacity: 0.6;
 }
@@ -1007,8 +1010,7 @@ a.location:before {
 	padding: 12px 8px 5px 8px;
 }
 .entry .options a.icon {
-	/*margin: 0 40px 5px 0;*/
-	margin: 0 30px 5px 0;
+	margin: 0 0 5px 0;
 }
 .entry .options a.icon:before {
 	color: #bed600;
@@ -1320,9 +1322,6 @@ a.icon:not(.read-details) {
 }
 .entry .title {
 	height: auto;
-}
-.entry .options a.icon {
-	margin-right: 0;
 }
 #ads .col {
 	margin-bottom: 0.5%;
