@@ -17,10 +17,7 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 	
 <div class="container">
 		
-	<!-- FEATURED EVENTS HERE -->
-
-
-	<div id="tribe-events-content" class="tribe-events-list">
+	<div id="tribe-events-content2" class="tribe-events-list2">
 	
 		<div id="entries" class="section-title">
 			<!-- List Title -->
@@ -31,7 +28,12 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 		<!-- Notices -->
 		<?php tribe_events_the_notices() ?>
-		<!-- List Header -->
+		
+	<!-- List Header -->
+    <?php do_action( 'tribe_events_before_header' ); ?>
+	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
+	</div><!-- #tribe-events-header -->
+	<?php do_action( 'tribe_events_after_header' ); ?>
 		
 		<div class="section-content no-bg">
 		
@@ -44,19 +46,6 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 		
 		</div><!-- /.section-content -->
 		
-			<!-- List Footer -->
-	<?php do_action( 'tribe_events_before_footer' ); ?>
-	<div id="tribe-events-footer">
-
-		<!-- Footer Navigation -->
-		<?php do_action( 'tribe_events_before_footer_nav' ); ?>
-		<?php tribe_get_template_part( 'list/nav', 'footer' ); ?>
-		<?php do_action( 'tribe_events_after_footer_nav' ); ?>
-
-	</div><!-- #tribe-events-footer -->
-	
-		
-
 	</div><!-- #tribe-events-content -->
 
 </div> <!-- /.container -->
