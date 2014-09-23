@@ -276,7 +276,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			$(this).toggleClass('active');
 			return false;
 		});
-		$$(window).load(function() { // ADJUST IMAGE CONTAINER HEIGHT TO PARENT CONTAINER HEIGHT IF LARGER THAN MIN-HEIGHT
+		$(window).load(function() { // ADJUST IMAGE CONTAINER HEIGHT TO PARENT CONTAINER HEIGHT IF LARGER THAN MIN-HEIGHT
 			function resizeImage() {
 				$('.entry-image').each(function() {
 					var theParent = $(this).parent();
