@@ -12,6 +12,7 @@ body {
 	color: #221e1f;
 	background: #fff url(../images/background.png) repeat center top;
 	-webkit-text-size-adjust: none; /* DISABLE IOS SAFARI FONT RESIZE */
+	-webkit-font-smoothing: antialiased; /* CHROME AND SAFARI FONT RENDERING */
 }
 a, a:visited {
 	color: #3fcfd5;
@@ -949,6 +950,24 @@ a.calendar:before {
 a.location:before {	
 	font-family: FontAwesome;
 	content: '\f041';
+	display: inline;
+	margin-right: 6px;
+}
+a.website:before {	
+	font-family: FontAwesome;
+	content: '\f0ac';
+	display: inline;
+	margin-right: 6px;
+}
+a.phone-number:before {	
+	font-family: FontAwesome;
+	content: '\f095';
+	display: inline;
+	margin-right: 6px;
+}
+a.document:before {	
+	font-family: FontAwesome;
+	content: '\f0f6';
 	display: inline;
 	margin-right: 6px;
 }
