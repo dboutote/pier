@@ -265,7 +265,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 					setTimeout(function() {
 						var yPos = $(window).scrollTop();
 						$('html, body').animate({scrollTop: yPos - 75}, 250);
-					}, 575);
+					}, 250);
 				}
 			});
 		}
@@ -354,18 +354,46 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 	
 	/* ----- CYCLE INITIALIZE ----- */
 	$(document).ready(function() {
-		$('#slider').cycle({
+		var homeSliderOpts = {
+			fx: 'fade',
 			speed: 500,
 			timeout: 5000,
 			prev: '#prev', 
-			next: '#next'
-		});
-		$('#events+.section-content').cycle({
+			next: '#next',
+			nowrap: 0,
+			slideResize: 0
+		},
+		eventSliderOpts = {
 			fx: 'scrollHorz',
 			speed: 500,
 			timeout: 0,
 			prev: '#events-prev', 
 			next: '#events-next',
+			nowrap: 1,
+			slideResize: 0
+		};
+		$('#slider').cycle(homeSliderOpts);
+		$('#events+.section-content').cycle(eventSliderOpts);
+		$(window).resize(function() { // RESET EVENT SLIDER DIMENSIONS ON RESIZE
+			var eventSlideWidth = $('#events').innerWidth(),
+			eventSlideContainer = $('#events+.section-content');
+			function resizeSlider() {
+				eventSlideContainer.css('width', eventSlideWidth + 'px');
+				if (window.matchMedia('(min-width: 961px)').matches) {
+					eventSlideContainer.css('height', '456px');
+				}
+				if (window.matchMedia('(min-width: 761px) and (max-width: 960px)').matches) {
+					eventSlideContainer.css('height', '684px');
+				}
+				if (window.matchMedia('(max-width: 760px)').matches) {
+					eventSlideContainer.css('height', '1368px');
+				}
+			}
+			resizeSlider();
+			$.when(resizeSlider()).done(function() {
+				$('#events+.section-content').cycle('destroy');
+				$('#events+.section-content').cycle(eventSliderOpts);
+			});
 		});
 	});
 
@@ -382,10 +410,17 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 					$('.background-cover').css('height','100%'); // RESET CSS HEIGHT
 				}
 				resetHeight();
-				$.when(resetHeight()).done(function() { // RESET BACKGROUND COVER AFTER CSS HEIGHT RESET
-					$('.background-cover').backgroundCover();
+				$.when(resetHeight()).done(function() { // REINITIALIZE BACKGROUND COVER AFTER CSS HEIGHT RESET
+					setTimeout(function() {
+						$('.background-cover').backgroundCover();
+					}, 500);
 				});
 			});
+		}
+	});
+	$(document).bind('pageshow', function(e) { // GENERAL MULTI-PLATFORM CACHING FIX
+		if (e.originalEvent.persisted) {
+			$('.background-cover').backgroundCover();
 		}
 	});
 
