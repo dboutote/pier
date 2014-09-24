@@ -106,6 +106,12 @@ if( has_post_thumbnail() ){
 					$_deal_url = get_post_meta($post->ID, '_deal_url', true);
 					$_tix_title = get_post_meta($post->ID, '_tix_title', true);
 					$_tix_url = get_post_meta($post->ID, '_tix_url', true);	
+					$_website_title = get_post_meta($post->ID, 'website_title', true);					
+					$_website_url = get_post_meta($post->ID, 'website_url', true);
+					$_phone_title = get_post_meta($post->ID, '_phone_title', true);
+					$_phone_url = get_post_meta($post->ID, '_phone_url', true);
+					$_document_title = get_post_meta($post->ID, '_document_title', true);
+					$_document_url = get_post_meta($post->ID, '_document_url', true);
 					if( 'tribe_events' === $post->post_type  ){
 						$venue_id = tribe_get_venue_id( $post->ID );
 						$_latitude = get_post_meta($venue_id, '_VenueLat', true);
@@ -138,8 +144,11 @@ if( has_post_thumbnail() ){
 								</div>
 								<div class="options">
 									<a href="#" data-shareid="<?php echo $post->ID;?>" class="icon share">share</a>
-									<?php if( $_deal_url ) {?> <a href="<?php echo $_deal_url;?>" class="icon get-deal" target="_blank"><?php echo $_deal_title;?></a><?php ;} ?>
-									<?php if( $_tix_url ) {?> <a href="<?php echo $_tix_url;?>" class="icon buy-tickets"  target="_blank"><?php echo $_tix_title;?></a><?php ;} ?>
+									<?php if( $_deal_url ) {?> <a href="<?php echo $_deal_url;?>" class="icon get-deal" target="_blank"><?php echo ( '' != $_deal_title ) ? $_deal_title : $_deal_url;?></a><?php ;} ?>
+									<?php if( $_tix_url ) {?> <a href="<?php echo $_tix_url;?>" class="icon buy-tickets"  target="_blank"><?php echo ( '' != $_tix_title ) ? $_tix_title : $_tix_url;?></a><?php ;} ?>							
+									<?php if( $_website_url ) {?> <a href="<?php echo $_website_url;?>" class="icon website" target="_blank"><?php echo ( '' != $_website_title ) ? $_website_title : $_website_url;?></a><?php ;} ?>
+									<?php if( $_phone_url ) {?> <a href="<?php echo $_phone_url;?>" class="icon phone-number"><?php echo ( '' != $_phone_title ) ? $_phone_title : $_phone_url;?></a><?php ;} ?>
+									<?php if( $_document_url ) {?> <a href="<?php echo $_document_url;?>" class="icon document" target="_blank"><?php echo ( '' != $_document_title ) ? $_document_title : $_document_url;?></a><?php ;} ?>
 									<?php if( $lat_long_href ) {?> <a href="<?php echo $lat_long_href;?>" class="icon location map-link"><?php echo $_location_title;?></a><?php ;} ?>							
 								</div>
 							</div>

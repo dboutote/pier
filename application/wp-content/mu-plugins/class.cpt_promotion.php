@@ -180,7 +180,7 @@ class CPT_Promotions
 				'type' => 'text',
 				'default' => '0',
 				'title' => __('Menu Order'),
-				'description' => __( '', 'navypier' )			
+				'description' => __( '', 'navypier' )
 			),
 			'alt_title' => array(
 				'name' => 'alt_title',
@@ -223,6 +223,48 @@ class CPT_Promotions
 				'default' => '',
 				'title' => __('Tickets URL'),
 				'description' => __('Enter the url to purchase tickets (if applicable).')
+			),
+			'website_title' => array(
+				'name' => 'website_title',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Website Title'),
+				'description' => __('Enter the link text for the website url. (e.g., "Website").')
+			),
+			'website_url' => array(
+				'name' => 'website_url',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Website URL'),
+				'description' => __('Enter the url for the website (if applicable).')
+			),
+			'phone_title' => array(
+				'name' => 'phone_title',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Phone Title'),
+				'description' => __('Enter the link text for the phone number. (e.g., "Call Us!").')
+			),
+			'phone_url' => array(
+				'name' => 'phone_url',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Phone URL'),
+				'description' => __('Enter the number/url for the phone (if applicable).')
+			),
+			'document_title' => array(
+				'name' => 'document_title',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Document Title'),
+				'description' => __('Enter the link text for the downloadable document. (e.g., "Download Menu").')
+			),
+			'document_url' => array(
+				'name' => 'document_url',
+				'type' => 'text',
+				'default' => '',
+				'title' => __('Document URL'),
+				'description' => __('Enter the url for the download (if applicable).')
 			),
 			'location_title' => array(
 				'name' => 'location_title',
@@ -323,12 +365,12 @@ class CPT_Promotions
 			}
 
 			wp_nonce_field( plugin_basename(__CLASS__), $meta_field['name'].'_noncename' );
-			
+
 			if ( 'menu_order' === $meta_field['name']) {
 				$meta_field_value = $post->menu_order;
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
 				$output .= '<input type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="4" /> <span class="desc">'.$meta_field['description'].'</span></p>';
-			}			
+			}
 
 			if ( 'alt_title' === $meta_field['name']) {
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
@@ -346,6 +388,36 @@ class CPT_Promotions
 			}
 
 			if ( 'deal_url' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'website_title' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'website_url' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'phone_title' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'phone_url' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'document_title' === $meta_field['name']) {
+				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
+				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
+			}
+
+			if ( 'document_url' === $meta_field['name']) {
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
 				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
 			}
@@ -428,7 +500,7 @@ class CPT_Promotions
 		extract($args);
 
 		foreach($meta_fields as $meta_field) {
-		
+
 			// let WP save menu_order in $wpdb->posts table, not meta
 			if ( 'menu_order' === $meta_field['name']) {
 				continue;
