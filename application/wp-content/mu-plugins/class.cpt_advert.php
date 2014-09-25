@@ -329,12 +329,16 @@ class CPT_Adverts
 				$image_obj = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large');
 				if($image_obj){
 					$img_src = $image_obj[0];
+					$img_width = $image_obj[1];
+					$img_height = $image_obj[2];
 				} else {
 					$img_src = get_stylesheet_directory_uri() . '/images/ad_placeholder.jpg';
+					$img_width = '480';
+					$img_height = '220';					
 				}
 				$out .= '<div class="col">';
 				$out .= '<a href="'.$ad_url.'">';
-				$out .= '<img src="'.$img_src.'" width="480" height="220" />';
+				$out .= '<img src="'.$img_src.'" width="'.$img_width.'" height="'.$img_height.'" />';
 				$out .= '</a>';
 				$out .= '</div>';
 			endwhile;

@@ -127,14 +127,19 @@ if( has_post_thumbnail() ){
 					$image_obj = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');				
 					if($image_obj){
 						$img_src = $image_obj[0];
+						$img_width = $image_obj[1];
+						$img_height = $image_obj[2];
+						
 					} else {
 						$img_src = get_stylesheet_directory_uri() . '/images/promo_placeholder.jpg';
+						$img_width = '463';
+						$img_height = '275';
 					}			
 					?>		
 					<div id="entry-<?php echo get_the_ID();?>" class="<?php echo get_post_type();?>-entry entry">
 						<div class="title clearfix">
 							<div class="col entry-image"> 
-								<img src="<?php echo $img_src; ?>" width="463" height="275" class="background-cover">
+								<img src="<?php echo $img_src; ?>" width="<?php echo $img_width;?>" height="<?php echo $img_height;?>" class="background-cover">
 							</div>
 							<div class="col span-2">
 								<div class="info padded">
