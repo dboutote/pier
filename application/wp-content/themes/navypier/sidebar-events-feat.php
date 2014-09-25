@@ -38,7 +38,7 @@ if( !empty($all_events) ) : ?>
 							$img_width = $image_obj[1];
 							$img_height = $image_obj[2];
 							?>
-							<a href="<?php echo the_permalink();?>" class="image"><img src="<?php echo $img_src; ?>" width="<?php echo $img_width; ?>" height="<?php echo $img_height; ?>" class="background-cover"></a>	
+							<a href="<?php the_permalink();?>" class="image"><img src="<?php echo $img_src; ?>" width="<?php echo $img_width; ?>" height="<?php echo $img_height; ?>" class="background-cover"></a>	
 						<?php }; ?>		
 						<a href="<?php the_permalink(); ?>" class="text">
 							<h3><?php the_title(); ?></h3>

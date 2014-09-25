@@ -111,8 +111,10 @@ get_header();
 							if( has_post_thumbnail() ){
 								$image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');
 								$img_src = $image_url[0];
+								$img_width = $image_obj[1];
+								$img_height = $image_obj[2];
 								?>
-								<a href="<?php the_permalink();?>" class="image"><img src="<?php echo $img_src; ?>" width="463" height="275" class="background-cover" /></a>	
+								<a href="<?php the_permalink();?>" class="image"><img src="<?php echo $img_src; ?>" width="<?php echo $img_width; ?>" height="<?php echo $img_height; ?>" class="background-cover" /></a>	
 							<?php }; ?>		
 							<a href="<?php the_permalink(); ?>" class="text">
 								<h3><?php the_title(); ?></h3>								
@@ -153,7 +155,9 @@ get_header();
 				$image_obj = wp_get_attachment_image_src( get_post_thumbnail_id( $page->ID ), 'large');
 				if($image_obj){
 					$img_src = $image_obj[0];
-					echo '<img src="'.$img_src.'" width="599" height="360" class="background-cover" />';
+					$img_width = $image_obj[1];
+					$img_height = $image_obj[2];
+					echo '<img src="'.$img_src.'" width="'.$img_width.'" height="'.$img_height.'" class="background-cover" />';
 				}	
 			?>				
 		</div>
@@ -233,12 +237,16 @@ get_header();
 					$image_obj = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');				
 					if($image_obj){
 						$img_src = $image_obj[0];
+						$img_width = $image_obj[1];
+						$img_height = $image_obj[2];
 					} else {
 						$img_src = get_stylesheet_directory_uri() . '/images/promo_placeholder.jpg';
+						$img_width = '318';
+						$img_height = '238';
 					}					
 					?>
 					<div class="col">
-					  <div class="promotion-container"><a href="<?php the_permalink(); ?>" class="image"><img src="<?php echo $img_src; ?>" width="318" height="238" class="background-cover" /></a> <a href="<?php the_permalink(); ?>" class="promotion-text"><?php echo ( $_alt_title ) ? $_alt_title : get_the_title(); ?><br />
+					  <div class="promotion-container"><a href="<?php the_permalink(); ?>" class="image"><img src="<?php echo $img_src; ?>" width="<?php echo $img_width; ?>" height="<?php echo $img_height; ?>" class="background-cover" /></a> <a href="<?php the_permalink(); ?>" class="promotion-text"><?php echo ( $_alt_title ) ? $_alt_title : get_the_title(); ?><br />
 						<?php if($_sub_title) { ?><span class="promotion-date"><?php echo $_sub_title;?></span><?php } ?></a>
 						<div class="promotion-links"><a href="<?php the_permalink(); ?>" class="icon read-more">Read More</a><a href="#" data-shareid="<?php echo $post->ID;?>" class="icon share">share</a><?php if($_deal_url) {?><a href="<?php echo $_deal_url;?>" class="icon get-deal"><?php echo $_deal_title;?></a><?php }; ?></div>
 					  </div>
