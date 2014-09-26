@@ -15,7 +15,7 @@ if( !empty($all_events) ) : ?>
 	<div id="events-featured" class="section-title">
 		<h2><?php echo $events_title;?></h2>
 		<?php if( count($all_events) > 3 ) { ?>
-			<div class="events-nav"><a href="#"><i class="fa fa-chevron-circle-left"></i></a><a href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
+			<div class="events-nav"><a id="events-prev" href="#"><i class="fa fa-chevron-circle-left"></i></a><a id="events-next" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
 		<?php } ?>
 	</div>
 	
