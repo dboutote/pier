@@ -26,7 +26,7 @@ if( has_post_thumbnail() ){
 
 	<div class="intro clearfix">
 		
-		<div class="col span-2 padded">
+		<div class="col span-3 padded">
 			<?php
 				// Start the Loop.
 				while ( have_posts() ) : the_post();
@@ -36,6 +36,8 @@ if( has_post_thumbnail() ){
 			?>
 		</div>
 		
+		
+	<?php /*
 		<div class="col padded">
 			<div class="page-actions align-right">
 				<a href="#" data-shareid="<?php echo $post->ID;?>" class="icon share">share page</a><a href="#" class="icon print">print page</a>
@@ -45,6 +47,7 @@ if( has_post_thumbnail() ){
 				<?php mbp_display_promotion_box(); ?>
 			<?php }?>
 		</div>
+	*/ ?>
 		
 	</div> <!-- /.intro -->
 
