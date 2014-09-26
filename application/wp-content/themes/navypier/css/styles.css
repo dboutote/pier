@@ -376,23 +376,27 @@ header .middle nav.main .drop-down ul li a:hover {
 
 */
 header .middle .book-event {
-	float: left;
 	width: 75px;
-	height: 75px;
-}
-header .middle .book-event a, header .middle .book-event a:visited {
+	height: 60px;
 	display: block;
-	font-size;: 13px;
-	line-height: 18px;
-	padding: 11px 15px 10px 15px;
+	padding: 13px 0 2px 0;
 	color: #fff;
 	text-transform: uppercase;
 	opacity: 0.3;
 	background-color: #000;
+	position: absolute;
+	top: 0;
+	right: -93px;
+	font-size: 14px;
+	line-height: 16px;
 }
-header .middle .book-event a:hover {
-	opacity: 0.8;
-	background-color: #221e1f;
+header .middle .book-event:hover {
+	color: #3fcfd5;
+	opacity: 1;
+	background-color: rgba(0,0,0,0.5);
+}
+header .middle .book-event+img {
+	display: none;
 }
 header .bottom .container {
 	height: 35px;
