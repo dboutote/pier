@@ -39,6 +39,8 @@ get_header();
 					$img_src = $image_obj[0];
 					$img_width = $image_obj[1];
 					$img_height = $image_obj[2];
+				} else {
+					list($img_width, $img_height, $type, $attr) = getimagesize($img_src);					
 				}
 				?>
 				<li id="slide-<?php the_ID(); ?>">
