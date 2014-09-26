@@ -483,7 +483,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				  { 'color': '#ffffff' }
 				]
 			  },{
-				'featureType': 'poi',
+				'featureType': 'poi.park',
 				'elementType': 'geometry.fill',
 				'stylers': [
 				  { 'color': '#bed600' }
@@ -529,21 +529,21 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				  { 'color': '#ffffff' }
 				]
 			  },{
-				"featureType": "road.local",
-				"elementType": "labels",
-				"stylers": [
-				  { "visibility": "off" }
+				'featureType': 'road.local',
+				'elementType': 'labels',
+				'stylers': [
+				  { 'visibility': 'off' }
 				]
 			  },{
-		  		"elementType": "labels",
-				"stylers": [
-				  { "visibility": "off" }
+				'elementType': 'labels',
+				'stylers': [
+				  { 'visibility': 'off' }
 				]
 			  },{
-				"featureType": "road",
-				"elementType": "labels",
-				"stylers": [
-				  { "visibility": "on" }
+				'featureType': 'road',
+				'elementType': 'labels',
+				'stylers': [
+				  { 'visibility': 'on' }
 				]
 			  }
 			];
