@@ -373,10 +373,10 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			slideResize: 0
 		};
 		$('#slider').cycle(homeSliderOpts);
-		$('#events+.section-content').cycle(eventSliderOpts);
+		$('#events+.section-content, #events-featured+.section-content').cycle(eventSliderOpts);
 		$(window).resize(function() { // RESET EVENT SLIDER DIMENSIONS ON RESIZE
-			var eventSlideWidth = $('#events').innerWidth(),
-			eventSlideContainer = $('#events+.section-content');
+			var eventSlideWidth = $('#events, #events-featured').innerWidth(),
+			eventSlideContainer = $('#events+.section-content, #events-featured+.section-content');
 			function resizeSlider() {
 				eventSlideContainer.css('width', eventSlideWidth + 'px');
 				if (window.matchMedia('(min-width: 961px)').matches) {
@@ -391,8 +391,8 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			}
 			resizeSlider();
 			$.when(resizeSlider()).done(function() {
-				$('#events+.section-content').cycle('destroy');
-				$('#events+.section-content').cycle(eventSliderOpts);
+				$('#events+.section-content, #events-featured+.section-content').cycle('destroy');
+				$('#events+.section-content, #events-featured+.section-content').cycle(eventSliderOpts);
 			});
 		});
 	});
