@@ -728,7 +728,7 @@ header .bottom .container:before {
 	background-color: transparent;
 	margin-bottom: 48px;
 }
-#events+.section-content .slide {
+#events-wrap>.slide, #feat-events-wrap>.slide {
 	display: block !important;
 	width: 100%;
 }
@@ -1628,7 +1628,7 @@ header .bottom {
 	font-size: 14px;
 	line-height: 22px;
 }
-#featured, #featured+.section-content {
+#events-upcoming, #events-upcoming+#events-wrap, #events-featured, #events-featured+#feat-events-wrap {
 	display: none;
 }
 .col, .col.span-2, .col.span-3 {
