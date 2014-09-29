@@ -14,7 +14,7 @@ if( !empty($all_events) ) : ?>
 	
 	<div id="events-featured" class="section-title">
 		<h2><?php echo $events_title;?></h2>
-		<?php if( count($all_events) > 3 ) { ?>
+		<?php if( count($all_events) > 6 ) { ?>
 			<div class="events-nav"><a id="events-prev" href="#"><i class="fa fa-chevron-circle-left"></i></a><a id="events-next" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
 		<?php } ?>
 	</div>
@@ -23,7 +23,7 @@ if( !empty($all_events) ) : ?>
 		
 		<?php $count = 0; ?>
 		
-		<?php if( count($all_events) > 3 ) { ?> <div class="slide"> <?php } ?>
+		<?php if( count($all_events) > 6 ) { ?> <div class="slide"> <?php } ?>
 		
 			<?php foreach($all_events as $post) { ?>
 				<?php ++$count; ?>
@@ -47,13 +47,13 @@ if( !empty($all_events) ) : ?>
 					</div>
 				</div>
 				
-				<?php if( count($all_events) > 3 && ($count % 3 == 0) ) { ?>
+				<?php if( count($all_events) > 6 && ($count % 6 == 0) ) { ?>
 					</div> <!-- /.slide --> <div class="slide">
 				<?php }; ?>
 				
 			<?php }; ?>
 		
-		<?php if( count($all_events) > 3 ) { ?> </div> <!-- /.slide --> <?php } ?>
+		<?php if( count($all_events) > 6 ) { ?> </div> <!-- /.slide --> <?php } ?>
 	
 	</div><!-- /.section-content -->
 
