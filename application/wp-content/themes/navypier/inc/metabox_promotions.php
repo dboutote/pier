@@ -1,4 +1,6 @@
 <?php
+
+return;
 /**
  * Homepage Featured Content
  *
