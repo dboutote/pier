@@ -373,10 +373,10 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			slideResize: 0
 		};
 		$('#slider').cycle(homeSliderOpts);
-		$('#events+.section-content').cycle(eventSliderOpts);
+		$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle(eventSliderOpts);
 		$(window).resize(function() { // RESET EVENT SLIDER DIMENSIONS ON RESIZE
-			var eventSlideWidth = $('#events').innerWidth(),
-			eventSlideContainer = $('#events+.section-content');
+			var eventSlideWidth = $('#events, #events-featured').innerWidth(),
+			eventSlideContainer = $('#events+#events-wrap, #events-featured+#feat-events-wrap');
 			function resizeSlider() {
 				eventSlideContainer.css('width', eventSlideWidth + 'px');
 				if (window.matchMedia('(min-width: 961px)').matches) {
@@ -391,8 +391,8 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			}
 			resizeSlider();
 			$.when(resizeSlider()).done(function() {
-				$('#events+.section-content').cycle('destroy');
-				$('#events+.section-content').cycle(eventSliderOpts);
+				$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle('destroy');
+				$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle(eventSliderOpts);
 			});
 		});
 	});
@@ -483,7 +483,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				  { 'color': '#ffffff' }
 				]
 			  },{
-				'featureType': 'poi',
+				'featureType': 'poi.park',
 				'elementType': 'geometry.fill',
 				'stylers': [
 				  { 'color': '#bed600' }
@@ -529,21 +529,21 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				  { 'color': '#ffffff' }
 				]
 			  },{
-				"featureType": "road.local",
-				"elementType": "labels",
-				"stylers": [
-				  { "visibility": "off" }
+				'featureType': 'road.local',
+				'elementType': 'labels',
+				'stylers': [
+				  { 'visibility': 'off' }
 				]
 			  },{
-		  		"elementType": "labels",
-				"stylers": [
-				  { "visibility": "off" }
+				'elementType': 'labels',
+				'stylers': [
+				  { 'visibility': 'off' }
 				]
 			  },{
-				"featureType": "road",
-				"elementType": "labels",
-				"stylers": [
-				  { "visibility": "on" }
+				'featureType': 'road',
+				'elementType': 'labels',
+				'stylers': [
+				  { 'visibility': 'on' }
 				]
 			  }
 			];
