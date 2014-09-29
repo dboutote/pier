@@ -85,8 +85,6 @@
 		?>
 
       </nav>
-
-	  <div class="book-event"><a href="#">Book Your Event</a></div>
 	  
 </div>
 </div><!-- /.middle -->
