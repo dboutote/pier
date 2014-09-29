@@ -100,7 +100,7 @@ get_header();
 			<?php } ?>
 		</div>
 
-		<div class="section-content no-bg clearfix">
+		<div id="events-wrap" class="section-content no-bg clearfix">
 
 			<?php $count = 0; ?>
 
