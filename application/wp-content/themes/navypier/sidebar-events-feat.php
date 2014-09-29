@@ -8,8 +8,6 @@ $num_feat_events = get_post_meta( get_the_ID(), '_feat_events_number', true );
 
 $all_events = np_get_featured_events($num_feat_events);
 
-debug(count($all_events));
-
 if( !empty($all_events) ) : ?>
 
 	<?php global $post;?>
