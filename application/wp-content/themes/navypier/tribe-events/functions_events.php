@@ -20,10 +20,13 @@ function np_get_events_landing_page(){
 /**
  * Override the Events Calendar Featured image
  */
-function np_event_featured_image( $featured_image, $post_id, $size, $image_src ){
+function np_event_featured_image( $featured_image, $post_id, $size, $image_obj ){
 	$featured_image = '';
-	if( !empty( $image_src ) ){
-		$featured_image .= '<img src="'.  $image_src[0] .'" title="'. get_the_title( $post_id ) .'" width="400" height="569" class="background-cover"/>';
+	if( !empty( $image_obj ) ){
+		$img_src = $image_obj[0];
+		$img_width = $image_obj[1];
+		$img_height = $image_obj[2];
+		$featured_image .= '<img src="'.  $img_src .'" title="'. get_the_title( $post_id ) .'" width="'.$img_width.'" height="'.$img_height.'" class="background-cover"/>';
 	}
 	return $featured_image;
 }

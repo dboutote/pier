@@ -33,8 +33,8 @@ if( !empty($all_events) ) : ?>
 					<div class="event-container">
 						<?php
 						if( has_post_thumbnail() ){
-							$image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');							
-							$img_src = $image_url[0];
+							$image_obj = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full');							
+							$img_src = $image_obj[0];
 							$img_width = $image_obj[1];
 							$img_height = $image_obj[2];
 							?>

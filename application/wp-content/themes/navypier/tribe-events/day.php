@@ -21,10 +21,12 @@ if( $ep ) : ?>
 	<div id="inside-hero-region">
 		<?php
 		if( has_post_thumbnail( $ep->ID) ){
-			$image_url = wp_get_attachment_image_src( get_post_thumbnail_id($ep->ID), 'full');
-			$img_src = $image_url[0];
+			$image_obj = wp_get_attachment_image_src( get_post_thumbnail_id($ep->ID), 'full');
+			$img_src = $image_obj[0];
+			$img_width = $image_obj[1];
+			$img_height = $image_obj[2];
 			?>
-			<img src="<?php echo $img_src; ?>" width="1198" height="720" class="background-cover" /><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/inside-hero-shadow.png" class="hero-shadow"> 
+			<img src="<?php echo $img_src; ?>" width="<?php echo $img_width;?>" height="<?php echo $img_height;?>" class="background-cover" /><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/inside-hero-shadow.png" class="hero-shadow"> 
 		<?php } ?>
 	</div>  <!-- /#inside-hero-region -->	
 	
