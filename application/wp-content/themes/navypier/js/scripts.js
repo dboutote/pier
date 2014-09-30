@@ -73,20 +73,20 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			}, function(){
 				$('.sub-menu', this).first().stop().slideToggle(100);
 			});
-			$('#menu-top-primary > li').click(function(e) {
+			$('#menu-top-primary > li > a').click(function(e) {
 				e.preventDefault();	
 			});
 		}
 		else { // MOBILE FUNCTIONS
 			if (isMobile.iPad()) { // IPADS ONLY
-				$('#menu-top-primary > li').click(function(e) {	
+				$('#menu-top-primary > li > a').click(function(e) {	
 					e.preventDefault();
 					$('#menu-top-primary > li > .sub-menu').not(this).stop().slideUp(100);
 					$('.sub-menu', this).first().stop().slideToggle(250);
 				});		
 			}
 			else { // PHONES AND NON-IPAD TABLETS
-				$('#menu-top-primary > li').click(function(e) {
+				$('#menu-top-primary > li > a').click(function(e) {
 					e.preventDefault();
 					//$(this).parent('li').children('.sub-menu').first().stop().slideToggle(250);
 					$('.sub-menu', this).first().stop().slideToggle(250);
