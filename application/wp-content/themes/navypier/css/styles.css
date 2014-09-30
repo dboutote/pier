@@ -702,7 +702,7 @@ header .bottom .container:before {
 	font-size: 16px;
 	line-height: 28px;
 }
-.intro .col .promotion-container {
+/*.intro .col .promotion-container {
 	margin-top: 20px;
 }
 .intro .col:not(:first-child) .promotion-container {
@@ -713,7 +713,7 @@ header .bottom .container:before {
 }
 .intro .span-2 a.promotion-text {
 	height: 88px;
-}
+}*/
 .section-title {
 	padding: 20px;
 	border-bottom: 3px solid #3fcfd5;
@@ -1282,7 +1282,7 @@ header .bottom .join-newsletter.show-subscribe {
 #hero-region .callouts a p {
 	font-size: 11px;
 }
-.promotion-container .promotion-links {
+/*.promotion-container .promotion-links {
 	bottom: 10px;
 }
 .intro .col:not(:first-child) {
@@ -1293,7 +1293,7 @@ header .bottom .join-newsletter.show-subscribe {
 }
 .page-actions {
 	display: none;
-}
+}*/
 a.icon:not(.read-details) {
 	font-size: 11px;
 }
@@ -1624,9 +1624,9 @@ header .bottom {
 	margin-top: -75px;
 	min-height: 72px;
 }
-.intro .col:not(:first-child) {
+/*.intro .col:not(:first-child) {
 	display: none;
-}
+}*/
 .intro p {
 	font-size: 14px;
 	line-height: 22px;
