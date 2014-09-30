@@ -909,71 +909,43 @@ a.icon {
 	padding: 0 10px;
 	text-transform: capitalize;
 }
-a.icon.calendar {
-	text-transform: none;
-}
 a.icon:hover {
 	opacity: 0.6;
 }
-a.read-more:before {	
+a.icon:before {
 	font-family: FontAwesome;
-	content: '\f0da';
 	display: inline;
 	margin-right: 6px;
+}
+a.read-more:before {	
+	content: '\f0da';
 }
 a.share:before {	
-	font-family: FontAwesome;
 	content: '\f1e0';
-	display: inline;
-	margin-right: 6px;
 }
 a.get-deal:before {	
-	font-family: FontAwesome;
 	content: '\f00c';
-	display: inline;
-	margin-right: 6px;
 }
 a.buy-tickets:before {	
-	font-family: FontAwesome;
 	content: '\f145';
-	display: inline;
-	margin-right: 6px;
 }
 a.print:before {	
-	font-family: FontAwesome;
 	content: '\f02f';
-	display: inline;
-	margin-right: 6px;
 }
 a.calendar:before {	
-	font-family: FontAwesome;
 	content: '\f073';
-	display: inline;
-	margin-right: 6px;
 }
 a.location:before {	
-	font-family: FontAwesome;
 	content: '\f041';
-	display: inline;
-	margin-right: 6px;
 }
 a.website:before {	
-	font-family: FontAwesome;
 	content: '\f0ac';
-	display: inline;
-	margin-right: 6px;
 }
 a.phone-number:before {	
-	font-family: FontAwesome;
 	content: '\f095';
-	display: inline;
-	margin-right: 6px;
 }
 a.document:before {	
-	font-family: FontAwesome;
 	content: '\f0f6';
-	display: inline;
-	margin-right: 6px;
 }
 .entry {
 	min-height: 240px;
