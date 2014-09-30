@@ -1285,8 +1285,11 @@ header .bottom .join-newsletter.show-subscribe {
 .promotion-container .promotion-links {
 	bottom: 10px;
 }
-.intro .col:not(:first-child) .promotion-container {
-	margin-top: 0;
+.intro .col:not(:first-child) {
+	display: none;
+}
+.intro .col:first-child {
+	width: 100%;
 }
 .page-actions {
 	display: none;
