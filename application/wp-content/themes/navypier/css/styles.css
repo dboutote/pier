@@ -714,6 +714,64 @@ header .bottom .container:before {
 .intro .span-2 a.promotion-text {
 	height: 88px;
 }*/
+.gallery {
+	margin-top: 20px;
+}
+.gallery .photo, .gallery .video {
+	float: left;
+	box-sizing: border-box;
+	width: 25%;
+	padding: 1.25px;
+	height: 180px;
+}
+.gallery a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.gallery .photo a:after, .gallery .video a:after {
+	font-family: FontAwesome;
+	position: absolute;
+	top: 10px;
+	right: 14px;
+	color: #fff;
+	font-size: 20px;
+	opacity: 0.5;
+	text-shadow: 0 0 10px rgba(0,0,0,0.3);
+	-webkit-transition: all 250ms ease-in-out;
+	-moz-transition: all 250ms ease-in-out;
+	-ms-transition: all 250ms ease-in-out;
+	-o-transition: all 250ms ease-in-out;
+	transition: all 250ms ease-in-out;
+}
+.gallery .photo a:after {
+	content: '\f030';
+}
+.gallery .video a:after {
+	content: '\f03d';
+}
+.gallery .photo:hover a:after, .gallery .video:hover a:after {
+	opacity: 1;
+}
+.accordion {
+	margin-top: 20px;
+}
+.accordion .toggle {
+	cursor: pointer;
+	border-bottom: 1px solid #e5e5e1;
+	border-left: 1px solid #e5e5e1;
+	border-right: 1px solid #e5e5e1;
+	color: #3fcfd5;
+}
+.accordion .toggle:first-child {
+	border-top: 1px solid #e5e5e1;
+}
+.accordion .toggle .content {
+	display: none;
+	background-color: #e5e5e1;
+	color: #221e1f;
+}
 .section-title {
 	padding: 20px;
 	border-bottom: 3px solid #3fcfd5;
@@ -1266,6 +1324,9 @@ header .bottom .join-newsletter.show-subscribe {
 .page-actions {
 	display: none;
 }*/
+.gallery .photo, .gallery .video {
+	height: 100px;
+}
 a.icon:not(.read-details) {
 	font-size: 11px;
 }
@@ -1664,6 +1725,9 @@ footer .bottom .right-col p.copyright {
 
 }
 @media only screen and (max-width: 460px) {
+.gallery .photo, .gallery .video {
+	width: 50%;
+}
 footer .top .sponsors img {
 	width: 50%;
 }
@@ -1877,4 +1941,45 @@ ul.tribe-events-sub-nav a, .tribe-events-back a, .tribe-events-list-widget .trib
 .tribe-mobile-day-heading {
 	margin-top: 40px;
 }
+}
+.nivo-lightbox-theme-default.nivo-lightbox-overlay {
+	background: rgba(0,0,0,0.8);
+}
+.nivo-lightbox-theme-default .nivo-lightbox-close {
+	background-position: center center;
+	position: fixed;
+	top: 24px;
+	right: 24px;
+}
+.nivo-lightbox-theme-default .nivo-lightbox-prev, .nivo-lightbox-theme-default .nivo-lightbox-next, .nivo-lightbox-theme-default .nivo-lightbox-prev:hover, .nivo-lightbox-theme-default .nivo-lightbox-next:hover {
+	background: none;
+}
+.nivo-lightbox-theme-default .nivo-lightbox-nav {
+	top: 50%;
+	margin-top: -150px;
+	width: auto;
+	height: auto;
+	text-indent: 0;
+	font-size: 0;
+	padding: 120px 50px;
+}
+.nivo-lightbox-theme-default .nivo-lightbox-prev:after, .nivo-lightbox-theme-default .nivo-lightbox-next:after {
+	color: #fff;
+	font-family: FontAwesome;
+	font-size: 60px;
+	line-height: 60px;
+	text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+}
+.nivo-lightbox-theme-default .nivo-lightbox-prev:after {
+	content: '\f104';
+}
+.nivo-lightbox-theme-default .nivo-lightbox-next:after {
+	content: '\f105';
+}
+.nivo-lightbox-theme-default .nivo-lightbox-title {
+	font-family: Stainless;
+	font-size: 14px;
+	line-height: 21px;
+	background: none;
+	border-radius: 0;
 }
