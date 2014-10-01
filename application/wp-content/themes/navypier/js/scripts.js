@@ -426,6 +426,20 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		}
 	});
 
+	/* ----- LIGHTBOX INITIALIZE -----*/
+	$(document).ready(function() {
+		$('a.lightbox').nivoLightbox({
+			 onPrev: function() {$('.nivo-lightbox-content').hide().fadeIn(250);},
+			 onNext: function() {$('.nivo-lightbox-content').hide().fadeIn(250);}
+		});
+	});
+	
+	/* ----- ACCORDION FUNCTIONS ----- */
+	$(document).ready(function() {
+		$('.toggle').click(function() {
+			$('.content', this).slideToggle(250);
+		});
+	});
 	
 	/* ----- MAP FUNCTIONS ----- */
 	$(document).ready(function() {
