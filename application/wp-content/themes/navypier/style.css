@@ -82,7 +82,7 @@ header .top .search-trigger:hover, header .top .search-trigger.active {
  */
 
 #menu-top-primary {
-    padding: 0 14px;
+    padding: 0 0 0 14px;
 }
 
 #menu-top-primary li.mobile-only {
@@ -95,6 +95,11 @@ header .top .search-trigger:hover, header .top .search-trigger.active {
     text-align: center;
 }
 
+
+#menu-top-primary > li:last-child {
+    float: right;
+}
+
 #menu-top-primary > li > a, 
 #menu-top-primary > li > a:visited {
     color: #fff;
@@ -104,6 +109,10 @@ header .top .search-trigger:hover, header .top .search-trigger.active {
     padding: 28px 7px 26px 9px;
     position: relative;
     text-transform: uppercase;
+}
+
+#menu-top-primary > li:last-child a {
+    padding: 0;
 }
 
 #menu-top-primary li:hover a {
@@ -200,7 +209,7 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 	#menu-top-primary > li > a, 
 	#menu-top-primary > li > a:visited {
 		font-size: 12px;
-		padding: 28px 6px 26px 4px
+		padding: 28px 6px 26px 6px;
 	}
 	#menu-top-primary > li > a .caret {
 		top: -6px;
