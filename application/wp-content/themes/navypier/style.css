@@ -244,9 +244,9 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 		text-align: left;
 	}
 	
-	#menu-top-primary > li:last-child {
+	/*#menu-top-primary > li:last-child {
 		display: block;
-	}
+	}*/
 	
 	#menu-top-primary li:hover a {
 		color: #fff;
