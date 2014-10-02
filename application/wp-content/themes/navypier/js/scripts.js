@@ -373,28 +373,30 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			slideResize: 0
 		};
 		$('#slider').cycle(homeSliderOpts);
-		$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle(eventSliderOpts);
-		$(window).resize(function() { // RESET EVENT SLIDER DIMENSIONS ON RESIZE
-			var eventSlideWidth = $('#events, #events-featured').innerWidth(),
-			eventSlideContainer = $('#events+#events-wrap, #events-featured+#feat-events-wrap');
-			function resizeSlider() {
-				eventSlideContainer.css('width', eventSlideWidth + 'px');
-				if (window.matchMedia('(min-width: 961px)').matches) {
-					eventSlideContainer.css('height', '456px');
+		if ($('#events+#events-wrap > :first-child').hasClass('slide') || $('#events-featured+#feat-events-wrap > :first-child').hasClass('slide')) {
+			$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle(eventSliderOpts);
+			$(window).resize(function() { // RESET EVENT SLIDER DIMENSIONS ON RESIZE
+				var eventSlideWidth = $('#events, #events-featured').innerWidth(),
+				eventSlideContainer = $('#events+#events-wrap, #events-featured+#feat-events-wrap');
+				function resizeSlider() {
+					eventSlideContainer.css('width', eventSlideWidth + 'px');
+					if (window.matchMedia('(min-width: 961px)').matches) {
+						eventSlideContainer.css('height', '456px');
+					}
+					if (window.matchMedia('(min-width: 761px) and (max-width: 960px)').matches) {
+						eventSlideContainer.css('height', '684px');
+					}
+					if (window.matchMedia('(max-width: 760px)').matches) {
+						eventSlideContainer.css('height', '1368px');
+					}
 				}
-				if (window.matchMedia('(min-width: 761px) and (max-width: 960px)').matches) {
-					eventSlideContainer.css('height', '684px');
-				}
-				if (window.matchMedia('(max-width: 760px)').matches) {
-					eventSlideContainer.css('height', '1368px');
-				}
-			}
-			resizeSlider();
-			$.when(resizeSlider()).done(function() {
-				$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle('destroy');
-				$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle(eventSliderOpts);
+				resizeSlider();
+				$.when(resizeSlider()).done(function() {
+					$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle('destroy');
+					$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle(eventSliderOpts);
+				});
 			});
-		});
+		}
 	});
 
 	
@@ -424,6 +426,20 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		}
 	});
 
+	/* ----- LIGHTBOX INITIALIZE -----*/
+	$(document).ready(function() {
+		$('a.lightbox').nivoLightbox({
+			 onPrev: function() {$('.nivo-lightbox-content').hide().fadeIn(250);},
+			 onNext: function() {$('.nivo-lightbox-content').hide().fadeIn(250);}
+		});
+	});
+	
+	/* ----- ACCORDION FUNCTIONS ----- */
+	$(document).ready(function() {
+		$('.toggle').click(function() {
+			$('.content', this).slideToggle(250);
+		});
+	});
 	
 	/* ----- MAP FUNCTIONS ----- */
 	$(document).ready(function() {
