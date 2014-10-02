@@ -189,6 +189,10 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 }
 
 @media only screen and (max-width: 960px) {
+	#menu-top-primary > li:last-child {
+		display: none;
+	}
+	
 	#menu-top-primary > li > .sub-menu > li {
 		padding: 0 0 0 14px;
 	}
@@ -196,7 +200,7 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 	#menu-top-primary > li > a, 
 	#menu-top-primary > li > a:visited {
 		font-size: 12px;
-		padding: 28px 6px;
+		padding: 28px 6px 26px 4px
 	}
 	#menu-top-primary > li > a .caret {
 		top: -6px;
@@ -229,6 +233,10 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 	#menu-top-primary li {
 		float: none;
 		text-align: left;
+	}
+	
+	#menu-top-primary > li:last-child {
+		display: block;
 	}
 	
 	#menu-top-primary li:hover a {
