@@ -35,12 +35,12 @@ if( $ep ) : ?>
 	
 		<div class="intro clearfix">
 			
-			<div class="col span-2 padded">
+			<div class="padded">
 				<h1 class="page-title"><?php echo tribe_get_events_title() ?></h1>	
 				<?php echo apply_filters('the_content', $ep->post_content ); ?>
 			</div>
 			
-			<div class="col padded">
+			<?php /*<div class="col padded">
 				<div class="page-actions align-right">
 					<a href="#" data-shareid="<?php echo $ep->ID;?>" class="icon share">share page</a><a href="#" class="icon print">print page</a>
 				</div>
@@ -48,7 +48,7 @@ if( $ep ) : ?>
 				<?php  if( mbp_has_promotion($ep->ID) ){ ?>
 					<?php mbp_display_promotion_box($ep->ID); ?>
 				<?php }?>
-			</div>
+			</div>*/ ?>
 			
 		</div> <!-- /.intro -->	
 		
