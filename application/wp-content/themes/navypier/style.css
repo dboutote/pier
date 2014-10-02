@@ -101,7 +101,7 @@ header .top .search-trigger:hover, header .top .search-trigger.active {
     display: block;
     font-size: 16px;
     font-weight: bold;
-    padding: 28px 7px 28px 9px;
+    padding: 28px 7px 26px 9px;
     position: relative;
     text-transform: uppercase;
 }
@@ -216,7 +216,7 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 	#menu-top-primary > li > .sub-menu > li > .sub-menu li a,
 	#menu-top-primary > li > .sub-menu > li > .sub-menu li a:visited {
 		font-size: 11px;
-		padding: 6px 4px;
+		padding: 6px 12px;
 	}
 }
 
