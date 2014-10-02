@@ -80,7 +80,9 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		else { // MOBILE FUNCTIONS
 			$('#menu-top-primary > li > a').click(function(e) {
 				e.preventDefault();
-				$('.sub-menu').stop().slideUp(100);
+				if (window.matchMedia('(min-width: 761px) and (max-width: 960px)').matches) {
+					$('.sub-menu').stop().slideUp(100);
+				}
 				$(this).parent('li').children('.sub-menu').first().stop().slideToggle(250);
 			});
 			mobileMenuButton.click(function() {			
