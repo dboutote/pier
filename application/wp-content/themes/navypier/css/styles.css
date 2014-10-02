@@ -384,9 +384,6 @@ header .middle .book-event {
 	text-transform: uppercase;
 	opacity: 0.3;
 	background-color: #000;
-	position: absolute;
-	top: 0;
-	right: -75px;
 	font-size: 14px;
 	line-height: 16px;
 }
