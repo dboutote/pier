@@ -34,15 +34,15 @@ if( $ep ) : ?>
 	
 		<div class="intro clearfix">
 			
-			<div class="col span-2 padded">
+			<div class="padded">
 				<h1 class="page-title"><?php echo apply_filters('the_title', 'Today&#8217;s Events');?></h1>	
 			</div>
 			
-			<div class="col padded">
+			<?php /*<div class="col padded">
 				<div class="page-actions align-right">
 					<a href="#" data-shareid="<?php echo $ep->ID;?>" class="icon share">share page</a><a href="#" class="icon print">print page</a>
 				</div>
-			</div>
+			</div>*/ ?>
 			
 		</div> <!-- /.intro -->	
 		
