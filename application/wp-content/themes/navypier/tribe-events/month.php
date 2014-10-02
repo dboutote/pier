@@ -33,8 +33,8 @@ if( $ep ) : ?>
 	
 		<div class="intro clearfix">
 			
-			<div class="col span-3 padded">
-				<h1 class="page-title"><?php echo apply_filters('the_title', 'Upcoming Events');?></h1>			
+			<div class="padded">
+				<h1><?php echo apply_filters('the_title', 'Upcoming Events');?></h1>			
 			</div>
 			
 		</div> <!-- /.intro -->	
