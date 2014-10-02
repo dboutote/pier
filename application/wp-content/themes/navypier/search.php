@@ -20,7 +20,7 @@ get_header(); ?>
 
 	<div class="intro clearfix">
 		
-		<div class="col span-2 padded">
+		<div class="padded">
 
 			<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'navypier' ), get_search_query() ); ?></h1>
 	
@@ -48,11 +48,11 @@ get_header(); ?>
 
 		</div>
 		
-		<div class="col padded">
+		<?php /*<div class="col padded">
 			<div class="page-actions align-right">
 				<a href="#" data-shareid="<?php echo $post->ID;?>" class="icon share">share page</a><a href="#" class="icon print">print page</a>
 			</div>
-		</div>
+		</div>*/ ?>
 		
 	</div> <!-- /.intro -->
 
