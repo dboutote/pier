@@ -127,7 +127,7 @@ class Homepage_Featured {
 		if( false === $this->show_in_posttype(get_post_type()) ){
 			return;
 		};
-		
+	
 		$args = $this->get_meta_box_args();  
 		extract($args);
 		
@@ -147,13 +147,15 @@ class Homepage_Featured {
 	 * @since 1.0
 	 *
 	 */
-	protected function show_in_posttype( $post_type)
+	protected function show_in_posttype( $post_type )
 	{
 		if( !$post_type || '' === $post_type ){
 			return false;
 		}
 		
-		if( in_array($post_type, $this->dont_show_in) ){
+		$dont_show = apply_filters('hm_rotator_exclude_meta_box', $this->dont_show_in );
+				
+		if( in_array($post_type, $dont_show) ){
 			return false;
 		}
 		
