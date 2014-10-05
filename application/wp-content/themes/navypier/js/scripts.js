@@ -78,20 +78,13 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			});
 		}
 		else { // MOBILE FUNCTIONS
-			if (isMobile.iPad()) { // IPADS ONLY
-				$('#menu-top-primary > li > a').click(function(e) {	
-					e.preventDefault();
-					$('#menu-top-primary > li > .sub-menu').not(this).stop().slideUp(100);
-					$('.sub-menu', this).first().stop().slideToggle(250);
-				});		
-			}
-			else { // PHONES AND NON-IPAD TABLETS
-				$('#menu-top-primary > li > a').click(function(e) {
-					e.preventDefault();
-					//$(this).parent('li').children('.sub-menu').first().stop().slideToggle(250);
-					$('.sub-menu', this).first().stop().slideToggle(250);
-				});
-			}
+			$('#menu-top-primary > li > a').click(function(e) {
+				e.preventDefault();
+				if (window.matchMedia('(min-width: 761px) and (max-width: 960px)').matches) {
+					$('.sub-menu').stop().slideUp(100);
+				}
+				$(this).parent('li').children('.sub-menu').first().stop().slideToggle(250);
+			});
 			mobileMenuButton.click(function() {			
 				if (mobileMenu.hasClass('show-menu')) { // CLOSED MOBILE MENU Z-INDEX FIX
 					setTimeout(function() {
