@@ -192,6 +192,18 @@ function np_register_styles(){
 		null		
 		);
 	wp_register_style(
+		'np-lightbox',
+		get_stylesheet_directory_uri() . '/css/nivo-lightbox.css',
+		array(),
+		null		
+		);
+	wp_register_style(
+		'np-lightbox-theme',
+		get_stylesheet_directory_uri() . '/css/lightbox/default.css',
+		array(),
+		null		
+		);
+	wp_register_style(
 		'np-fontawesome',
 		get_stylesheet_directory_uri() . '/css/font-awesome.min.css',
 		array(),
@@ -204,7 +216,7 @@ function np_register_styles(){
 		null		
 		);		
 	
-	$deps = array( 'np-webtypes','np-reset','np-tooltip','np-fontawesome','np-styles');
+	$deps = array( 'np-webtypes','np-reset','np-tooltip','np-lightbox','np-lightbox-theme','np-fontawesome','np-styles');
 	wp_register_style( 'np-main', get_stylesheet_uri(), $deps, null, 'all' );
 }
 add_action('wp_enqueue_scripts', 'np_register_styles');
@@ -260,7 +272,7 @@ function np_register_scripts(){
 		'jquery-cycle',
 		get_stylesheet_directory_uri() . '/js/jquery.cycle.min.js',
 		array('jquery'),
-		null,
+		'3.0.3',
 		true
 	);	
 	wp_register_script(
@@ -268,6 +280,13 @@ function np_register_scripts(){
 		get_stylesheet_directory_uri() . '/js/jquery.backgroundcover.min.js',
 		array('jquery'),
 		null,
+		true
+	);	
+	wp_register_script(
+		'jquery-nivo-lightbox',
+		get_stylesheet_directory_uri() . '/js/nivo-lightbox.min.js',
+		array('jquery'),
+		'1.2.0',
 		true
 	);
 	$deps = array(
@@ -277,7 +296,8 @@ function np_register_scripts(){
 		'viewports-buggyfill', 
 		'jquery-tooltipster',
 		'jquery-cycle',
-		'jquery-backgroundcover'
+		'jquery-backgroundcover',
+		'jquery-nivo-lightbox'
 		);		
 	wp_register_script(
 		'np-scripts',
