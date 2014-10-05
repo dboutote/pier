@@ -132,9 +132,57 @@ function abbreviate($text, $max = '95') {
 
 
 
+/**
+ * Accordion shortcode
+ * 
+ * adds an accordion shortcode to the site.  Prevents wpautop() from triggering
+ */
+ 
+add_filter( 'the_content',  'pier_pre_process_shortcodes', 7 );
 
 
+
+/**
+ * Preprocess shortcodes before WordPress processes the content
+ *
+ * @access  public
+ * @since   1.0
+ * @uses do_shortcode()
+ */
+function pier_pre_process_shortcodes($content) {
+	global $shortcode_tags;
+
+	$orig_shortcode_tags = $shortcode_tags;
+	$shortcode_tags      = array();
+
+	add_shortcode('accordion', 'pier_accordion');
 	
+	$content = do_shortcode($content);
+
+	// Put the original shortcodes back
+	$shortcode_tags = $orig_shortcode_tags;
+
+	return $content;
+}
+
+/**
+ * Process the accordion Shortcode
+ *
+ * @access public
+ * @since 1.0
+ * @param array $atts
+ * @param string $content
+ * @uses shortcode_atts()
+ * @return string $output HTML
+ */
+function pier_accordion($atts, $content = null, $code = '')
+{
+	extract(shortcode_atts(array(
+		'class' => ''
+	), $atts));
+
+	return '<div class="'.$class.'">'.do_shortcode($content).'</div>';
+}
 	
 	
 	
