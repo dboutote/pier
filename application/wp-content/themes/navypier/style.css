@@ -82,7 +82,7 @@ header .top .search-trigger:hover, header .top .search-trigger.active {
  */
 
 #menu-top-primary {
-    padding: 0 14px;
+    padding: 0 0 0 14px;
 }
 
 #menu-top-primary li.mobile-only {
@@ -95,15 +95,24 @@ header .top .search-trigger:hover, header .top .search-trigger.active {
     text-align: center;
 }
 
+
+#menu-top-primary > li:last-child {
+    float: right;
+}
+
 #menu-top-primary > li > a, 
 #menu-top-primary > li > a:visited {
     color: #fff;
     display: block;
     font-size: 16px;
     font-weight: bold;
-    padding: 28px 7px 28px 9px;
+    padding: 28px 7px 26px 9px;
     position: relative;
     text-transform: uppercase;
+}
+
+#menu-top-primary > li:last-child a {
+    padding: 0;
 }
 
 #menu-top-primary li:hover a {
@@ -189,6 +198,10 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 }
 
 @media only screen and (max-width: 960px) {
+	#menu-top-primary > li:last-child {
+		display: none;
+	}
+	
 	#menu-top-primary > li > .sub-menu > li {
 		padding: 0 0 0 14px;
 	}
@@ -196,7 +209,7 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 	#menu-top-primary > li > a, 
 	#menu-top-primary > li > a:visited {
 		font-size: 12px;
-		padding: 28px 6px;
+		padding: 28px 6px 26px 6px;
 	}
 	#menu-top-primary > li > a .caret {
 		top: -6px;
@@ -216,7 +229,7 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 	#menu-top-primary > li > .sub-menu > li > .sub-menu li a,
 	#menu-top-primary > li > .sub-menu > li > .sub-menu li a:visited {
 		font-size: 11px;
-		padding: 6px 4px;
+		padding: 6px 12px;
 	}
 }
 
@@ -230,6 +243,10 @@ header .middle.sticky #menu-top-primary > li > .sub-menu {
 		float: none;
 		text-align: left;
 	}
+	
+	/*#menu-top-primary > li:last-child {
+		display: block;
+	}*/
 	
 	#menu-top-primary li:hover a {
 		color: #fff;
