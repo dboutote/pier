@@ -286,7 +286,7 @@ header .middle .logo img {
 }
 
 header .middle nav.main {
-	width: 565px;
+	width: 640px;
 	height: 75px;
 	float: left;
 }
@@ -384,9 +384,6 @@ header .middle .book-event {
 	text-transform: uppercase;
 	opacity: 0.3;
 	background-color: #000;
-	position: absolute;
-	top: 0;
-	right: -93px;
 	font-size: 14px;
 	line-height: 16px;
 }
@@ -721,7 +718,7 @@ header .bottom .container:before {
 	float: left;
 	box-sizing: border-box;
 	width: 25%;
-	padding: 1.25px;
+	padding: 1.5px;
 	height: 180px;
 }
 .gallery a {
@@ -1556,7 +1553,25 @@ header .middle nav.main .drop-down ul li a, header .middle nav.main .drop-down u
 }
 */
 header .middle .book-event {
-	display: none;
+	width: auto;
+	height: auto;
+	display: inline;
+	padding: 0;
+	color: #fff;
+	opacity: 1;
+	background: none;
+	position: relative;
+	top: initial;
+	right: initial;
+	font-size: inherit;
+	line-height: inherit;
+}
+header .middle .book-event:hover {
+	background: none;
+	color: #fff;
+}
+header .middle .book-event+img {
+	display: inline;
 }
 header .bottom {
 	display: none;
