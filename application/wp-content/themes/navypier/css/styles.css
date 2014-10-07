@@ -797,10 +797,19 @@ header .bottom .container:before {
 	width: 30%;
 }
 .wpcf7 .col.span-2 {
-	width: 66%;
+	width: 60%;
 }
-.wpcf7 .col.span-2 {
+.wpcf7 .col.span-3 {
 	width: 100%;
+}
+.wpcf7 .wpcf7-radio, .wpcf7 .wpcf7-checkbox {
+	margin-top: 6px;
+	display: block;
+}
+.wpcf7 span.wpcf7-list-item {
+	margin-right: 10px;
+	margin-left: 1px;
+	display: inline-block;
 }
 .wpcf7 input[type="text"], .wpcf7 input[type="email"], .wpcf7 input[type="tel"], .wpcf7 input[type="url"], .wpcf7 input[type="date"], .wpcf7 select {
 	font-size: 13px;
@@ -818,6 +827,12 @@ header .bottom .container:before {
 .wpcf7 input[type="date"] {
 	width: 25%;
 	display: inline;
+}
+.wpcf7 textarea {
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #e5e5e1;
+	width: 100% !important;
 }
 .wpcf7 input[type="submit"] {
 	display: inline-block;
@@ -840,11 +855,11 @@ header .bottom .container:before {
 .wpcf7 input[type="submit"]:hover {
 	background-color: #bed600;
 }
-.wpcf7 textarea {
-	padding: 10px;
-	box-sizing: border-box;
-	border: 1px solid #e5e5e1;
-	width: 100% !important;
+div.wpcf7-mail-sent-ok {
+	border: none;
+	background-color: #e5e5e1;
+	margin: 20px 0 0 0;
+	padding: 20px;
 }
 .section-title {
 	padding: 20px;
