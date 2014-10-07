@@ -795,6 +795,7 @@ header .bottom .container:before {
 	float: none;
 	display: inline-block;
 	width: 30%;
+	vertical-align: top;
 }
 .wpcf7 .col.span-2 {
 	width: 60%;
@@ -855,11 +856,12 @@ header .bottom .container:before {
 .wpcf7 input[type="submit"]:hover {
 	background-color: #bed600;
 }
-div.wpcf7-mail-sent-ok {
+.wpcf7 .wpcf7-response-output {
 	border: none;
 	background-color: #e5e5e1;
 	margin: 20px 0 0 0;
 	padding: 20px;
+	color: #221e1f;
 }
 .section-title {
 	padding: 20px;
