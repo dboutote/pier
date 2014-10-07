@@ -695,6 +695,9 @@ header .bottom .container:before {
 	line-height: 50px;
 	text-shadow: none;
 }
+.intro h2:not(:first-child), .intro h3:not(:first-child), .intro h4:not(:first-child) {
+	margin-top: 20px;
+}
 .intro p {
 	font-size: 16px;
 	line-height: 28px;
@@ -760,6 +763,7 @@ header .bottom .container:before {
 	border-left: 1px solid #e5e5e1;
 	border-right: 1px solid #e5e5e1;
 	color: #3fcfd5;
+	font-weight: bold;
 }
 .accordion .toggle:first-child {
 	border-top: 1px solid #e5e5e1;
@@ -768,6 +772,14 @@ header .bottom .container:before {
 	display: none;
 	background-color: #e5e5e1;
 	color: #221e1f;
+	font-size: 14px;
+	line-height: 21px;
+	font-weight: normal;
+}
+.accordion .toggle .content p {
+	font-size: 14px;
+	line-height: 21px;
+	font-weight: normal;
 }
 .section-title {
 	padding: 20px;
