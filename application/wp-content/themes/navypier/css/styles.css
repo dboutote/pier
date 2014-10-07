@@ -695,6 +695,8 @@ header .bottom .container:before {
 	margin-bottom: 40px;
 	min-height: 90px;
 	border-bottom: 3px solid #3fcfd5;
+	font-size: 16px;
+	line-height: 28px;
 }
 .intro h1 {
 	color: #3fcfd5;
@@ -704,10 +706,6 @@ header .bottom .container:before {
 }
 .intro h2:not(:first-child), .intro h3:not(:first-child), .intro h4:not(:first-child) {
 	margin-top: 20px;
-}
-.intro p {
-	font-size: 16px;
-	line-height: 28px;
 }
 /*.intro .col .promotion-container {
 	margin-top: 20px;
