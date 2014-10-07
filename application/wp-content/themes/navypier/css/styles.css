@@ -72,6 +72,9 @@ p:first-child {
 strong {
 	font-weight: bold;
 }
+em {
+	font-style: italic;
+}
 img {
 	-ms-interpolation-mode: bicubic; /* IE 7 & 8 IMAGE DOWNSAMPLING FIX */
 }
@@ -770,6 +773,7 @@ header .bottom .container:before {
 }
 .accordion .toggle .content {
 	display: none;
+	cursor: default;
 	background-color: #e5e5e1;
 	color: #221e1f;
 	font-size: 14px;
