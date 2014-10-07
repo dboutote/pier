@@ -265,7 +265,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		$('.entry a.read-details').click(function(e) {
 			e.preventDefault();
 			var theEntry = $(this).parents('.entry');
-			$('.details', theEntry).slideToggle();
+			$('.details', theEntry).slideToggle(250);
 			$(this).toggleClass('active');
 			return false;
 		});
