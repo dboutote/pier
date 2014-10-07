@@ -430,6 +430,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 	/* ----- ACCORDION FUNCTIONS ----- */
 	$(document).ready(function() {
 		$('.toggle').click(function() {
+			$(this).toggleClass('open');
 			$('.content', this).slideToggle(250);
 		}).children().click(function(e) {
 			e.stopPropagation();
