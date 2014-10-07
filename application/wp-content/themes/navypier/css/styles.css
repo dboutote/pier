@@ -60,6 +60,10 @@ h4 {
 	line-height: 17px;
 	color: #fff;
 }
+hr {
+	margin-top: 20px;
+	border: 1px solid #e5e5e1;
+}
 p {
 	margin-top: 20px;
 }
@@ -790,7 +794,7 @@ header .bottom .container:before {
 	margin-left: 0;
 	float: none;
 	display: inline-block;
-	width: 33%;
+	width: 30%;
 }
 .wpcf7 .col.span-2 {
 	width: 66%;
@@ -798,7 +802,7 @@ header .bottom .container:before {
 .wpcf7 .col.span-2 {
 	width: 100%;
 }
-.wpcf7 input[type="text"], .wpcf7 input[type="email"], .wpcf7 input[type="tel"], .wpcf7 input[type="url"] {
+.wpcf7 input[type="text"], .wpcf7 input[type="email"], .wpcf7 input[type="tel"], .wpcf7 input[type="url"], .wpcf7 input[type="date"], .wpcf7 select {
 	font-size: 13px;
 	color: #999;
 	font-style: italic;
@@ -810,6 +814,10 @@ header .bottom .container:before {
 	height: 32px;
 	display: inline-block;
 	border-radius: 0;
+}
+.wpcf7 input[type="date"] {
+	width: 25%;
+	display: inline;
 }
 .wpcf7 input[type="submit"] {
 	display: inline-block;
@@ -1418,7 +1426,7 @@ a.icon:not(.read-details) {
 }
 .wpcf7 .col {
 	margin-left: 0;
-	width: 50%;
+	width: 45%;
 }
 .wpcf7 .col.span-3 {
 	width: 100%;
@@ -1764,7 +1772,7 @@ header .bottom {
 .wpcf7 .col {
 	width: 100%;
 }
-.wpcf7 input[type="text"], .wpcf7 input[type="email"], .wpcf7 input[type="tel"], .wpcf7 input[type="url"] {
+.wpcf7 input[type="text"], .wpcf7 input[type="email"], .wpcf7 input[type="tel"], .wpcf7 input[type="url"], .wpcf7 input[type="date"], .wpcf7 select {
 	width: 100%;
 }
 .col, .col.span-2, .col.span-3 {
