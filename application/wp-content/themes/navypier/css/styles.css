@@ -766,11 +766,24 @@ header .bottom .container:before {
 }
 .accordion .toggle {
 	cursor: pointer;
+	position: relative;
 	border-bottom: 1px solid #e5e5e1;
 	border-left: 1px solid #e5e5e1;
 	border-right: 1px solid #e5e5e1;
 	color: #3fcfd5;
 	font-weight: bold;
+}
+.accordion .toggle:after {
+	font-family: FontAwesome;
+	content: '\f0dd';
+	position: absolute;
+	top: 18px;
+	right: 24px;
+	display: block;
+}
+.accordion .toggle.open:after {
+	content: '\f0de';
+	top: 24px;
 }
 .accordion .toggle:first-child {
 	border-top: 1px solid #e5e5e1;
@@ -783,6 +796,7 @@ header .bottom .container:before {
 	font-size: 14px;
 	line-height: 21px;
 	font-weight: normal;
+	margin-top: 20px;
 }
 .accordion .toggle .content p {
 	font-size: 14px;
