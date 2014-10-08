@@ -34,7 +34,7 @@ if( $ep ) : ?>
 		<div class="intro clearfix">
 			
 			<div class="padded">
-				<h1><?php echo apply_filters('the_title', 'Upcoming Events');?></h1>			
+				<h1><?php echo apply_filters('the_title', 'Calendar of Events');?></h1>			
 			</div>
 			
 		</div> <!-- /.intro -->	
