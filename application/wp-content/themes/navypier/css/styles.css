@@ -16,6 +16,7 @@ body {
 }
 a, a:visited {
 	color: #3fcfd5;
+	font-weight: bold;
 }
 a, a *, input[type="submit"], #map-btn, #map-canvas a {
 	-webkit-transition: all 250ms ease-in-out;
@@ -85,6 +86,7 @@ img {
 a.btn {
 	display: inline-block;
 	font-size: 14px;
+	font-weight: normal;
 	color: #221e1f;
 	padding: 8px 14px;
 	background-color: #bed600; /* FALLBACK */
@@ -139,6 +141,7 @@ header .top nav ul.text-links li a, header .top nav ul.text-links li a:visited {
 	padding: 7px 0;
 	display: block;
 	color: #221e1f;
+	font-weight: normal;
 }
 header .top nav ul.text-links li a:hover {
 	opacity: 0.5;
@@ -394,7 +397,7 @@ header .middle .book-event {
 	font-size: 14px;
 	line-height: 16px;
 }
-header .middle .book-event:hover {
+header .middle li:hover .book-event {
 	color: #3fcfd5;
 	opacity: 1;
 	background-color: rgba(0,0,0,0.5);
@@ -1069,6 +1072,7 @@ a.icon {
 	color: #221e1f;
 	padding: 0 10px;
 	text-transform: capitalize;
+	font-weight: normal;
 }
 a.icon:hover {
 	opacity: 0.6;
