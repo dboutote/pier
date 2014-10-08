@@ -1207,6 +1207,9 @@ footer .top {
 footer .top * {
 	color: #fff;
 }
+footer .top a {
+	font-weight: normal;
+}
 footer .top h4.category {
 	display: block;
 	padding-bottom: 10px;
