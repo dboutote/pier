@@ -432,7 +432,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		$('.toggle').click(function() {
 			$(this).toggleClass('open');
 			$('.content', this).slideToggle(250);
-		}).children().click(function(e) {
+		}).find('.content').click(function(e) {
 			e.stopPropagation();
 		});
 	});
