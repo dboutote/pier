@@ -111,8 +111,8 @@ if( has_post_thumbnail() ){
 					$_deal_url = get_post_meta($post->ID, '_deal_url', true);
 					$_tix_title = get_post_meta($post->ID, '_tix_title', true);
 					$_tix_url = get_post_meta($post->ID, '_tix_url', true);	
-					$_website_title = get_post_meta($post->ID, 'website_title', true);					
-					$_website_url = get_post_meta($post->ID, 'website_url', true);
+					$_website_title = get_post_meta($post->ID, '_website_title', true);					
+					$_website_url = get_post_meta($post->ID, '_website_url', true);
 					$_phone_title = get_post_meta($post->ID, '_phone_title', true);
 					$_phone_url = get_post_meta($post->ID, '_phone_url', true);
 					$_document_title = get_post_meta($post->ID, '_document_title', true);
