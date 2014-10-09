@@ -26,15 +26,15 @@
 			</div>
 			[[ if(imageSrc.length) { ]]
 			<div class="tribe-events-event-image">
-				//<a href="[[=permalink]]" title="[[=title]]">
+				<!--<a href="[[=permalink]]" title="[[=title]]">-->
 					<img src="[[=imageSrc]]" alt="[[=title]]" title="[[=title]]">
-				//</a>
+				<!--</a>-->
 			</div>
 			[[ } ]]
 			[[ if(excerpt.length) { ]]
 			<p class="entry-summary description">[[=raw excerpt]]</p>
 			[[ } ]]
-			//<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">Find out more »</a>
+			<!--<a href="[[=permalink]]" class="tribe-events-read-more" rel="bookmark">Find out more »</a>-->
 		</div>
 	</div>
 </script>
