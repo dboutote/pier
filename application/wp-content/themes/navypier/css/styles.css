@@ -1877,6 +1877,15 @@ footer .top .sponsors img {
 }
 }
 /* OVERRIDES */
+#tribe-events-header:before, #tribe-events-footer:before, #tribe-events-header:after, #tribe-events-footer:after {
+	display: none;
+}
+#tribe-events-header .tribe-events-sub-nav .tribe-events-nav-next, #tribe-events-header .tribe-events-sub-nav .tribe-events-nav-previous, #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-next, #tribe-events-footer .tribe-events-sub-nav .tribe-events-nav-previous {
+	width: auto;
+}
+#tribe-bar-collapse-toggle span.tribe-bar-toggle-arrow {
+	margin: 0 6px;
+}
 #tribe-events-content .tribe-events-calendar div[id*="tribe-events-event-"] h3.tribe-events-month-event-title {
 	font-weight: normal;
 	font-family: Stainless;
