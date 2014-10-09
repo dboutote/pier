@@ -12,7 +12,7 @@
 
 if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
-<div class="container">
+<!--<div class="container">-->
 		
 	<!-- FEATURED EVENTS HERE -->
 
@@ -52,5 +52,5 @@ if ( !defined('ABSPATH') ) { die('-1'); } ?>
 
 	</div><!-- #tribe-events-content -->
 
-</div> <!-- /.container -->
+<!--</div> /.container -->
 
