@@ -136,7 +136,7 @@ class CPT_Venues
 				),
 				'public'                        => true,                                        	// Should this taxonomy be exposed in the admin UI.
 				'show_ui'                       => true,                                       		// Whether to generate a default UI for managing this taxonomy. Default: if not set, defaults to value of public argument
-				'show_in_nav_menus'             => true,                                       	// should taxonomy be available for selection in navigation menus. Default: if not set, defaults to value of public argument
+				'show_in_nav_menus'             => false,                                       	// should taxonomy be available for selection in navigation menus. Default: if not set, defaults to value of public argument
 				'show_tagcloud'                 => false,                                       	// Wether to allow the Tag Cloud widget to use this taxonomy. Default: if not set, defaults to value of show_ui argument
 				#'meta_box_cb'                   => null,                                        	// Provide a callback function name for the meta box display
 				#'show_admin_column'             => false,                                       	// Whether to allow automatic creation of taxonomy columns on associated post-types table
