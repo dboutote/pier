@@ -156,3 +156,51 @@ function np_dont_show_event_time($settings){
  * Load the additional meta boxes
  */
 require('events-meta/init.php');
+
+
+
+function exclude_category( $query ) {
+	// hide upcoming events from query (only not in admin)
+	if ( $query->tribe_is_event_query && $query->get( 'hide_upcoming' ) ) {
+		$hide_upcoming_ids = np_get_hidden_event_ids();
+		debug($hide_upcoming_ids);
+		if ( !empty( $hide_upcoming_ids ) ) {
+			$query->set( 'post__not_in', $hide_upcoming_ids );
+		}
+	}
+}
+//add_action( 'pre_get_posts', 'exclude_category', 99 );
+
+
+function np_get_hidden_event_ids(){
+
+	$hidden_ids = TribeEventsQuery::getHideFromUpcomingEvents();
+	global $wpdb;
+	
+	// get the slug of the chosen categories
+	$taxonomy = "tribe_events_cat";
+	$slugs = array('pier-park');
+	
+	$query = "
+	
+	";
+	
+/*
+	$event_ids = get_posts(array(
+		'post_type' => 'tribe_events',
+		'numberposts'   => -1, // get all posts.
+		'tax_query'     => array(
+			array(
+				'taxonomy'  => 'tribe_events_cat',
+				'field'     => 'slug',
+				'terms'     => 'pier-park',
+			),
+		),
+		'fields'        => 'ids', // Only get post IDs
+	));
+	*/
+	
+	$event_ids = array();
+	
+	return array_merge($hidden_ids, $event_ids);
+}
