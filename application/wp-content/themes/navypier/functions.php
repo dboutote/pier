@@ -691,3 +691,21 @@ function np_replace_promo_permalink($url){
 	return $url;
 }
 add_filter('the_permalink', 'np_replace_promo_permalink');
+
+
+
+
+/**
+ * Exclude Posts from search results
+ *
+ */
+function np_filter_search() {
+    global $wp_post_types;
+ 
+    if ( post_type_exists( 'post' ) ) { 
+        // exclude from search results
+        $wp_post_types['post']->exclude_from_search = true;
+    }
+}
+
+/add_action( 'init', 'np_filter_search', 99 );
