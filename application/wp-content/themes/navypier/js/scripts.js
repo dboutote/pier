@@ -252,7 +252,6 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				$entry.children('.details').show();
 				$entry.find('a.read-details').toggleClass('active');
 			}
-			showEntry();
 			$.when(showEntry()).done(function() {
 				if (window.matchMedia('(min-width: 760px)').matches){ // ADJUST SCROLL POSITION BELOW STICKY HEADER ON DESKTOP
 					setTimeout(function() {
@@ -270,7 +269,6 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				$('.details', theEntry).slideToggle(250);
 				theEntryLink.toggleClass('active');
 			}
-			openEntry();
 			$.when(openEntry()).done(function() {
 				$('.gallery .background-cover').backgroundCover(); // INITIALIZE BACKGROUND COVER FOR UNHIDDEN GALLERY CONTENT
 			});
@@ -283,7 +281,6 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 					$(this).css('height', theParent.innerHeight()+'px');
 				});
 			}
-			resizeImage();
 			$.when(resizeImage()).done(function() {
 				$('.entry-image .background-cover').backgroundCover();	// RESET BACKGROUND COVER AFTER ON-LOAD RESIZE CALL	
 			});
@@ -395,7 +392,6 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 						eventSlideContainer.css('height', '1368px');
 					}
 				}
-				resizeSlider();
 				$.when(resizeSlider()).done(function() {
 					$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle('destroy');
 					$('#events+#events-wrap, #events-featured+#feat-events-wrap').cycle(eventSliderOpts);
@@ -416,7 +412,6 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				function resetHeight() {
 					$('.background-cover').css('height','100%'); // RESET CSS HEIGHT
 				}
-				resetHeight();
 				$.when(resetHeight()).done(function() { // REINITIALIZE BACKGROUND COVER AFTER CSS HEIGHT RESET
 					setTimeout(function() {
 						$('.background-cover').backgroundCover();
