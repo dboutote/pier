@@ -81,7 +81,7 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 			$('#menu-top-primary > li > a').click(function(e) {
 				e.preventDefault();
 				if (window.matchMedia('(min-width: 761px) and (max-width: 960px)').matches) {
-					$('.sub-menu').stop().slideUp(100);
+					$('#menu-top-primary > li > ul.sub-menu').stop().slideUp(100);
 				}
 				$(this).parent('li').children('.sub-menu').first().stop().slideToggle(250);
 			});
