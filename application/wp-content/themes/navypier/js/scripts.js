@@ -288,6 +288,11 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 				});
 			});
 		});
+		$('.entry .options').each(function() {
+			if ($(this).height() == 0) {
+				$(this).hide();
+			}
+		});
 	});
 
 	
