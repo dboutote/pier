@@ -39,6 +39,11 @@ get_header(); ?>
 			<?php
 			// Start the Loop.
 			while ( have_posts() ) : the_post(); ?>
+			
+				<?php if( '' === trim( get_the_content()) ) {
+					continue;
+				}; ?>
+				
 				<?php 
 				$post_id = get_the_ID();				
 				$post_type = get_post_type();
