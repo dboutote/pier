@@ -722,6 +722,9 @@ header .bottom .container:before {
 .intro .span-2 a.promotion-text {
 	height: 88px;
 }*/
+#search-wrap.no-search-results {
+	padding: 20px;
+}
 .gallery {
 	margin-top: 20px;
 }
