@@ -707,7 +707,7 @@ header .bottom .container:before {
 	line-height: 50px;
 	text-shadow: none;
 }
-.intro h2:not(:first-child), .intro h3:not(:first-child), .intro h4:not(:first-child) {
+.intro h2:not(:first-child), .details h2:not(:first-child), .intro h3:not(:first-child), .details h3:not(:first-child), .intro h4:not(:first-child), .details h4:not(:first-child) {
 	margin-top: 20px;
 }
 /*.intro .col .promotion-container {
