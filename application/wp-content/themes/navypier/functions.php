@@ -708,4 +708,4 @@ function np_filter_search() {
     }
 }
 
-/add_action( 'init', 'np_filter_search', 99 );
+add_action( 'init', 'np_filter_search', 99 );
