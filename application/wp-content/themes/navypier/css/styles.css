@@ -773,6 +773,7 @@ header .bottom .container:before {
 	border-right: 1px solid #e5e5e1;
 	color: #3fcfd5;
 	font-weight: bold;
+	background-color: #fff;
 }
 .accordion .toggle:after {
 	font-family: FontAwesome;
