@@ -1074,6 +1074,12 @@ a.icon {
 	text-transform: capitalize;
 	font-weight: normal;
 }
+a.calendar {
+	text-transform: none;
+}
+a.website {
+	text-transform: lowercase;
+}
 a.icon:hover {
 	opacity: 0.6;
 }
