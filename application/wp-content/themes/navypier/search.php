@@ -109,8 +109,10 @@ get_header(); ?>
 		</div>
 
 		<?php else : ?>
-
-			<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'navypier' ); ?></p>
+		
+			<div id="entry-0" <?php post_class('no-result entry');?>>
+				<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'navypier' ); ?></p>
+			</div>
 
 	<?php endif; ?>
 
