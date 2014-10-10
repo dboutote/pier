@@ -264,9 +264,16 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		}
 		$('.entry a.read-details').click(function(e) {
 			e.preventDefault();
-			var theEntry = $(this).parents('.entry');
-			$('.details', theEntry).slideToggle(250);
-			$(this).toggleClass('active');
+			var theEntry = $(this).parents('.entry'),
+			theEntryLink = $(this);
+			function openEntry() {
+				$('.details', theEntry).slideToggle(250);
+				theEntryLink.toggleClass('active');
+			}
+			openEntry();
+			$.when(openEntry()).done(function() {
+				$('.gallery .background-cover').backgroundCover(); // INITIALIZE BACKGROUND COVER FOR UNHIDDEN GALLERY CONTENT
+			});
 			return false;
 		});
 		$(window).load(function() { // ADJUST IMAGE CONTAINER HEIGHT TO PARENT CONTAINER HEIGHT IF LARGER THAN MIN-HEIGHT
