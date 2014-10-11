@@ -1470,6 +1470,10 @@ a.icon:not(.read-details) {
 .event-container a.text h3 {
 	font-size: 14px;
 }
+.accordion .toggle .content, .accordion .toggle .content p {
+	font-size: 12px;
+	line-height: 18px;
+}
 .wpcf7 .col {
 	margin-left: 0;
 	width: 45%;
@@ -1881,6 +1885,10 @@ footer .bottom .right-col p.copyright {
 @media only screen and (max-width: 460px) {
 .gallery .photo, .gallery .video {
 	width: 50%;
+}
+.accordion .toggle .content, .accordion .toggle .content p {
+	font-size: 10px;
+	line-height: 16px;
 }
 footer .top .sponsors img {
 	width: 50%;
