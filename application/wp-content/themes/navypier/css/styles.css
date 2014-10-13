@@ -722,11 +722,16 @@ header .bottom .container:before {
 .intro .span-2 a.promotion-text {
 	height: 88px;
 }*/
+.intro ul, .intro ol {
+	list-style: initial;
+	margin: 0 20px;
+}
 #search-wrap.no-search-results {
 	padding: 20px;
 }
 .gallery {
 	margin-top: 20px;
+	list-style: none;
 }
 .gallery .photo, .gallery .video {
 	float: left;
@@ -802,6 +807,10 @@ header .bottom .container:before {
 	line-height: 21px;
 	font-weight: normal;
 	margin-top: 20px;
+}
+.accordion .toggle .content ul, .accordion .toggle .content ol {
+	list-style: initial;
+	margin: 0 20px;
 }
 .accordion .toggle .content p {
 	font-size: 14px;
