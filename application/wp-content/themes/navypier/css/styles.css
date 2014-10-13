@@ -723,10 +723,12 @@ header .bottom .container:before {
 	height: 88px;
 }*/
 .intro ul {
-	list-style: disc inside;
+	list-style: disc outside;
+	margin: 20px 0 0 20px;
 }
 .intro ol {
-	list-style: decimal inside;
+	list-style: decimal outside;
+	margin: 20px 0 0 20px;
 }
 #search-wrap.no-search-results {
 	padding: 20px;
@@ -810,10 +812,12 @@ header .bottom .container:before {
 	margin-top: 20px;
 }
 .accordion .toggle .content ul {
-	list-style: disc inside;
+	list-style: disc outside;
+	margin: 20px 0 0 20px;
 }
 .accordion .toggle .content ol {
-	list-style: decimal inside;
+	list-style: decimal outside;
+	margin: 20px 0 0 20px;
 }
 .accordion .toggle .content p {
 	font-size: 14px;
