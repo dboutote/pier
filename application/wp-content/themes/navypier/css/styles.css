@@ -1808,14 +1808,12 @@ header .bottom {
 .intro {
 	margin-top: -75px;
 	min-height: 72px;
+	font-size: 14px;
+	line-height: 22px;
 }
 /*.intro .col:not(:first-child) {
 	display: none;
 }*/
-.intro p {
-	font-size: 14px;
-	line-height: 22px;
-}
 #events-upcoming, #events-upcoming+#events-wrap, #events-featured, #events-featured+#feat-events-wrap {
 	display: none;
 }
