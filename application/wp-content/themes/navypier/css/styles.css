@@ -722,9 +722,11 @@ header .bottom .container:before {
 .intro .span-2 a.promotion-text {
 	height: 88px;
 }*/
-.intro ul, .intro ol {
-	list-style: initial;
-	margin: 0 20px;
+.intro ul {
+	list-style: disc inside;
+}
+.intro ol {
+	list-style: decimal inside;
 }
 #search-wrap.no-search-results {
 	padding: 20px;
@@ -807,9 +809,11 @@ header .bottom .container:before {
 	font-weight: normal;
 	margin-top: 20px;
 }
-.accordion .toggle .content ul, .accordion .toggle .content ol {
-	list-style: initial;
-	margin: 0 20px;
+.accordion .toggle .content ul {
+	list-style: disc inside;
+}
+.accordion .toggle .content ol {
+	list-style: decimal inside;
 }
 .accordion .toggle .content p {
 	font-size: 14px;
