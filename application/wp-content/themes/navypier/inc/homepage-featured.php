@@ -385,8 +385,8 @@ class Homepage_Featured {
 	{
 		// Return array of cached results if they exist.
 		$rotator_content = get_transient( 'rotator_content' );
-		
-		if ( false === $rotator_content ) {
+
+		if ( false === $rotator_content || '' == $rotator_content ) {
 		
 			$args = array(
 				'posts_per_page' => -1,
@@ -428,7 +428,7 @@ class Homepage_Featured {
 		
 			<?php screen_icon(); ?>	<h2>Homepage Rotator Items</h2>
 			<?php $r = self::get_rotator_content(); ?>
-						
+							
 			<?php if( $r->have_posts() ) : ?>
 				<h3><div class="dashicons dashicons-clipboard"></div> Notes:</h3>
 				<ul style="list-style: square outside none; margin-left: 18px;">
