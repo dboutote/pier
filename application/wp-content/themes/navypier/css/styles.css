@@ -731,7 +731,6 @@ header .bottom .container:before {
 }
 .gallery {
 	margin-top: 20px;
-	list-style: none;
 }
 .gallery .photo, .gallery .video {
 	float: left;
