@@ -722,6 +722,14 @@ header .bottom .container:before {
 .intro .span-2 a.promotion-text {
 	height: 88px;
 }*/
+.intro ul {
+	list-style: disc outside;
+	margin: 20px 0 0 20px;
+}
+.intro ol {
+	list-style: decimal outside;
+	margin: 20px 0 0 20px;
+}
 #search-wrap.no-search-results {
 	padding: 20px;
 }
@@ -802,6 +810,14 @@ header .bottom .container:before {
 	line-height: 21px;
 	font-weight: normal;
 	margin-top: 20px;
+}
+.accordion .toggle .content ul {
+	list-style: disc outside;
+	margin: 20px 0 0 20px;
+}
+.accordion .toggle .content ol {
+	list-style: decimal outside;
+	margin: 20px 0 0 20px;
 }
 .accordion .toggle .content p {
 	font-size: 14px;
@@ -1470,6 +1486,10 @@ a.icon:not(.read-details) {
 .event-container a.text h3 {
 	font-size: 14px;
 }
+.accordion .toggle .content, .accordion .toggle .content p {
+	font-size: 12px;
+	line-height: 18px;
+}
 .wpcf7 .col {
 	margin-left: 0;
 	width: 45%;
@@ -1804,14 +1824,12 @@ header .bottom {
 .intro {
 	margin-top: -75px;
 	min-height: 72px;
+	font-size: 14px;
+	line-height: 22px;
 }
 /*.intro .col:not(:first-child) {
 	display: none;
 }*/
-.intro p {
-	font-size: 14px;
-	line-height: 22px;
-}
 #events-upcoming, #events-upcoming+#events-wrap, #events-featured, #events-featured+#feat-events-wrap {
 	display: none;
 }
@@ -1881,6 +1899,10 @@ footer .bottom .right-col p.copyright {
 @media only screen and (max-width: 460px) {
 .gallery .photo, .gallery .video {
 	width: 50%;
+}
+.accordion .toggle .content, .accordion .toggle .content p {
+	font-size: 10px;
+	line-height: 16px;
 }
 footer .top .sponsors img {
 	width: 50%;
