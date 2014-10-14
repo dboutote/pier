@@ -82,6 +82,8 @@ em {
 }
 img {
 	-ms-interpolation-mode: bicubic; /* IE 7 & 8 IMAGE DOWNSAMPLING FIX */
+	max-width: 100%;
+	height: auto;
 }
 a.btn {
 	display: inline-block;
