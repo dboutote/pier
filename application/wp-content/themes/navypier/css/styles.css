@@ -85,7 +85,6 @@ img {
 }
 a.btn {
 	display: inline-block;
-	font-size: 14px;
 	font-weight: normal;
 	color: #221e1f;
 	padding: 8px 14px;
@@ -95,11 +94,8 @@ a.btn {
 }
 .btn:after {
 	font-family: FontAwesome;
-	font-size: 18px;
 	content: '\f138';
 	margin-left: 6px;
-	position: relative;
-	top: 2px;
 }
 .btn:hover {
 	background-color: #bed600;
@@ -818,6 +814,9 @@ header .bottom .container:before {
 .accordion .toggle .content ol {
 	list-style: decimal outside;
 	margin: 20px 0 0 20px;
+}
+.accordion .toggle .content ul:first-child, .accordion .toggle .content ol:first-child {
+	margin-top: 0;
 }
 .accordion .toggle .content p {
 	font-size: 14px;
