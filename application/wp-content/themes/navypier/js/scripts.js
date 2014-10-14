@@ -249,8 +249,10 @@ isMobile = { // CHECKS IF USER IS ON MOBILE OS
 		if( $('#'+hash[1]).length > 0 ){ // OPEN SELECTED ENTRY
 			function showEntry() {
 				var $entry = $('#'+hash[1]);
-				$entry.children('.details').show();
-				$entry.find('a.read-details').toggleClass('active');
+				if($.trim($entry.children('.details').html()) != '') {
+					$entry.children('.details').show();
+					$entry.find('a.read-details').toggleClass('active');
+				}
 			}
 			$.when(showEntry()).done(function() {
 				if (window.matchMedia('(min-width: 760px)').matches){ // ADJUST SCROLL POSITION BELOW STICKY HEADER ON DESKTOP
