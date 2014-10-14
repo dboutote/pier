@@ -385,7 +385,7 @@ class Homepage_Featured {
 	{
 		// Return array of cached results if they exist.
 		$rotator_content = get_transient( 'rotator_content' );
-$rotator_content = false;
+
 		if ( false === $rotator_content || '' == $rotator_content ) {
 		
 			$args = array(

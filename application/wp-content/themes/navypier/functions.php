@@ -3,9 +3,9 @@
 /**
  * Navy Pier functions and definitions
  *
- * This file contains helper functions that act as custom template tags. Others are attached to 
+ * This file contains helper functions that act as custom template tags. Others are attached to
  * action and filter hooks in WordPress to change core functionality.
- * 
+ *
  * @link http://codex.wordpress.org/Template_Tags
  * @link http://codex.wordpress.org/Function_Reference/add_action
  * @link http://codex.wordpress.org/Function_Reference/add_filter
@@ -16,17 +16,17 @@
  * the parent theme's file, so the child theme functions would be used.
  *
  * @link http://codex.wordpress.org/Theme_Development
- * @link http://codex.wordpress.org/Child_Themes 
- * 
+ * @link http://codex.wordpress.org/Child_Themes
+ *
  * @package WordPress
  * @subpackage Navy_Pier
  * @since Navy Pier 1.0
  */
- 
- 
+
+
 /**
  * Navy Pier only works in WordPress 3.6 or later.
- * 
+ *
  * @since Navy Pier 1.0
  */
 if ( version_compare( $GLOBALS['wp_version'], '3.6', '<' ) ) {
@@ -43,21 +43,21 @@ if ( version_compare( $GLOBALS['wp_version'], '3.6', '<' ) ) {
  */
 function np_no_customize(){
 	global $pagenow;
-	if( 'customize.php' === $pagenow ){		
+	if( 'customize.php' === $pagenow ){
 		wp_die(
 			sprintf(
-				__( 'The Theme Customizer is not compatible with your current theme: <strong>%s</strong>.', 'navypier' ), 
-				wp_get_theme() 
-			), 
-			'', 
-			array('back_link' => true) 
+				__( 'The Theme Customizer is not compatible with your current theme: <strong>%s</strong>.', 'navypier' ),
+				wp_get_theme()
+			),
+			'',
+			array('back_link' => true)
 			);
 	}
 	remove_submenu_page( 'themes.php', 'customize.php' );
 }
 add_action( 'admin_menu', 'np_no_customize' );
- 
- 
+
+
 /**
  * Main Theme Setup
  *
@@ -74,27 +74,27 @@ add_action( 'admin_menu', 'np_no_customize' );
 if ( ! function_exists( 'np_theme_setup' ) ) {
 
 	function np_theme_setup(){
-	
+
 		/*
 		 * Make this theme available for translation.
 		 *
 		 * Translations can be added to the /languages/ directory.
-		 * If you're building a theme based on Twenty Fourteen, use a find and replace to 
+		 * If you're building a theme based on Twenty Fourteen, use a find and replace to
 		 * change 'navypier' to the name of your theme in all template files.
 		 */
 		load_theme_textdomain( 'navypier', get_template_directory() . '/languages' );
-		
+
 		add_post_type_support( 'page', 'excerpt' );
-		
+
 		// Add RSS feed links to <head> for posts and comments.
 		add_theme_support( 'automatic-feed-links' );
-	
+
 		// Enable support for Post Thumbnails, and declare two sizes.
 		add_theme_support( 'post-thumbnails' );
 		set_post_thumbnail_size( 600, 600, true );
 		add_image_size( 'navypier-full-width', 1038, 576, true );
 		add_image_size( 'homepage-rotator', 1200, 800, true);
-		
+
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus( array(
 				'primary'         => __( 'Top primary menu', 'navypier' ),
@@ -109,10 +109,10 @@ if ( ! function_exists( 'np_theme_setup' ) ) {
 		add_theme_support( 'html5', array(
 			'search-form', 'comment-form', 'comment-list', 'gallery', 'caption'
 		) );
-			
-			
+
+
 		// This theme uses its own gallery styles.
-		add_filter( 'use_default_gallery_style', '__return_false' );	
+		add_filter( 'use_default_gallery_style', '__return_false' );
 	}
 }
 add_action( 'after_setup_theme', 'np_theme_setup' );
@@ -159,63 +159,63 @@ function np_widgets_init() {
 		'after_widget'  => '</div>',
 		'before_title'  => '<h4 class="widget-title category">',
 		'after_title'   => '</h4>',
-	) );	
+	) );
 }
 add_action( 'widgets_init', 'np_widgets_init' );
 
- 
+
 /**
  * Register styles for the front end.
  *
  * @since Navy Pier 1.0
  * @uses get_template_directory_uri()
- * @uses get_stylesheet_directory_uri() 
+ * @uses get_stylesheet_directory_uri()
  */
- 
-function np_register_styles(){	
+
+function np_register_styles(){
 	wp_register_style(
-		'np-webtypes', 
-		'//cloud.webtype.com/css/e692c93e-09a6-4af5-841b-00d6dc258288.css', 
-		array(), 
+		'np-webtypes',
+		'//cloud.webtype.com/css/e692c93e-09a6-4af5-841b-00d6dc258288.css',
+		array(),
 		null
 		);
 	wp_register_style(
 		'np-reset',
 		get_stylesheet_directory_uri() . '/css/reset.min.css',
 		array(),
-		null		
+		null
 		);
 	wp_register_style(
 		'np-tooltip',
 		get_stylesheet_directory_uri() . '/css/tooltipster.css',
 		array(),
-		null		
+		null
 		);
 	wp_register_style(
 		'np-lightbox',
 		get_stylesheet_directory_uri() . '/css/nivo-lightbox.css',
 		array(),
-		null		
+		null
 		);
 	wp_register_style(
 		'np-lightbox-theme',
 		get_stylesheet_directory_uri() . '/css/lightbox/default.css',
 		array(),
-		null		
+		null
 		);
 	wp_register_style(
 		'np-fontawesome',
 		get_stylesheet_directory_uri() . '/css/font-awesome.min.css',
 		array(),
-		null		
-		);	
+		null
+		);
 	wp_register_style(
 		'np-styles',
 		get_stylesheet_directory_uri() . '/css/styles.css',
 		array(),
-		null		
-		);		
-	
+		null
+		);
+
 	$deps = array( 'np-webtypes','np-reset','np-tooltip','np-lightbox','np-lightbox-theme','np-fontawesome','np-styles');
 	wp_register_style( 'np-main', get_stylesheet_uri(), $deps, null, 'all' );
 }
@@ -237,7 +237,7 @@ add_action('wp_enqueue_scripts', 'np_load_styles');
  *
  * @since Navy Pier 1.0
  * @uses get_template_directory_uri()
- * @uses get_stylesheet_uri() 
+ * @uses get_stylesheet_uri()
  */
 function np_register_scripts(){
 	wp_register_script(
@@ -246,21 +246,21 @@ function np_register_scripts(){
 		array(),
 		null,
 		true
-	);	
+	);
 	wp_register_script(
 		'jquery-mobile',
 		get_stylesheet_directory_uri() . '/js/jquery.mobile.custom.min.js',
 		array('jquery'),
 		'1.4.3',
 		true
-	);	
+	);
 	wp_register_script(
 		'viewports-buggyfill',
 		get_stylesheet_directory_uri() . '/js/viewport-units-buggyfill.js',
 		array(),
 		'0.3.1',
 		true
-	);	
+	);
 	wp_register_script(
 		'jquery-tooltipster',
 		get_stylesheet_directory_uri() . '/js/jquery.tooltipster.min.js',
@@ -274,14 +274,14 @@ function np_register_scripts(){
 		array('jquery'),
 		'3.0.3',
 		true
-	);	
+	);
 	wp_register_script(
 		'jquery-backgroundcover',
 		get_stylesheet_directory_uri() . '/js/jquery.backgroundcover.min.js',
 		array('jquery'),
 		null,
 		true
-	);	
+	);
 	wp_register_script(
 		'jquery-nivo-lightbox',
 		get_stylesheet_directory_uri() . '/js/nivo-lightbox.min.js',
@@ -290,22 +290,22 @@ function np_register_scripts(){
 		true
 	);
 	$deps = array(
-		'jquery', 
-		'np-google-maps', 
-		'jquery-mobile', 
-		'viewports-buggyfill', 
+		'jquery',
+		'np-google-maps',
+		'jquery-mobile',
+		'viewports-buggyfill',
 		'jquery-tooltipster',
 		'jquery-cycle',
 		'jquery-backgroundcover',
 		'jquery-nivo-lightbox'
-		);		
+		);
 	wp_register_script(
 		'np-scripts',
 		get_stylesheet_directory_uri() . '/js/scripts.js',
 		$deps,
 		null,
 		true
-	);		
+	);
 }
 add_action('wp_enqueue_scripts', 'np_register_scripts');
 
@@ -315,13 +315,13 @@ add_action('wp_enqueue_scripts', 'np_register_scripts');
  *
  * @since Navy Pier 1.0
  */
-function np_load_scripts(){	
+function np_load_scripts(){
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
-	
+
 	wp_enqueue_script('np-scripts');
-	
+
 	wp_localize_script(
 		'np-scripts',
 		'np_scripts',
@@ -330,14 +330,14 @@ function np_load_scripts(){
 			'images_url' => get_stylesheet_directory_uri() . '/images/'
 		)
 	);
-		
+
 }
 add_action('wp_enqueue_scripts', 'np_load_scripts');
 
 
 /**
  * Filter the page title.
- * 
+ *
  * Create a nicely formatted and more specific title element text for output
  * in head of document, based on current view.
  *
@@ -349,7 +349,7 @@ add_action('wp_enqueue_scripts', 'np_load_scripts');
  */
 function np_wp_title( $title, $sep ) {
 	global $paged, $page;
-	
+
 	if ( is_feed() ) {
 		return $title;
 	}
@@ -393,14 +393,14 @@ if ( ! class_exists( 'Homepage_Featured' ) && 'plugins.php' !== $GLOBALS['pageno
  * @uses wp_nav_menu()
  * @uses get_transient()
  * @uses set_transient()
- * 
+ *
  * @param string $theme_location The location in the theme registered with register_nav_menu()
- * @param array $menu_args Parameters to display the menu 
+ * @param array $menu_args Parameters to display the menu
  */
 function np_get_cached_nav_menu( $theme_location, $menu_args ){
-	
+
 	$menu = get_transient( "navmenu_{$theme_location}" );
-	
+
 	if( false === $menu){
 		$menu_args['theme_location'] = $theme_location;
 		$menu_args['echo'] = 0;
@@ -408,7 +408,7 @@ function np_get_cached_nav_menu( $theme_location, $menu_args ){
 
 		set_transient("navmenu_{$theme_location}", $menu);
 	}
-	
+
 	return $menu;
 }
 
@@ -424,10 +424,10 @@ function np_get_top_menu_secondary(){
 	$menu_args = array(
 		'menu_class' => 'text-links nav-menu',
 		'container'=> '',
-		'fallback_cb' => false 
-	);			
-	
-	return np_get_cached_nav_menu( $theme_location = 'secondary', $menu_args  ); 
+		'fallback_cb' => false
+	);
+
+	return np_get_cached_nav_menu( $theme_location = 'secondary', $menu_args  );
 }
 
 /**
@@ -441,10 +441,10 @@ function np_get_top_menu_social(){
 	$menu_args = array(
 		'menu_class' => 'social-links nav-menu',
 		'container'=> '',
-		'fallback_cb' => false 
-	);			
-	
-	return np_get_cached_nav_menu( $theme_location = 'social-top', $menu_args  ); 
+		'fallback_cb' => false
+	);
+
+	return np_get_cached_nav_menu( $theme_location = 'social-top', $menu_args  );
 }
 
 
@@ -460,10 +460,10 @@ function np_get_top_menu_quick(){
 		'menu_class' => 'quick-links nav-menu',
 		'container'=> '',
 		'fallback_cb' => false,
-		'items_wrap' => '<ul id="menu-top-quick-links" class="quick-links nav-menu"><li class="title">Quick Links:</li>%3$s</ul>'		
-	);			
-	
-	return np_get_cached_nav_menu( $theme_location = 'quick-top', $menu_args  ); 
+		'items_wrap' => '<ul id="menu-top-quick-links" class="quick-links nav-menu"><li class="title">Quick Links:</li>%3$s</ul>'
+	);
+
+	return np_get_cached_nav_menu( $theme_location = 'quick-top', $menu_args  );
 }
 
 
@@ -479,9 +479,9 @@ function np_get_btm_menu_primary(){
 		'menu_class' => 'nav-menu',
 		'container'=> '',
 		'fallback_cb' => false
-	);			
-	
-	return np_get_cached_nav_menu( $theme_location = 'footer-primary', $menu_args  ); 
+	);
+
+	return np_get_cached_nav_menu( $theme_location = 'footer-primary', $menu_args  );
 }
 
 
@@ -498,13 +498,13 @@ function np_get_btm_menu_primary(){
 function np_maybe_update_menu_transient( $menu_id ){
 
 	$locations = get_theme_mod( 'nav_menu_locations' );
-	
+
 	foreach($locations as $theme_location => $id){
 		if($menu_id === $id ){
 			delete_transient("navmenu_{$theme_location}");
 		}
 	}
-	
+
 	return $menu_id;
 }
 
@@ -513,7 +513,7 @@ add_action( 'wp_update_nav_menu', 'np_maybe_update_menu_transient', 0,2);
 
 /**
  * Custom search form
- * 
+ *
  * @since 1.0
  *
  */
@@ -525,7 +525,7 @@ function np_search_form( $form ){
 	</form>';
 	return $form;
 }
- 
+
 add_filter( 'get_search_form', 'np_search_form' );
 
 /**
@@ -533,7 +533,7 @@ add_filter( 'get_search_form', 'np_search_form' );
  *
  * @since 1.0
  *
- */ 
+ */
 function np_get_newsletter_form(){
 	ob_start();
 	get_template_part( 'form', 'newsletter' );
@@ -550,7 +550,7 @@ function np_get_newsletter_form(){
  */
 // based on https://gist.github.com/cosmocatalano/4544576
 function np_scrape_instagram($username, $slice = 9) {
-	
+
 		$remote = wp_remote_get('http://instagram.com/'.trim($username));
 
 		if (is_wp_error($remote))
@@ -603,9 +603,9 @@ function np_scrape_instagram($username, $slice = 9) {
  * @uses np_scrape_instagram()
  */
 function np_get_instagram_feed( $username, $photos) {
-	
+
 	$feed = get_transient('instagram_feed-'.sanitize_title_with_dashes($username));
-	
+
 	if ( false === $feed ) {
 		$insta_feed = np_scrape_instagram( $username, $photos );
 		if ( is_wp_error($insta_feed) ) {
@@ -613,8 +613,8 @@ function np_get_instagram_feed( $username, $photos) {
 		} else {
 			$feed = '';
 			foreach ($insta_feed as $item) {
-				$feed .= '<div class="post"><a href="'. esc_url( $item['link'] ) .'" target="_blank"><img src="'. esc_url($item['large']['url']) .'"  alt="'. esc_attr( $item['description'] ) .'" title="'. esc_attr( $item['description'] ).'" width="640" height="640" class="background-cover"/></a></div>';				
-			}			
+				$feed .= '<div class="post"><a href="'. esc_url( $item['link'] ) .'" target="_blank"><img src="'. esc_url($item['large']['url']) .'"  alt="'. esc_attr( $item['description'] ) .'" title="'. esc_attr( $item['description'] ).'" width="640" height="640" class="background-cover"/></a></div>';
+			}
 			set_transient('instagram_feed-'.sanitize_title_with_dashes($username), $feed, HOUR_IN_SECONDS * 2);
 		}
 	}
@@ -655,7 +655,7 @@ add_filter('widget_text', 'np_filter_widget_text');
 /*
  * Add Promotion Meta Box functionality.
  *
- * To overwrite in a plugin, define your own MetaBox_Promotion class on or 
+ * To overwrite in a plugin, define your own MetaBox_Promotion class on or
  * before the 'setup_theme' hook.
  */
 if ( ! class_exists( 'MetaBox_Promotion' ) && 'plugins.php' !== $GLOBALS['pagenow'] ) {
@@ -677,7 +677,7 @@ function np_get_promo_url($post_id = null)
 {
 	$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
 	$url =  home_url('/promotions/') . '#entry-' . $post_id;
-	
+
 	return apply_filters('np_promo_url', $url, $post_id);
 }
 
@@ -701,11 +701,25 @@ add_filter('the_permalink', 'np_replace_promo_permalink');
  */
 function np_filter_search() {
     global $wp_post_types;
- 
-    if ( post_type_exists( 'post' ) ) { 
+
+    if ( post_type_exists( 'post' ) ) {
         // exclude from search results
         $wp_post_types['post']->exclude_from_search = true;
     }
 }
 
-add_action( 'init', 'np_filter_search', 99 );
+//add_action( 'init', 'np_filter_search', 99 );
+
+function np_search_filter($query) {
+	if ( !is_admin() && $query->is_main_query() ) {
+		if( $query->is_search ) {
+			global $wp_post_types;
+			if ( post_type_exists( 'post' ) ) {
+				// exclude from search results
+				$wp_post_types['post']->exclude_from_search = true;
+			}
+		}
+	}
+}
+
+add_action('pre_get_posts','np_search_filter');
