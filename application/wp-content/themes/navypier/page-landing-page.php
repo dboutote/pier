@@ -95,92 +95,144 @@ if( has_post_thumbnail() ){
 			)
 		);
 		
-		if( !empty($all_entries) ) : ?>			
+		if( !empty($all_entries) ) : ?>
+
+			<?php 
+			ob_start();
+			include( get_stylesheet_directory() . '/sidebar-entries-one.php');
+			$output = ob_get_contents();
+			ob_end_clean();
+			echo $output;
+			?>
 		
-			<div id="lp-main" class="section-title">
-				<h2><?php echo $_entries_title;?></h2>
-			</div>
-
-			<div id="lp-wrap" class="section-content no-bg clearfix">
-
-				<?php foreach($all_entries as $post) {			
-					setup_postdata($post); 
-					$_alt_title = get_post_meta($post->ID, '_alt_title', true);
-					$_sub_title = get_post_meta($post->ID, '_sub_title', true);
-					$_deal_title = get_post_meta($post->ID, '_deal_title', true);
-					$_deal_url = get_post_meta($post->ID, '_deal_url', true);
-					$_tix_title = get_post_meta($post->ID, '_tix_title', true);
-					$_tix_url = get_post_meta($post->ID, '_tix_url', true);	
-					$_website_title = get_post_meta($post->ID, '_website_title', true);					
-					$_website_url = get_post_meta($post->ID, '_website_url', true);
-					$_phone_title = get_post_meta($post->ID, '_phone_title', true);
-					$_phone_url = get_post_meta($post->ID, '_phone_url', true);
-					$_document_title = get_post_meta($post->ID, '_document_title', true);
-					$_document_url = get_post_meta($post->ID, '_document_url', true);
-					if( 'tribe_events' === $post->post_type  ){
-						$venue_id = tribe_get_venue_id( $post->ID );
-						$_latitude = get_post_meta($venue_id, '_VenueLat', true);
-						$_longitude = get_post_meta($venue_id, '_VenueLong', true);
-						$_location_title = tribe_get_venue( $post->ID );
-					} else {
-						$_latitude = get_post_meta($post->ID, '_latitude', true);
-						$_longitude = get_post_meta($post->ID, '_longitude', true);										
-						$_location_title = get_post_meta($post->ID, '_location_title', true);
-					}
-					
-					$lat_long_href = ( $_latitude && $_longitude ) ? $_latitude.','.$_longitude : false;
-					$image_obj = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');				
-					if($image_obj){
-						$img_src = $image_obj[0];
-						$img_width = $image_obj[1];
-						$img_height = $image_obj[2];
-						
-					} else {
-						$img_src = get_stylesheet_directory_uri() . '/images/promo_placeholder.jpg';
-						$img_width = '463';
-						$img_height = '275';
-					}			
-					?>		
-					<div id="entry-<?php echo get_the_ID();?>" class="<?php echo get_post_type();?>-entry entry">
-						<div class="title clearfix">
-							<div class="col entry-image"> 
-								<img src="<?php echo $img_src; ?>" width="<?php echo $img_width;?>" height="<?php echo $img_height;?>" class="background-cover">
-							</div>
-							<div class="col span-2">
-								<div class="info padded">
-									<h3><?php the_title() ?></h3>
-									<p><?php the_excerpt() ?></p>
-									<?php if( '' !== $post->post_content ) {?> <a href="#" class="icon read-details">Read More</a> <?php } ?>
-								</div>
-								<div class="options">
-									<a href="#" data-shareid="<?php echo $post->ID;?>" class="icon share">share</a>
-									<?php if( $_deal_url ) {?> <a href="<?php echo $_deal_url;?>" class="icon get-deal" target="_blank"><?php echo ( '' != $_deal_title ) ? $_deal_title : $_deal_url;?></a><?php ;} ?>
-									<?php if( $_tix_url ) {?> <a href="<?php echo $_tix_url;?>" class="icon buy-tickets"  target="_blank"><?php echo ( '' != $_tix_title ) ? $_tix_title : $_tix_url;?></a><?php ;} ?>							
-									<?php if( $_website_url ) {?> <a href="<?php echo $_website_url;?>" class="icon website" target="_blank"><?php echo ( '' != $_website_title ) ? $_website_title : $_website_url;?></a><?php ;} ?>
-									<?php if( $_phone_url ) {?> <a href="<?php echo $_phone_url;?>" class="icon phone-number"><?php echo ( '' != $_phone_title ) ? $_phone_title : $_phone_url;?></a><?php ;} ?>
-									<?php if( $_document_url ) {?> <a href="<?php echo $_document_url;?>" class="icon document" target="_blank"><?php echo ( '' != $_document_title ) ? $_document_title : $_document_url;?></a><?php ;} ?>
-									<?php if( $lat_long_href ) {?> <a href="<?php echo $lat_long_href;?>" class="icon location map-link"><?php echo $_location_title;?></a><?php ;} ?>							
-								</div>
-							</div>
-						</div>
-						<div class="details padded">
-							<?php the_content(); ?>
-						</div>
-					</div>
-				
-				<?php }; ?>
-
-			</div><!-- /.section-content -->
-
 		<?php else : ?>
-
-			<p>No entries found.</p>
+		
+			<div class="section-content no-search-results clearfix">			
+				<div class="no-results">
+					<p><?php _e( 'No entries found', 'navypier' ); ?></p>					
+				</div>
+			</div>
 
 		<?php endif; ?>	
 
 		<?php wp_reset_query(); ?>
 		
 	<?php endif;?>
+	
+	
+	<?php 
+	$_entries_type_two = get_post_meta(get_the_ID(), '_entries_type_two', true);
+	
+	if( $_entries_type_two ) : ?>
+		<?php
+		$_entries_title_two = get_post_meta(get_the_ID(), '_entries_title_two', true);		
+		$_entries_tax_two = get_post_meta(get_the_ID(), '_entries_tax_two', true);
+		$_entries_number_two = get_post_meta( get_the_ID(), '_entries_number_two', true ); 
+		$posts_per_page = ('all' === $_entries_number_two) ? '-1' : $_entries_number_two ;
+		$tax_query_args = '';
+
+		if( '' !== $_entries_tax_two ){
+			$meta_tax = explode(':', $_entries_tax_two);
+			$selected_tax = $meta_tax[0];
+			$selected_term = $meta_tax[1];
+			$tax_query_args = array(
+				'taxonomy' => $selected_tax,
+				'field' => 'slug',
+				'terms' => $selected_term
+			);
+		};
+					
+		$all_entries = get_posts(
+			array(
+				'post_type'			=> $_entries_type_two,
+				'posts_per_page'	=> $posts_per_page,
+				'orderby'			=> 'menu_order',
+				'order'             => 'ASC',
+				'tax_query'			=> array($tax_query_args)		
+			)
+		);
+		
+		if( !empty($all_entries) ) : ?>
+
+			<?php 
+			ob_start();
+			include( get_stylesheet_directory() . '/sidebar-entries-two.php');
+			$output = ob_get_contents();
+			ob_end_clean();
+			echo $output;
+			?>
+		
+		<?php else : ?>
+
+			<div class="section-content no-search-results clearfix">			
+				<div class="no-results">
+					<p><?php _e( 'No entries found', 'navypier' ); ?></p>
+				</div>
+			</div>
+
+		<?php endif; ?>	
+
+		<?php wp_reset_query(); ?>
+		
+	<?php endif;?>
+	
+	
+	<?php 
+	$_entries_type_three = get_post_meta(get_the_ID(), '_entries_type_three', true);
+	
+	if( $_entries_type_three ) : ?>
+		<?php
+		$_entries_title_three = get_post_meta(get_the_ID(), '_entries_title_three', true);		
+		$_entries_tax_three = get_post_meta(get_the_ID(), '_entries_tax_three', true);
+		$_entries_number_three = get_post_meta( get_the_ID(), '_entries_number_three', true ); 
+		$posts_per_page = ('all' === $_entries_number_three) ? '-1' : $_entries_number_three ;
+		$tax_query_args = '';
+
+		if( '' !== $_entries_tax_three ){
+			$meta_tax = explode(':', $_entries_tax_three);
+			$selected_tax = $meta_tax[0];
+			$selected_term = $meta_tax[1];
+			$tax_query_args = array(
+				'taxonomy' => $selected_tax,
+				'field' => 'slug',
+				'terms' => $selected_term
+			);
+		};
+					
+		$all_entries = get_posts(
+			array(
+				'post_type'			=> $_entries_type_three,
+				'posts_per_page'	=> $posts_per_page,
+				'orderby'			=> 'menu_order',
+				'order'             => 'ASC',
+				'tax_query'			=> array($tax_query_args)		
+			)
+		);
+		
+		if( !empty($all_entries) ) : ?>
+
+			<?php 
+			ob_start();
+			include( get_stylesheet_directory() . '/sidebar-entries-three.php');
+			$output = ob_get_contents();
+			ob_end_clean();
+			echo $output;
+			?>
+		
+		<?php else : ?>
+
+			<div class="section-content no-search-results clearfix">			
+				<div class="no-results">
+					<p><?php _e( 'No entries found', 'navypier' ); ?></p>
+				</div>
+			</div>
+
+		<?php endif; ?>	
+
+		<?php wp_reset_query(); ?>
+		
+	<?php endif;?>	
+	
 
 </div> <!-- /.container -->
 

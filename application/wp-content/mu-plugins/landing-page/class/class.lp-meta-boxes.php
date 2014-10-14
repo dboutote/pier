@@ -4,15 +4,7 @@
  */
 defined( 'ABSPATH' ) or die( 'Nothing here!' );
 
-
-/**
- * Include Restaurants
- *
- * Allows an author to indicate if restaurants should appear on a page.
- *
- */
-
-class MetaBox_LandingPage {
+class MetaBox_LandingPageTwo extends MetaBox_LandingPage {
 
 	private $meta_config_args;
 	private $dont_show_in = array('cpt_promotion', 'tribe_events', 'cpt_advertisement');
@@ -26,102 +18,8 @@ class MetaBox_LandingPage {
  	 */
 	public function __construct()
 	{
-		add_action( 'init', array($this, 'register_scripts') );
-		add_action( 'admin_enqueue_scripts', array($this, 'add_scripts_backend'), 101 );
 		add_action( 'add_meta_boxes', array($this,'create_metabox') );
 		add_action( 'save_post_page',      array($this,'save_meta'), 0, 3 );
-		add_action( 'wp_ajax_setup_type_taxonomies', array($this, 'get_type_taxonomies') );
-	}
-	
-	/**
-	 * Build a Select Element with Taxonomy Terms
-	 *
-	 * @access  public
-	 * @since   1.0
-	 * @uses get_post_types()
-	 * @uses get_object_taxonomies()
-	 * @uses get_terms()
-	 * @return  string JSON string of select options
-	 */
-	public function get_type_taxonomies()
-	{
-		$raw_data = $_POST;
-		$user_errors = array();
-		$response = array();
-		$notice = '';
-		
-		
-		$post_types = get_post_types();		
-		$selected_type = $_POST['post_type'];
-		
-		if( !in_array($selected_type, $post_types ) ){
-			$response['code'] = '-1';
-			$response['notice'] = $notice;
-			die(json_encode($response));
-		}
-		
-		$tax_types = get_object_taxonomies($selected_type);
-		
-		if( empty($tax_types) ){
-			$response['code'] = '-1';
-			$response['notice'] = $notice;
-			die(json_encode($response));
-		}
-		
-		$tax_terms = get_terms($tax_types, array('hide_empty'=>false));
-		
-		if( empty($tax_terms) ){
-			$response['code'] = '-1';
-			$response['notice'] = $notice;
-			die(json_encode($response));
-		}
-			
-		$notice .= '<option value="">-- '. __( 'Select Category' ).' --</option>';
-		foreach($tax_terms as $term ){
-			$notice .= '<option value="'.$term->taxonomy . ':' .$term->slug.'">'.$term->name.' ('.$term->count.')</option>';
-		}
-				
-		$response['code'] = '1';
-		$response['notice'] = $notice;
-		die(json_encode($response));
-	}
-	
-	
-	/**
-	 * Register scripts in the backend
-	 *
-	 * @access  public
-	 * @since   1.0
-	 * @uses wp_register_script()
-	 * @return  void
-	 */
-	public static function register_scripts()
-	{
-		wp_register_script( 'lp_scripts', LP_JS_URL  . '/script.js', array( 'jquery' ), 1.0, true );
-	}
-	
-
-	/**
-	 * Load scripts in the backend
-	 *
-	 * @access  public
-	 * @since   1.0
-	 * @uses wp_enqueue_script()
-	 * @uses wp_localize_script()
-	 */
-	public static function add_scripts_backend($hook)
-	{
-		wp_enqueue_script('lp_scripts');
-
-		wp_localize_script(
-			'lp_scripts',
-			'lpJax',
-			array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' )
-			)
-		);
-
-		return;
 	}
 	
 	
@@ -147,7 +45,7 @@ class MetaBox_LandingPage {
 	 */
 	protected function set_meta_box_args()
 	{
-		$basename = 'landingpage';
+		$basename = 'landingpagetwo';
 		$post_type_name = 'post';
 
 		$post_types = get_post_types();
@@ -158,29 +56,29 @@ class MetaBox_LandingPage {
 		}
 
 		$meta_fields = array(
-			'entries_title' => array(
-				'name' => 'entries_title',
+			'entries_title_two' => array(
+				'name' => 'entries_title_two',
 				'type' => 'text',
 				'default' => '',
 				'title' => __('Entries Box Title'),
 				'description' => __('Enter an optional title.')
 			),
-			'entries_type' => array(
-				'name' => 'entries_type',
+			'entries_type_two' => array(
+				'name' => 'entries_type_two',
 				'type' => 'checkbox',
 				'default' => '',
 				'title' => __('Select Post Type'),
 				'description' => __('Select which post type will appear on this page.')
 			),
-			'entries_tax' => array(
-				'name' => 'entries_tax',
+			'entries_tax_two' => array(
+				'name' => 'entries_tax_two',
 				'type' => 'checkbox',
 				'default' => '',
 				'title' => __('Select Category'),
 				'description' => __('Select which category of entries will appear on this page.')
 			),
-			'entries_number' => array(
-				'name' => 'entries_number',
+			'entries_number_two' => array(
+				'name' => 'entries_number_two',
 				'type' => 'text',
 				'default' => '',
 				'title' => __('Number of Entries'),
@@ -191,7 +89,7 @@ class MetaBox_LandingPage {
 		$args = array(
 			'meta_box_id' => $basename . 'div',
 			'meta_box_name' => $basename . 'info',
-			'meta_box_title' => __( 'Landing Page Settings' ),
+			'meta_box_title' => __( 'Landing Page Settings (2)' ),
 			'meta_box_default' => '',
 			'meta_box_description' => sprintf( __( 'Use these settings to display a list of  entries to display on this %s.', 'navypier' ), $post_type_name ),
 			'content_types' => $post_types,
@@ -231,27 +129,6 @@ class MetaBox_LandingPage {
 
 
 	/**
-	 * Determine if the current post type should show this meta box
-	 *
-	 * @access public
-	 * @since 1.0
-	 *
-	 */
-	protected function show_in_posttype( $post_type )
-	{
-		if( !$post_type || '' === $post_type ){
-			return false;
-		}
-
-		if ( in_array( $post_type, apply_filters( 'include_feat_events_dont_show_list', $this->dont_show_in, $post_type ) ) ){
-			return false;
-		}
-
-		return true;
-	}
-
-
-	/**
 	 * Print the inner HTML of the metabox
 	 *
 	 * @access public
@@ -272,7 +149,7 @@ class MetaBox_LandingPage {
 			$query_var = ( ''!= $type->query_var ) ? $type->query_var : $type->name ;
 			$type_array[$query_var] = $type->labels->singular_name;			
 		}
-	
+					
 		$output ='<div class="lp-settings">';
 		$output .= '<p>' . $meta_box_description . '</p>';
 		
@@ -286,16 +163,19 @@ class MetaBox_LandingPage {
 
 			wp_nonce_field( plugin_basename(__CLASS__), $meta_field['name'].'_noncename' );
 
-			if ( 'entries_title' === $meta_field['name']) {
+
+			if ( 'entries_title_two' === $meta_field['name']) {
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
 				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="16" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
 			}
 
-			if( 'entries_type' === $meta_field['name'] ) {
+			if( 'entries_type_two' === $meta_field['name'] ) {
 				
 				// sort alphabetically
 				asort($type_array);
+				
 				$type_selected = ( '' !== $meta_field_value ) ? ' type-selected': '';
+				
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
 				$output .= '<select class="entries-type'.$type_selected.'" name="'.$meta_field['name'].'" style="width:99%;">';
 				$output .= '<option value="">-- '. __( 'Select Post Type' ).' --</option>';
@@ -306,7 +186,7 @@ class MetaBox_LandingPage {
 				$output .= $meta_field['description'].'<br /></p>';
 			}
 
-			if( 'entries_tax' === $meta_field['name'] ) {
+			if( 'entries_tax_two' === $meta_field['name'] ) {
 				$style = ' style="display:none;"';
 				$select_options = '';
 				if('' !== $meta_field_value){
@@ -329,14 +209,14 @@ class MetaBox_LandingPage {
 				$output .= '</div>';
 			}
 
-			if ( 'entries_number' === $meta_field['name']) {
+			if ( 'entries_number_two' === $meta_field['name']) {
 				$output .= '<p><b><label for="'.$meta_field['name'].'">'.$meta_field['title'].'</label></b><br />';
 				$output .= '<input class="reg-text" type="text" id="'.$meta_field['name'].'" name="'.$meta_field['name'].'" value="'.$meta_field_value.'" size="3" style="width: 99%;" /> <span class="desc">'.$meta_field['description'].'</span></p>';
 			}
 
 		}
-		
-		$output .= '<a class="addlplist button button-small hide-if-no-js" href="#landingpagetwodiv">Add another list</a>';
+
+		$output .= '<a class="addlplist button button-small hide-if-no-js" href="#landingpagethreediv">Add another list</a>';
 		
 		$output .= '</div> <!-- /.lp-settings -->';
 

@@ -23,6 +23,10 @@ define('LP_JS_URL', LP_URL . 'js');
 # Setup files
 if( ! class_exists( 'MetaBox_LandingPage' ) ) {
 	require(dirname(__FILE__) . '/class/class.landing-page.php');
+	require(dirname(__FILE__) . '/class/class.lp-meta-boxes.php');
+	require(dirname(__FILE__) . '/class/class.lp-meta-boxes-2.php');
 }
 global $MetaBox_LandingPage;
 $MetaBox_LandingPage = new MetaBox_LandingPage();
+$MetaBox_LandingPageTwo = new MetaBox_LandingPageTwo();
+$MetaBox_LandingPageThree = new MetaBox_LandingPageThree();

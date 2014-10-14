@@ -5,21 +5,51 @@ if (typeof jQuery === "undefined") {
 jQuery(function ($) {
 
     "use strict";
-	
+		
 	var $landpagediv = $('#landingpagediv');
+	var $landingpagetwodiv = $('#landingpagetwodiv');
 	$('#pageparentdiv').after($landpagediv);
-
-	var $tax_select = $('select[name="entries_tax"]');
-	var $taxplaceholder = $('#taxplaceholder');
-	var $template_select = $('select[name="page_template"]');
-
+	$landpagediv.after($landingpagetwodiv);
 	$landpagediv.removeClass('hide-if-js');
+	var $template_select = $('select[name="page_template"]');
 	
-	if( 'page-landing-page.php' != $template_select.val() ){
-		$landpagediv.hide();
+	
+	$('.lp-settings').each(function(index, value){		
+		var $this = $(this);		
+		if( $('.entries-type', $this).hasClass('type-selected') ){
+			$this.closest('.postbox').show();
+		} else {
+			$this.closest('.postbox').hide();
+		}
+	});
+	
+	if( 'page-landing-page.php' == $template_select.val() ){
+		$landpagediv.show();		
 	}
 	
-
+	
+	$('.addlplist').each(function(){
+		var $link = $(this);		
+		var $target_div = $($link.attr('href'));
+		var $parent = $link.closest('.lp-settings');
+		var $type_select = $('select.entries-type', $parent);		
+		
+		if( $target_div.is(":visible") ){
+			$link.hide();
+		} else {
+			$link.show();
+		}
+		
+		$link.on('click', function(e){	
+			if( !$target_div.is(":visible") && '' !== $type_select.val() ){
+				$target_div.fadeIn();
+			}		
+			e.preventDefault();
+		});		
+		
+		
+	});	
+	
 	$template_select.on('change', function(){
 		var selected_type = $(this).val();
 		if( 'page-landing-page.php' === selected_type ){
@@ -30,7 +60,13 @@ jQuery(function ($) {
 	});
 
 
-	$('select[name="entries_type"]').on('change', function(){
+	$('select.entries-type').on('change', function(){
+	
+		var $this = $(this);
+		var $parent = $this.closest('.lp-settings');
+		var $taxplaceholder = $('.taxplaceholder', $parent);
+		var $tax_select = $('select.entries-tax', $parent);
+		
 		var selected_type = $(this).val();
 				
 		// ajax all the things
