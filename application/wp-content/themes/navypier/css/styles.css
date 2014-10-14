@@ -815,6 +815,9 @@ header .bottom .container:before {
 	list-style: decimal outside;
 	margin: 20px 0 0 20px;
 }
+.accordion .toggle .content ul:first-child, .accordion .toggle .content ol:first-child {
+	margin-top: 0;
+}
 .accordion .toggle .content p {
 	font-size: 14px;
 	line-height: 21px;
