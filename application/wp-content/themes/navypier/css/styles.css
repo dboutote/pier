@@ -85,7 +85,6 @@ img {
 }
 a.btn {
 	display: inline-block;
-	font-size: 14px;
 	font-weight: normal;
 	color: #221e1f;
 	padding: 8px 14px;
@@ -95,11 +94,8 @@ a.btn {
 }
 .btn:after {
 	font-family: FontAwesome;
-	font-size: 18px;
 	content: '\f138';
 	margin-left: 6px;
-	position: relative;
-	top: 2px;
 }
 .btn:hover {
 	background-color: #bed600;
