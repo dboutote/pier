@@ -71,6 +71,9 @@ p {
 p:first-child {
 	margin-top: 0;
 }
+p:empty {
+	display: none;
+}
 .align-right {
 	text-align: right;
 }
