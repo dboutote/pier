@@ -1146,6 +1146,9 @@ a.document:before {
 	min-height: 240px;
 	margin-bottom: 3px;
 }
+.entry:last-child {
+	margin-bottom: 0;
+}
 .entry .span-2 {
 	position: relative;
 	background-color: #fff;
