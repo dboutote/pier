@@ -71,6 +71,9 @@ p {
 p:first-child {
 	margin-top: 0;
 }
+p:empty {
+	display: none;
+}
 .align-right {
 	text-align: right;
 }
@@ -1145,6 +1148,9 @@ a.document:before {
 .entry {
 	min-height: 240px;
 	margin-bottom: 3px;
+}
+.entry:last-child {
+	margin-bottom: 0;
 }
 .entry .span-2 {
 	position: relative;
