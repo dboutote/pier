@@ -33,7 +33,7 @@ $_tix_url = get_post_meta(get_the_ID(), '_tix_url', true);
 			<div class="info padded">
 				<h3><?php the_title() ?></h3>
 				<p><?php the_excerpt() ?></p>
-				<a href="#" class="icon read-details">Read More</a> 
+				<?php if( '' !== $post->post_content ) {?> <a href="#" class="icon read-details">Read More</a> <?php } ?>
 			</div>
 			<div class="options">
 				<a href="#" class="icon calendar"><?php echo tribe_events_event_schedule_details(); ?></a>
