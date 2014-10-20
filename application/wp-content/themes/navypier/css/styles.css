@@ -634,7 +634,7 @@ header .bottom .container:before {
 	line-height: 32px;
 	margin: 0;
 	color: #fff;
-	text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+	text-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
 }
 #hero-region .hero-shadow, #inside-hero-region .hero-shadow {
 	width: 100%;
