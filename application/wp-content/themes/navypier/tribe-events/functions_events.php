@@ -79,7 +79,7 @@ function np_tribe_get_long($postId = null){
  */
 function np_tribe_get_default_lat(){
 	// this really should be an option
-	$output = '41.8917374';
+	$output = '41.891642';
 	return apply_filters('tribe_get_default_lat', $output);
 }
 
@@ -88,7 +88,7 @@ function np_tribe_get_default_lat(){
  */
 function np_tribe_get_default_long(){
 	// this really should be an option
-	$output = '-87.5998759';
+	$output = '-87.605519';
 	return apply_filters('tribe_get_default_long', $output);
 }
 

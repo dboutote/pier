@@ -18,18 +18,20 @@
 		$_deal_url = get_post_meta($post->ID, '_deal_url', true);
 		$_tix_title = get_post_meta($post->ID, '_tix_title', true);
 		$_tix_url = get_post_meta($post->ID, '_tix_url', true);	
-		$_website_title = get_post_meta($post->ID, '_website_title', true);					
-		$_website_url = get_post_meta($post->ID, '_website_url', true);
 		$_phone_title = get_post_meta($post->ID, '_phone_title', true);
 		$_phone_url = get_post_meta($post->ID, '_phone_url', true);
 		$_document_title = get_post_meta($post->ID, '_document_title', true);
 		$_document_url = get_post_meta($post->ID, '_document_url', true);
 		if( 'tribe_events' === $post->post_type  ){
+			$_website_url = ( $_website_url = tribe_get_event_website_url()  ) ? $_website_url : false;
+			$_website_title = preg_replace( "#^[^:/.]*[:/]+#i", '', $_website_url ); 
 			$venue_id = tribe_get_venue_id( $post->ID );
 			$_latitude = get_post_meta($venue_id, '_VenueLat', true);
 			$_longitude = get_post_meta($venue_id, '_VenueLong', true);
 			$_location_title = tribe_get_venue( $post->ID );
 		} else {
+			$_website_title = get_post_meta($post->ID, '_website_title', true);					
+			$_website_url = get_post_meta($post->ID, '_website_url', true);
 			$_latitude = get_post_meta($post->ID, '_latitude', true);
 			$_longitude = get_post_meta($post->ID, '_longitude', true);										
 			$_location_title = get_post_meta($post->ID, '_location_title', true);
