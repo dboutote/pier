@@ -629,12 +629,15 @@ header .bottom .container:before {
 #hero-region #next:hover, #hero-region #prev:hover {
 	opacity: 1;
 }
+#hero-region h1, #hero-region h1+p {
+	max-width: 960px;
+}
 #hero-region h1+p {
 	font-size: 24px;
 	line-height: 32px;
 	margin: 0;
 	color: #fff;
-	text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+	text-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
 }
 #hero-region .hero-shadow, #inside-hero-region .hero-shadow {
 	width: 100%;
@@ -1074,7 +1077,9 @@ a.promotion-text {
 .promotion-date {
 	color: #bed600;
 	font-size: 13px;
-	line-height: 30px;
+	line-height: 17px;
+	display: block;
+	margin-top: 5px;
 }
 .promotion-container:hover a.promotion-text {
 	background-color: #bed600;
@@ -1881,6 +1886,7 @@ footer .top .left-col {
 footer .top .contact-info .footer-logo {
 	display: block;
 	float: none;
+	margin-bottom: 20px;
 }
 footer .top .contact-info p {
 	padding-top: 0;
