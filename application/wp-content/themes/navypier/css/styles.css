@@ -1886,6 +1886,7 @@ footer .top .left-col {
 footer .top .contact-info .footer-logo {
 	display: block;
 	float: none;
+	margin-bottom: 20px;
 }
 footer .top .contact-info p {
 	padding-top: 0;
