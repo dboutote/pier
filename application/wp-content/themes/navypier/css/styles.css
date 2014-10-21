@@ -629,6 +629,9 @@ header .bottom .container:before {
 #hero-region #next:hover, #hero-region #prev:hover {
 	opacity: 1;
 }
+#hero-region h1, #hero-region h1+p {
+	max-width: 960px;
+}
 #hero-region h1+p {
 	font-size: 24px;
 	line-height: 32px;
