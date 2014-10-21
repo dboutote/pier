@@ -211,7 +211,8 @@ get_header();
 			array(
 			'posts_per_page' => 3,
 			'post_type' => 'cpt_promotion',
-			'orderby' => 'menu_order'
+			'orderby' => 'menu_order',
+			'order' => 'ASC'
 			)
 		);
 
