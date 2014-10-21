@@ -1073,9 +1073,10 @@ a.promotion-text {
 }
 .promotion-date {
 	color: #bed600;
+	font-size: 13px;
 	line-height: 17px;
-	margin-top: 5px;
 	display: block;
+	margin-top: 5px;
 }
 .promotion-container:hover a.promotion-text {
 	background-color: #bed600;
