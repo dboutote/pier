@@ -79,7 +79,7 @@ class CPT_Shops
 				'public'                 => true,
 				'exclude_from_search'    => false,
 				'show_in_nav_menus'      => false,
-				'menu_position'          => 20,
+				//'menu_position'          => 20,
 				'menu_icon'              => 'dashicons-cart',
 				'capability_type'        => 'post',
 				'capabilities'           => array(

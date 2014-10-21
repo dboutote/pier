@@ -79,7 +79,7 @@ class CPT_Opportunities
 				'public'                 => true,
 				'exclude_from_search'    => false,
 				'show_in_nav_menus'      => false,
-				'menu_position'          => 20,
+				//'menu_position'          => 20,
 				'menu_icon'              => 'dashicons-star-filled',
 				'capability_type'        => 'post',
 				'capabilities'           => array(
