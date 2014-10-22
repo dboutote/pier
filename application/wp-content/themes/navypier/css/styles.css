@@ -74,6 +74,9 @@ p:first-child {
 p:empty {
 	display: none;
 }
+table {
+	margin-top: 20px;
+}
 .align-right {
 	text-align: right;
 }
@@ -97,12 +100,15 @@ a.btn {
 	background-color: rgba(190,214,0,0.8);
 	margin-top: 20px;
 }
-.btn:after {
+a.btn:first-child {
+	margin-top: 0;
+}
+a.btn:after {
 	font-family: FontAwesome;
 	content: '\f138';
 	margin-left: 6px;
 }
-.btn:hover {
+a.btn:hover {
 	background-color: #bed600;
 }
 .container {
@@ -1910,6 +1916,14 @@ footer .bottom .right-col p.copyright {
 
 }
 @media only screen and (max-width: 460px) {
+h2 {
+	font-size: 16px;
+	line-height: 20px;
+}
+h3 {
+	font-size: 14px;
+	line-height: 18px;
+}
 .gallery .photo, .gallery .video {
 	width: 50%;
 }
