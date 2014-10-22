@@ -35,7 +35,7 @@ if( has_post_thumbnail() ){
 
 	<div class="intro clearfix">
 		
-		<div class="col span-3 padded">
+		<div class="padded">
 			<?php
 				// Start the Loop.
 				while ( have_posts() ) : the_post();
