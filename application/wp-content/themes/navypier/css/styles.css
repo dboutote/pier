@@ -74,6 +74,9 @@ p:first-child {
 p:empty {
 	display: none;
 }
+table {
+	margin-top: 20px;
+}
 .align-right {
 	text-align: right;
 }
