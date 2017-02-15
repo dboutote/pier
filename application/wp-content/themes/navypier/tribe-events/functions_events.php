@@ -13,7 +13,7 @@
  * Get the post object for the page designated as the Events Landing Page
  */
 function np_get_events_landing_page(){
-	$ep = get_page_by_title( 'Events'); 
+	$ep = get_page_by_title( 'Events');
 	return $ep;
 }
 
@@ -26,7 +26,7 @@ function np_event_featured_image( $featured_image, $post_id, $size, $image_obj )
 		$img_src = $image_obj[0];
 		$img_width = $image_obj[1];
 		$img_height = $image_obj[2];
-		$featured_image .= '<img src="'.  $img_src .'" title="'. get_the_title( $post_id ) .'" width="'.$img_width.'" height="'.$img_height.'" class="background-cover"/>';
+		$featured_image .= '<img src="'.  $img_src .'" title="'. get_the_title( $post_id ) .'" width="'.$img_width.'" height="'.$img_height.'" class="background-cover" alt="'. get_the_title( $post_id ) .'"/>';
 	}
 	return $featured_image;
 }
@@ -40,7 +40,7 @@ function np_get_event_url($post_id = null)
 {
 	$post_id = ( null === $post_id ) ? get_the_ID() : $post_id;
 	$url =  home_url('/events/upcoming/') . '#entry-' . $post_id;
-	
+
 	return apply_filters('np_event_url', $url, $post_id);
 }
 
@@ -95,7 +95,7 @@ function np_tribe_get_default_long(){
 
 /**
  * Function to get Featured Events
- * 
+ *
  * Wrapper of tribe_get_events()
  *
  * @returns array $events An array of event post objects on success | empty array on failure
@@ -115,7 +115,7 @@ function np_get_featured_events( $num = 10 ){
 			)
 		)
 	);
-	
+
 	return $events;
 }
 
@@ -134,11 +134,11 @@ function np_get_events( $num = 10 ){
 			'posts_per_page' => $posts_per_page,
 		)
 	);
-	
+
 	return $events;
 }
- 
- 
+
+
 
 /**
  * Dont show the start and end times for events
@@ -176,15 +176,15 @@ function np_get_hidden_event_ids(){
 
 	$hidden_ids = TribeEventsQuery::getHideFromUpcomingEvents();
 	global $wpdb;
-	
+
 	// get the slug of the chosen categories
 	$taxonomy = "tribe_events_cat";
 	$slugs = array('pier-park');
-	
+
 	$query = "
-	
+
 	";
-	
+
 /*
 	$event_ids = get_posts(array(
 		'post_type' => 'tribe_events',
@@ -199,8 +199,8 @@ function np_get_hidden_event_ids(){
 		'fields'        => 'ids', // Only get post IDs
 	));
 	*/
-	
+
 	$event_ids = array();
-	
+
 	return array_merge($hidden_ids, $event_ids);
 }

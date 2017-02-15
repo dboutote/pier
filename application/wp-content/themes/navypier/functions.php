@@ -542,82 +542,116 @@ function np_get_newsletter_form(){
 }
 
 
-
-
 /**
- * Scrape Instagram
+ *  Instagram scraper
+ *  
+ *  Quick and dirty Instragram scraper for displaying a Instagram feed.
+ *  
+ *  Based on : https://gist.github.com/cosmocatalano/4544576
  *
+ *  @param string $username  Instagram user account
+ *  @param int    $numphotos Number of photos to display
+ *  
+ *  @return array $insta_feed Array of images data.
  */
-// based on https://gist.github.com/cosmocatalano/4544576
-function np_scrape_instagram($username, $slice = 9) {
-
-		$remote = wp_remote_get('http://instagram.com/'.trim($username));
-
-		if (is_wp_error($remote))
-			return new WP_Error('site_down', __('Unable to communicate with Instagram.', 'navypier'));
-
-		if ( 200 != wp_remote_retrieve_response_code( $remote ) )
-			return new WP_Error('invalid_response', __('Instagram did not return a valid response.', 'navypier'));
-
-		$shards = explode('window._sharedData = ', $remote['body']);
-		$insta_json = explode(';</script>', $shards[1]);
-		$insta_array = json_decode($insta_json[0], TRUE);
-
-		if (!$insta_array)
-			return new WP_Error('bad_json', __('Instagram has returned invalid data.', 'navypier'));
-
-		$images = $insta_array['entry_data']['UserProfile'][0]['userMedia'];
-
-		$instagram = array();
-
-		foreach ($images as $image) {
-
-			if ($image['user']['username'] == $username) {
-
-				$image['link']                          = preg_replace( "/^http:/i", "", $image['link'] );
-				$image['images']['thumbnail']           = preg_replace( "/^http:/i", "", $image['images']['thumbnail'] );
-				$image['images']['standard_resolution'] = preg_replace( "/^http:/i", "", $image['images']['standard_resolution'] );
-
-				$instagram[] = array(
-					'description'   => $image['caption']['text'],
-					'link'          => $image['link'],
-					'time'          => $image['created_time'],
-					'comments'      => $image['comments']['count'],
-					'likes'         => $image['likes']['count'],
-					'thumbnail'     => $image['images']['thumbnail'],
-					'large'         => $image['images']['standard_resolution'],
-					'type'          => $image['type']
-				);
-			}
+function np_scrape_instagram( $username = '' , $numphotos = 6 ) {
+	
+		if( ! $username ){
+			return new WP_Error( 'empty_username', __( 'Empty user name.') );
 		}
 
+		$remote = wp_remote_get( 'https://instagram.com/' . trim( $username ) );
 
-	return array_slice($instagram, 0, $slice);
+		if( is_wp_error( $remote ) ){
+			return new WP_Error( 'site_down', __( 'Unable to communicate with Instagram.' ) );
+		}
+
+		if ( 200 != wp_remote_retrieve_response_code( $remote ) ){
+			return new WP_Error( 'invalid_response', __( 'Instagram did not return a valid response.' ) );
+		}
+
+		$shards      = explode( 'window._sharedData = ', $remote['body'] );
+		$insta_json  = explode( ';</script>', $shards[1] );
+		$insta_array = json_decode( $insta_json[0], true );
+
+		if ( ! $insta_array ){
+			return new WP_Error( 'bad_json', __( 'Instagram returned invalid data.' ) );
+		}
+
+		$images = ( isset( $insta_array['entry_data']['ProfilePage'][0]['user']['media']['nodes'] ) )
+			? $insta_array['entry_data']['ProfilePage'][0]['user']['media']['nodes']
+			: '' ;
+
+		$insta_feed = array();
+
+		if( $images ) :
+
+			foreach ( $images as $image ) {
+
+				$insta_feed[] = array(
+					'id'          => $image['id'],
+					'description' => $image['caption'],
+					'link'        => sprintf( '//www.instagram.com/p/%s/', $image['code'] ),
+					'time'        => $image['date'],
+					'comments'    => $image['comments']['count'],
+					'likes'       => $image['likes']['count'],
+					'thumbnail'   => $image['thumbnail_src'],
+					'type'        => $image['__typename'],
+					'height'      => $image['dimensions']['height'],
+					'width'       => $image['dimensions']['width'],
+				);
+
+			}
+
+		endif;
+
+	return array_slice( $insta_feed, 0, $numphotos );
 }
 
-/**
- * Build Instagram feed
- *
- * based on https://gist.github.com/cosmocatalano/4544576
- *
- * @uses np_scrape_instagram()
- */
-function np_get_instagram_feed( $username, $photos) {
 
-	$feed = get_transient('instagram_feed-'.sanitize_title_with_dashes($username));
+/**
+ *  Display Instagram Feed
+ *  
+ *  Displays an instagram feed based on an Instagram username.  Checks for stored WP transient first 
+ *  before scraping Instagram. 
+ *
+ *  Based on : https://gist.github.com/cosmocatalano/4544576
+ *
+ *  @uses np_scrape_instagram()
+ *
+ *  @param string $username  Instagram user account
+ *  @param int    $numphotos Number of photos to display
+ *  
+ *  @return string $feed Formatted HTML of photos
+ */
+function np_get_instagram_feed( $username = '' , $numphotos = 6 ) {
+	
+	$feed = get_transient( 'instagram_feed-' . sanitize_title_with_dashes( $username ) );
+
+	$feed = false;
 
 	if ( false === $feed ) {
-		$insta_feed = np_scrape_instagram( $username, $photos );
-		if ( is_wp_error($insta_feed) ) {
+
+		$insta_feed = np_scrape_instagram( $username, $numphotos );
+
+		if ( is_wp_error( $insta_feed ) ) {
+
 			$feed = $insta_feed->get_error_message();
+
 		} else {
+
 			$feed = '';
-			foreach ($insta_feed as $item) {
-				$feed .= '<div class="post"><a href="'. esc_url( $item['link'] ) .'" target="_blank"><img src="'. esc_url($item['large']['url']) .'"  alt="'. esc_attr( $item['description'] ) .'" title="'. esc_attr( $item['description'] ).'" width="640" height="640" class="background-cover"/></a></div>';
+
+			foreach ( $insta_feed as $item ) {
+
+				$feed .= '<div class="post"><a href="'. esc_url( $item['link'] ) .'" target="_blank"><img src="'. esc_url($item['thumbnail']) .'"  alt="'. esc_attr( $item['description'] ) .'" title="'. esc_attr( $item['description'] ).'" width="640" height="640" class="background-cover"/></a></div>';
 			}
-			set_transient('instagram_feed-'.sanitize_title_with_dashes($username), $feed, HOUR_IN_SECONDS * 2);
+
+			set_transient( 'instagram_feed-' . sanitize_title_with_dashes( $username ), $feed, HOUR_IN_SECONDS * 2 );
 		}
+
 	}
+
 	return $feed;
 }
 
